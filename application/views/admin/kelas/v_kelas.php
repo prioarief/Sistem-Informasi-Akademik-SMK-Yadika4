@@ -91,11 +91,11 @@
 				<form method="post" action="<?= base_url() ?>Kelas/Edit">
 					<input type="hidden" name="id" id="id">
 					<div class="form-group">
-						<label for="">Kelas</label>
+						<label for="">Kelas <span class="text-danger">*</span></label>
 						<input type="text" class="form-control inputKelas" name="kelas" id="inputKelas" placeholder="Masukan nama kelas">
 					</div>
 					<div class="form-group jurusanEdit">
-						<label for="">Jurusan</label>
+						<label for="">Jurusan <span class="text-danger">*</span></label>
 						<select class="form-control" id="exampleFormControlSelect1 jurusanKelas" name="jurusan">
 							<!-- <option selected>-- Jurusan --</option> -->
 							<?php foreach ($jurusan as $j) : ?>
@@ -104,6 +104,7 @@
 							<?php endforeach; ?>
 						</select>
 					</div>
+					<span class="text-danger">* wajib diisi!</span>
 					<div class="form-group">
 						<button class="btn btn-primary float-right btnEdit" id="btnEdit">Edit</button>
 					</div>

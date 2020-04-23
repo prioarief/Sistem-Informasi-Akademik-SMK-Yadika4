@@ -24,7 +24,7 @@ class Kelas extends CI_Controller
 		$this->load->view('admin/footer');
 	}
 
-	public function detail($id = null)
+	public function Detail($id = null)
 	{
 		if (is_null($id)) {
 			redirect('Kelas');
@@ -61,29 +61,42 @@ class Kelas extends CI_Controller
 		}
 	}
 
-	public function Edit($id = null)
+	public function Edit()
 	{
-		if (is_null($id)) {
+		// if (is_null($id)) {
+		// 	$this->session->set_flashdata('alert2', 'Gagal Di Edit');
+		// 	redirect('Kelas');
+		// }
+		$this->form_validation->set_rules('id', 'idKelas', 'required');
+		$this->form_validation->set_rules('kelas', 'Kelas', 'required');
+		$this->form_validation->set_rules('jurusan', 'Jurusan', 'required');
+
+		if ($this->form_validation->run() == false) {
 			$this->session->set_flashdata('alert2', 'Gagal Di Edit');
 			redirect('Kelas');
-		}
-		$req = $this->Kelas->getKelasByid($id);
-		if ($req) {
-			$data = [
-				'kelas' => $this->input->post('name', true),
-				'jurusan_id' => $this->input->post('jurusan', true)
-			];
+		} else {
+			$id = $this->input->post('id');
+			$req = $this->Kelas->getKelasByid($id);
+			if ($req) {
+				$data = [
+					'kelas' => $this->input->post('kelas', true),
+					'jurusan_id' => $this->input->post('jurusan', true)
+				];
 
-			$this->Kelas->EditKelas($id, $data);
-			$this->session->set_flashdata('alert', 'Berhasil Di Edit');
-			redirect('Kelas');
+				$this->Kelas->EditKelas($id, $data);
+				$this->session->set_flashdata('alert', 'Berhasil Di Edit');
+				redirect('Kelas');
+				// var_dump($this->input->post());
+			} else {
+				$this->session->set_flashdata('alert2', 'Gagal Di Edit');
+				redirect('Kelas');
+			}
 		}
 	}
 
 	public function Delete($id = null)
 	{
-		if(is_null($id))
-		{
+		if (is_null($id)) {
 			$this->session->set_flashdata('alert2', 'Gagal Di Hapus');
 			redirect('Kelas');
 		}
@@ -94,8 +107,7 @@ class Kelas extends CI_Controller
 			$this->Kelas->HapusKelas($id);
 			$this->session->set_flashdata('alert', 'Berhasil Di Hapus');
 			redirect('Kelas');
-		}
-		else{
+		} else {
 			$this->session->set_flashdata('alert2', 'Gagal Di Hapus');
 			redirect('Kelas');
 		}
