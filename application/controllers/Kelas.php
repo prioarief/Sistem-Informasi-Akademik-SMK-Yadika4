@@ -55,7 +55,7 @@ class Kelas extends CI_Controller
 				'jurusan_id' => $this->input->post('jurusan', true)
 			];
 
-			$this->Kelas->TambahKelas($data);
+			$this->Kelas->AddKelas($data);
 			$this->session->set_flashdata('alert', 'Berhasil Di Tambahkan');
 			redirect('Kelas');
 		}
@@ -104,7 +104,7 @@ class Kelas extends CI_Controller
 		$req = $this->Kelas->getKelasByid($id);
 		if ($req) {
 
-			$this->Kelas->HapusKelas($id);
+			$this->Kelas->DeleteKelas($id);
 			$this->session->set_flashdata('alert', 'Berhasil Di Hapus');
 			redirect('Kelas');
 		} else {

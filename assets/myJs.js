@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	// Event Edit Kelas
 	$(".EditKelas").on("show.bs.modal", function (e) {
 		let button = $(e.relatedTarget);
 		let id = button.data("id");
@@ -6,7 +7,7 @@ $(document).ready(function () {
 		// console.log(id)
 
 		$.ajax({
-			url: "http://localhost/projek/Kelas/detail/" + id,
+			url: "http://localhost/SIA/Kelas/detail/" + id,
 			data: {
 				id: id,
 			},
@@ -20,48 +21,95 @@ $(document).ready(function () {
 				$("div.jurusanEdit select").val(result.jurusan_id);
 			},
 		});
-
-		// $('button#btnEdit').on('submit', function(){
-		// 	let id = $('input.inputKelas').val();
-		// 	console.log(id)
-		// });
 	});
 
-	$(".TambahKelas").on("show.bs.modal", function (e) {
-		$("#BtnTambahKelas").prop("disabled", true);
+	
+	// Event Edit Jurusan
+	$(".EditJurusan").on("show.bs.modal", function (e) {
+		let button = $(e.relatedTarget);
+		let id = button.data("id");
 
-		let kelas = $("input#Kelas").bind("keyup change", () => {
-			console.log(kelas.val());
-			// if (kelas.val() === "") {
-			// 	$("#BtnTambahKelas").prop("disabled", true);
-			// } else if (kelas.val() != " ") {
-			// 	$("#BtnTambahKelas").prop("disabled", false);
-			// }
-			let jurusan = $("div#jurusanKelasAdd select").on("change", () => {
-				console.log(jurusan.val());
-				if (kelas.val() === "" && jurusan.val() != jurusan.val()) {
-					$("#BtnTambahKelas").prop("disabled", true);
-				} else if (kelas.val() != " " && jurusan.val() === jurusan.val()) {
-					$("#BtnTambahKelas").prop("disabled", false);
-				}
-			});
+		$.ajax({
+			url: "http://localhost/SIA/Jurusan/detail/" + id,
+			data: {
+				id: id,
+			},
+			method: "post",
+			success: function (response) {
+				// console.log(response)
+				const result = JSON.parse(response);
+
+				$("input#inputJurusan").val(result.jurusan);
+				$("input#idJurusan").val(result.id);
+			},
+		});
+	});
+	
+	// Event Edit Orangtua
+	$(".EditOrangtua").on("show.bs.modal", function (e) {
+		let button = $(e.relatedTarget);
+		let id = button.data("id");
+
+		console.log(id)
+
+		$.ajax({
+			url: "http://localhost/SIA/Orangtua/detail/" + id,
+			data: {
+				id: id,
+			},
+			method: "post",
+			success: function (response) {
+				// console.log(response)
+				const result = JSON.parse(response);
+
+				$('#id-ortu').val(result.id)
+				$('#nama-ortu').val(result.nama)
+				$('#nik-ortu').val(result.nik)
+				$('#password-ortu').val(result.password)
+				$("div.jk-ortu select").val(result.jk);
+				$("div.agama-ortu select").val(result.agama);
+				$("div.goldarah-ortu select").val(result.gol_darah);
+				$('#pekerjaan-ortu').val(result.pekerjaan)
+				$('#pendidikan-ortu').val(result.pendidikan)
+				$('#tempat-lahir-ortu').val(result.tempat_lahir)
+				$('#tanggal-lahir-ortu').val(result.tanggal_lahir)
+				$('#alamat-ortu').val(result.alamat)
+				$('#telpon-ortu').val(result.telpon)
+			},
 		});
 	});
 
+
+	// $(".TambahKelas").on("show.bs.modal", function (e) {
+	// 	$("#BtnTambahKelas").prop("disabled", true);
+
+	// 	let kelas = $("input#Kelas").bind("keyup change", () => {
+	// 		console.log(kelas.val());
+	// 		let jurusan = $("div#jurusanKelasAdd select").on("change", () => {
+	// 			console.log(jurusan.val());
+	// 			if (kelas.val() === "" && jurusan.val() != jurusan.val()) {
+	// 				$("#BtnTambahKelas").prop("disabled", true);
+	// 			} else if (kelas.val() != " " && jurusan.val() === jurusan.val()) {
+	// 				$("#BtnTambahKelas").prop("disabled", false);
+	// 			}
+	// 		});
+	// 	});
+	// });
+
 	$(".hapusKelass").on("click", (e) => {
 		e.preventDefault();
-		const href = $(this).find('.hapusKelass').attr("href");
+		let href = $('.hapusKelass').data("id");
 
 		console.log(href);
 
 		Swal.fire({
-			title: 'Are you sure?',
-			text: "You won't be able to revert this!",
+			title: 'Apakah Anda Yakin Untuk Menghapus?',
+			text: "Data yang sudah dihapus tidak dapat kembali lagi!",
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes, delete it!'
+			confirmButtonText: 'Hapus!'
 		  }).then((result) => {
 			if (result.value) {
 			  document.location.href = href
@@ -87,13 +135,5 @@ $(document).ready(function () {
 			showConfirmButton: true,
 		  })
 	}
-
-	// const flashdataSuccess = $("div.flashdata-Gagal").data("alert");
-	// if (flashdataSuccess) {
-	// 	swal({
-	// 		title: "Data",
-	// 		text: flashdataSuccess,
-	// 		icon: "success",
-	// 	});
-	// }
+	
 });

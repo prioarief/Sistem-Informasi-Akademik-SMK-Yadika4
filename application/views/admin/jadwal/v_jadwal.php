@@ -23,14 +23,14 @@
 				</tfoot>
 				<tbody>
 					<?php foreach ($jurusan as $j) : ?>
-						<tr>
-							<td><?= $j['jurusan']; ?></td>
-							<td>
-								<a href="<?= base_url() ?>" class="btn btn-danger btn-sm hapus" title="Hapus"><i class="fa fa-trash"></i></a>
-								<button data-id="<?= $j['id'] ?>" class="btn btn-success btn-sm EditJurusan" title="Edit" id="EditJurusan" data-toggle="modal" data-target="#exampleModalEditJurusan"><i class="fa fa-edit"></i></button>
-							</td>
-						</tr>
-					<?php endforeach; ?>
+                    <tr>
+                      <td><?= $j['jurusan']; ?></td>
+                      <td>
+						  <a href="<?= base_url() ?>" class="btn btn-danger btn-sm hapus" title="Hapus"><i class="fa fa-trash"></i></a>
+						  <a href="<?= base_url() ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
+					  </td>
+                    </tr>
+                  <?php endforeach; ?>
 				</tbody>
 			</table>
 		</div>
@@ -56,34 +56,6 @@
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
 						<button class="btn btn-primary float-right">Tambah</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- End Modal -->
-
-<!-- Modal Edit -->
-<div class="modal fade EditJurusan" id="exampleModalEditJurusan" tabindex="-1" role="dialog" aria-labelledby="exampleModalEditJurusan" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="staticBackdropLabel">Edit Jurusan</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form method="post" action="<?= base_url() ?>Jurusan/Edit">
-					<input type="hidden" name="id" id="idJurusan">
-					<div class="form-group">
-						<label for="">Jurusan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="jurusan" placeholder="Masukan nama jurusan" id="inputJurusan">
-					</div>
-					<span class="text-danger">* Wajib diisi!</span>
-					<div class="form-group">
-						<button class="btn btn-primary float-right">Edit</button>
 					</div>
 				</form>
 			</div>

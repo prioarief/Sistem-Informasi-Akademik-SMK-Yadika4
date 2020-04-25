@@ -25,12 +25,12 @@ class KelasModel extends CI_Model
 		$this->db->update('kelas', $data);
 	}
 
-	public function TambahKelas($data)
+	public function AddKelas($data)
 	{
 		$this->db->insert('kelas', $data);
 	}
 
-	public function HapusKelas($id)
+	public function DeleteKelas($id)
 	{
 		$this->db->where('id', $id);
 		$this->db->delete('kelas');

@@ -29,7 +29,7 @@
 							<td><?= $s['kelas']; ?></td>
 							<td><?= $s['jurusan']; ?></td>
 							<td>
-								<a href="<?= base_url('Kelas/Delete/' . $s['idkelas']) ?>" class="btn btn-danger btn-sm hapusKelass" title="Hapus" data-id="<?= base_url('Kelas/Delete/' . $s['idkelas']) ?>"><i class="fa fa-trash"></i></a>
+								<a href="<?= base_url('Kelas/Delete/' . $s['idkelas']) ?>" data-id="<?= $s['idkelas'] ?>" class="btn btn-danger btn-sm hapusKelass" id="hapusKelas" title="Hapus" ><i class="fa fa-trash" ></i></a>
 								<button data-id="<?= $s['idkelas'] ?>" data-kelas="<?= $s['kelas']; ?>" class="btn btn-success btn-sm EditKelas" title="Edit" id="EditKelas" data-toggle="modal" data-target="#exampleModalEditKelas"><i class="fa fa-edit"></i></button>
 
 							</td>

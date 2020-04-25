@@ -70,7 +70,7 @@
 					<span>Kelas</span></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="<?= base_url() ?>Category">
+				<a class="nav-link" href="<?= base_url() ?>Orangtua">
 					<i class="fas fa-fw fa-user-friends"></i>
 					<span>Orang Tua</span></a>
 			</li>
