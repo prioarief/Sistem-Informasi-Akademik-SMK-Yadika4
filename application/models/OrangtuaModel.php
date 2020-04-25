@@ -20,10 +20,10 @@ class OrangtuaModel extends CI_Model
 		$this->db->insert('orang_tua', $data);
 	}
 
-	public function DeleteJurusan($id)
+	public function DeleteData($id)
 	{
 		$this->db->where('id', $id);
-		$this->db->delete('jurusan');
+		$this->db->delete('orang_tua');
 	}
 
 	public function EditData($id, $data)

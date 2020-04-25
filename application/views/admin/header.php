@@ -21,6 +21,7 @@
 </head>
 
 <body id="page-top">
+	<input type="hidden" name="url" id="url" value="<?= base_url() ?>">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 

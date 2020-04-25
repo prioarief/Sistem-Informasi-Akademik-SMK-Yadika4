@@ -29,7 +29,7 @@
 							<td><?= $s['kelas']; ?></td>
 							<td><?= $s['jurusan']; ?></td>
 							<td>
-								<a href="<?= base_url('Kelas/Delete/' . $s['idkelas']) ?>" data-id="<?= $s['idkelas'] ?>" class="btn btn-danger btn-sm hapusKelass" id="hapusKelas" title="Hapus" ><i class="fa fa-trash" ></i></a>
+								<button  data-id="<?= $s['idkelas'] ?>" class="btn btn-danger btn-sm hapusKelass" id="hapusKelas" title="Hapus" data-toggle="modal" data-target="#modalHapusKelas" ><i class="fa fa-trash" ></i></button>
 								<button data-id="<?= $s['idkelas'] ?>" data-kelas="<?= $s['kelas']; ?>" class="btn btn-success btn-sm EditKelas" title="Edit" id="EditKelas" data-toggle="modal" data-target="#exampleModalEditKelas"><i class="fa fa-edit"></i></button>
 
 							</td>
@@ -60,7 +60,7 @@
 					<div class="form-group" id="jurusanKelasAdd">
 						<label for="">Jurusan <span class="text-danger">*</span></label>
 						<select class="form-control jurusan" id="exampleFormControlSelect1 jurusanKelas" name="jurusan">
-							<option selected value="">-- Jurusan --</option>
+							<option disabled selected>-- Jurusan --</option>
 							<?php foreach ($jurusan as $j) : ?>
 								<option value="<?= $j['id'] ?>"><?= $j['jurusan'] ?></option>
 							<?php endforeach; ?>
@@ -114,3 +114,24 @@
 	</div>
 </div>
 <!-- End Modal -->
+
+<!-- Modal Delete -->
+<div class="modal fade DeleteKelas" id="modalHapusKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Konfirmasi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h6>Apakah Anda Yakin Ingin Menghapus?</h6>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="" data-id="<?= $s['idkelas'] ?>" class="btn btn-danger hapusKelass" id="hapusKelas" title="Hapus" >Delete!</a>
+      </div>
+    </div>
+  </div>
+</div>

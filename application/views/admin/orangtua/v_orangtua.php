@@ -1,5 +1,5 @@
 <h1 class="text-center">Data Orangtua</h1>
-<button href="" class="btn btn-link ml-3"><i class="fa fa-user-plus" data-toggle="modal" data-target="#exampleModalTambahOrangtua"> Tambah Orangtua</i></button>
+<button href="" class="btn btn-link ml-3"><i class="fa fa-user-plus" data-toggle="modal" data-target="#ModalTambahOrangtua"> Tambah Orangtua</i></button>
 <div class="flashdata" data-alert="<?= $this->session->flashdata('alert') ?>"></div>
 <div class="flashdata2" data-alert2="<?= $this->session->flashdata('alert2') ?>"></div>
 <div class="card shadow mb-4">
@@ -32,8 +32,8 @@
 							<td><?= $ot['nik']; ?></td>
 							<td><?= $ot['nama']; ?></td>
 							<td>
-								<a href="<?= base_url() ?>" class="btn btn-danger btn-sm hapus" title="Hapus"><i class="fa fa-trash"></i></a>
-								<button data-id="<?= $ot['id'] ?>" class="btn btn-success btn-sm EditOrangtua" title="Edit" id="EditOrangtua" data-toggle="modal" data-target="#exampleModalEditOrangtua"><i class="fa fa-edit"></i></button>
+								<button data-id="<?= $ot['id'] ?>" class="btn btn-danger btn-sm hapus" data-toggle="modal" data-target="#modalHapusOrangtua"><i class="fa fa-trash"></i></button>
+								<button data-id="<?= $ot['id'] ?>" class="btn btn-success btn-sm EditOrangtua" title="Edit" id="EditOrangtua" data-toggle="modal" data-target="#ModalEditOrangtua"><i class="fa fa-edit"></i></button>
 								<a href="<?= base_url() ?>" class="btn btn-info btn-sm" title="Detail"><i class="fa fa-pen"></i></a>
 							</td>
 						</tr>
@@ -44,12 +44,14 @@
 	</div>
 </div>
 
-<!-- Modal Add -->
-<div class="modal fade" id="exampleModalTambahOrangtua" tabindex="-1" role="dialog" aria-labelledby="exampleModalTambahOrangtua" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+
+
+<!-- Modal Add-->
+<div class="modal fade" id="ModalTambahOrangtua" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="staticBackdropLabel">Tambah Orangtua</h5>
+				<h5 class="modal-title" id="exampleModalScrollableTitle">Tambah Data</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -62,24 +64,24 @@
 					</div>
 					<div class="form-group">
 						<label for="">NIK <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nik" placeholder="Masukan NIK">
+						<input type="text" class="form-control" name="nik" placeholder="Masukan NIK" >
 						<small class="text-danger">* NIK Tidak Boleh Sama!</small>
 					</div>
 					<div class="form-group">
 						<label for="">Password <span class="text-danger">*</span></label>
 						<input type="text" class="form-control" name="password" placeholder="Masukan Password">
 					</div>
-					<div class="form-group jurusanEdit">
+					<div class="form-group jk-ortu">
 						<label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-						<select class="form-control" id="" name="jk">
+						<select class="form-control">
 							<option selected>-- Jenis Kelamin --</option>
 							<option value="Laki-laki">Laki-laki</option>
 							<option value="Perempuan">Perempuan</option>
 						</select>
 					</div>
-					<div class="form-group jurusanEdit">
+					<div class="form-group agama-ortu">
 						<label for="">Agama <span class="text-danger">*</span></label>
-						<select class="form-control" id="" name="agama">
+						<select class="form-control">
 							<option selected>-- Agama --</option>
 							<option value="Islam">Islam</option>
 							<option value="Kristen">Kristen</option>
@@ -89,9 +91,9 @@
 							<option value="Kong Hu Cu">Kong Hu Cu</option>
 						</select>
 					</div>
-					<div class="form-group jurusanEdit">
+					<div class="form-group goldarah-ortu">
 						<label for="">Gol Darah <span class="text-danger">*</span></label>
-						<select class="form-control" id="" name="gol-darah">
+						<select class="form-control"  name="gol-darah">
 							<option selected>-- Gol Darah --</option>
 							<option value="A+">A+</option>
 							<option value="A-">A-</option>
@@ -105,15 +107,15 @@
 					</div>
 					<div class="form-group">
 						<label for="">Pekerjaan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="pekerjaan" placeholder="Masukan Pekerjaan">
+						<input type="text" class="form-control" name="pekerjaan"  placeholder="Masukan Pekerjaan">
 					</div>
 					<div class="form-group">
 						<label for="">Pendidikan Terakhir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
+						<input type="text" class="form-control"  name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
 					</div>
 					<div class="form-group">
 						<label for="">Tempat Lahir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="tempat-lahir" placeholder="Masukan Tempat Lahir">
+						<input type="text" class="form-control"  name="tempat-lahir" placeholder="Masukan Tempat Lahir">
 					</div>
 					<div class="form-group">
 						<label for="">Tanggal Lahir <span class="text-danger">*</span></label>
@@ -122,17 +124,20 @@
 					</div>
 					<div class="form-group">
 						<label for="">Alamat <span class="text-danger">*</span></label>
-						<textarea name="alamat" id="" cols="30" rows="2" class="form-control"></textarea>
+						<textarea name="alamat" cols="30" rows="2" class="form-control"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="">Telpon <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="telpon" placeholder="Masukan Telpon">
+						<input type="text" class="form-control"  name="telpon" placeholder="Masukan Telpon">
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
-						<button class="btn btn-primary float-right">Tambah</button>
+						<button class="btn btn-primary float-right">Edit</button>
 					</div>
 				</form>
+			</div>
+			<div class="modal-footer text-left">
+				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
@@ -140,11 +145,11 @@
 <!-- End Modal -->
 
 <!-- Modal Edit -->
-<div class="modal fade EditOrangtua" id="exampleModalEditOrangtua" tabindex="-1" role="dialog" aria-labelledby="exampleModalEditOrangtua" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+<div class="modal fade EditOrangtua" id="ModalEditOrangtua" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="staticBackdropLabel">Edit Data Orangtua</h5>
+				<h5 class="modal-title" id="exampleModalScrollableTitle">Edit Data</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -230,7 +235,32 @@
 					</div>
 				</form>
 			</div>
+			<div class="modal-footer text-left">
+				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+			</div>
 		</div>
 	</div>
 </div>
 <!-- End Modal -->
+
+
+<!-- Modal Delete -->
+<div class="modal fade DeleteOrangtua" id="modalHapusOrangtua" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Konfirmasi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h6>Apakah Anda Yakin Ingin Menghapus?</h6>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="" data-id="<?= $ot['id'] ?>" class="btn btn-danger hapusOrangtua" id="hapusOrangtua" title="Hapus" >Delete!</a>
+      </div>
+    </div>
+  </div>
+</div>

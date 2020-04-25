@@ -64,7 +64,7 @@ class Orangtua extends CI_Controller
 				'pekerjaan' => strtoupper($this->input->post('pekerjaan', true)),
 				'gol_darah' => $this->input->post('gol-darah', true),
 				'tempat_lahir' => strtoupper($this->input->post('tempat-lahir', true)),
-				'tanggal_lahir' => strtotime($this->input->post('tanggal-lahir', true)),
+				'tanggal_lahir' => $this->input->post('tanggal-lahir', true),
 				'alamat' => $this->input->post('alamat', true),
 				'telpon' => $this->input->post('telpon', true),
 				'pendidikan' => $this->input->post('pendidikan', true),
@@ -73,8 +73,6 @@ class Orangtua extends CI_Controller
 			$this->Orangtua->AddData($data);
 			$this->session->set_flashdata('alert', 'Berhasil Di Tambahkan');
 			redirect('Orangtua');
-
-			var_dump($data);
 		}
 	}
 
@@ -85,15 +83,15 @@ class Orangtua extends CI_Controller
 			redirect('Kelas');
 		}
 
-		$req = $this->Jurusan->getJurusanByid($id);
+		$req = $this->Orangtua->getDataByid($id);
 		if ($req) {
 
-			$this->Jurusan->DeleteJurusan($id);
+			$this->Orangtua->DeleteData($id);
 			$this->session->set_flashdata('alert', 'Berhasil Di Hapus');
-			redirect('Jurusan');
+			redirect('Orangtua');
 		} else {
 			$this->session->set_flashdata('alert2', 'Gagal Di Hapus');
-			redirect('Jurusan');
+			redirect('Orangtua');
 		}
 	}
 
