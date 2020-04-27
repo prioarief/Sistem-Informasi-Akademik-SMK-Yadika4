@@ -29,7 +29,7 @@
 		<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url() ?>Admin">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url() ?>TU">
 				<div class="sidebar-brand-icon rotate">
 					<img src="<?= base_url() ?>assets/img/logo.png" alt="logo" class="img-fluid mr-1" style="width: 50px">
 				</div>
@@ -53,7 +53,7 @@
 
 
 			<li class="nav-item">
-				<a class="nav-link" href="<?= base_url() ?>Admin/Transaksi">
+				<a class="nav-link" href="<?= base_url() ?>Siswa">
 					<i class="fas fa-fw fa-users"></i>
 					<span>Siswa</span></a>
 			</li>
@@ -76,7 +76,7 @@
 					<span>Orang Tua</span></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="<?= base_url() ?>Category">
+				<a class="nav-link" href="<?= base_url() ?>Guru">
 					<i class="fas fa-fw fa-chalkboard-teacher"></i>
 					<span>Guru</span></a>
 			</li>

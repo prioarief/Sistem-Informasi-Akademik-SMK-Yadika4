@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/SIA-Yadika4/';
+// $config['base_url'] = 'http://192.168.43.81/SIA-Yadika4/';
 
 /*
 |--------------------------------------------------------------------------

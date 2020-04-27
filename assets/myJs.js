@@ -73,25 +73,77 @@ $(document).ready(function () {
 				$("#tanggal-lahir-ortu").val(result.tanggal_lahir);
 				$("#alamat-ortu").val(result.alamat);
 				$("#telpon-ortu").val(result.telpon);
+				$("#kewarganegaraan-ortu").val(result.kewarganegaraan);
 			},
 		});
 	});
+	
+	// Event Edit Siswa
+	$(".EditSiswa").on("show.bs.modal", function (e) {
+		let button = $(e.relatedTarget);
+		let id = button.data("id");
 
-	// $(".TambahKelas").on("show.bs.modal", function (e) {
-	// 	$("#BtnTambahKelas").prop("disabled", true);
+		$.ajax({
+			url: url + "Siswa/detail/" + id,
+			data: {
+				id: id,
+			},
+			method: "post",
+			success: function (response) {
+				// console.log(response)
+				const result = JSON.parse(response);
 
-	// 	let kelas = $("input#Kelas").bind("keyup change", () => {
-	// 		console.log(kelas.val());
-	// 		let jurusan = $("div#jurusanKelasAdd select").on("change", () => {
-	// 			console.log(jurusan.val());
-	// 			if (kelas.val() === "" && jurusan.val() != jurusan.val()) {
-	// 				$("#BtnTambahKelas").prop("disabled", true);
-	// 			} else if (kelas.val() != " " && jurusan.val() === jurusan.val()) {
-	// 				$("#BtnTambahKelas").prop("disabled", false);
-	// 			}
-	// 		});
-	// 	});
-	// });
+				$("#id-siswa").val(result.id);
+				$("#nama-siswa").val(result.nama);
+				$("#nis-siswa").val(result.nis);
+				$("#password-siswa").val(result.password);
+				$("div.jk-siswa select").val(result.jk);
+				$("div.kelas-siswa select").val(result.kelas_id);
+				$("div.agama-siswa select").val(result.agama);
+				$("div.goldarah-siswa select").val(result.gol_darah);
+				$("#nik-ortu").val(result.nik_orangtua);
+				$("#pendidikan-siswa").val(result.pendidikan);
+				$("#tempat-lahir-siswa").val(result.tempat_lahir);
+				$("#tanggal-lahir-siswa").val(result.tanggal_lahir);
+				$("#alamat-siswa").val(result.alamat);
+				$("#telpon-siswa").val(result.telpon);
+				$("#kewarganegaraan-siswa").val(result.kewarganegaraan);
+			},
+		});
+	});
+	
+	// Event Edit guru
+	$(".EditGuru").on("show.bs.modal", function (e) {
+		let button = $(e.relatedTarget);
+		let id = button.data("id");
+
+		$.ajax({
+			url: url + "Guru/detail/" + id,
+			data: {
+				id: id,
+			},
+			method: "post",
+			success: function (response) {
+				// console.log(response)
+				const result = JSON.parse(response);
+
+				$("#id-guru").val(result.id);
+				$("#nama-guru").val(result.nama);
+				$("#email-guru").val(result.email);
+				$("#password-guru").val(result.password);
+				$("div.jk-guru select").val(result.jk);
+				$("div.status-guru select").val(result.status);
+				$("div.agama-guru select").val(result.agama);
+				$("div.goldarah-guru select").val(result.gol_darah);
+				$("#pendidikan-guru").val(result.pendidikan);
+				$("#tempat-lahir-guru").val(result.tempat_lahir);
+				$("#tanggal-lahir-guru").val(result.tanggal_lahir);
+				$("#alamat-guru").val(result.alamat);
+				$("#telpon-guru").val(result.telpon);
+				$("#kewarganegaraan-guru").val(result.kewarganegaraan);
+			},
+		});
+	});
 
 	$(".DeleteKelas").on("show.bs.modal", (e) => {
 		$(".DeleteKelas").modal('show');
@@ -129,9 +181,6 @@ $(document).ready(function () {
 		$(".hapusJurusan").on("click", (e) => {
 			$(".DeleteJurusan").modal('hide');
 			e.preventDefault();
-			// let href = $(this).data("id");
-
-			// console.log(href);
 
 			Swal.fire({
 				title: "Data yang sudah dihapus tidak dapat kembali lagi!",
@@ -175,8 +224,62 @@ $(document).ready(function () {
 			});
 		});
 	});
+	
+	// Delete Siswa
+	$(".DeleteSiswa").on("show.bs.modal", (e) => {
+		$(".DeleteSiswa").modal('show');
+		let trigger = $(e.relatedTarget);
+		let id = trigger.data("id");
+		console.log(id)
+		$(".hapusSiswa").on("click", (e) => {
+			$(".DeleteSiswa").modal('hide');
+			e.preventDefault();
+			// let href = $(this).data("id");
 
+			// console.log(href);
 
+			Swal.fire({
+				title: "Data yang sudah dihapus tidak dapat kembali lagi!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Hapus!",
+			}).then((result) => {
+				if (result.value) {
+					document.location.href = url + 'Siswa/Delete/' + id;
+				}
+			});
+		});
+	});
+	
+	// Delete Guru
+	$(".DeleteGuru").on("show.bs.modal", (e) => {
+		$(".DeleteGuru").modal('show');
+		let trigger = $(e.relatedTarget);
+		let id = trigger.data("id");
+		console.log(id)
+		$(".hapusGuru").on("click", (e) => {
+			$(".DeleteGuru").modal('hide');
+			e.preventDefault();
+			// let href = $(this).data("id");
+
+			// console.log(href);
+
+			Swal.fire({
+				title: "Data yang sudah dihapus tidak dapat kembali lagi!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Hapus!",
+			}).then((result) => {
+				if (result.value) {
+					document.location.href = url + 'Guru/Delete/' + id;
+				}
+			});
+		});
+	});
 
 	const flashdataSukses = $("div.flashdata").data("alert");
 	if (flashdataSukses) {
@@ -196,4 +299,8 @@ $(document).ready(function () {
 			showConfirmButton: true,
 		});
 	}
+
+
+
+	
 });

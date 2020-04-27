@@ -1,5 +1,7 @@
 <h1 class="text-center">Data Siswa</h1>
-<button href="" class="btn btn-link ml-3"><i class="fa fa-user-plus" data-toggle="modal" data-target="#exampleModalTambahSiswa"> Tambah Siswa</i></button>
+<button href="" class="btn btn-link ml-3"><i class="fa fa-user-plus" data-toggle="modal" data-target="#ModalTambahSiswa"> Tambah Siswa</i></button>
+<div class="flashdata" data-alert="<?= $this->session->flashdata('alert') ?>"></div>
+<div class="flashdata2" data-alert2="<?= $this->session->flashdata('alert2') ?>"></div>
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
 
@@ -9,32 +11,39 @@
 			<table class="table table-bordered-stripped" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
-						<th>NIS</th>
 						<th>Nama</th>
+						<th>NIS</th>
 						<th>Kelas</th>
-						<th>Jurusan</th>
 						<th>Password</th>
-						<th>Created_at</th>
+						<th>Orang tua</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
-						<th>NIS</th>
 						<th>Nama</th>
+						<th>NIS</th>
 						<th>Kelas</th>
-						<th>Jurusan</th>
 						<th>Password</th>
-						<th>Created_at</th>
+						<th>Orang tua</th>
+						<th>Action</th>
 					</tr>
 				</tfoot>
 				<tbody>
-					<!-- <?php foreach ($users as $u) : ?>
-                    <tr>
-                      <td><?= $u['username']; ?></td>
-                      <td><?= $u['email']; ?></td>
-                      <td><?= date('d F Y', $u['created_at']); ?></td>
-                    </tr>
-                  <?php endforeach; ?> -->
+					<?php foreach ($siswa as $s) : ?>
+						<tr>
+							<td><?= $s['nama']; ?></td>
+							<td><?= $s['nis']; ?></td>
+							<td><?= $s['kelas']; ?></td>
+							<td><?= $s['password']; ?></td>
+							<td><?= $s['orangtua']; ?></td>
+							<td>
+								<button data-id="<?= $s['id'] ?>" class="btn btn-danger btn-sm hapus" data-toggle="modal" data-target="#modalHapusSiswa"><i class="fa fa-trash"></i></button>
+								<button data-id="<?= $s['id'] ?>" class="btn btn-success btn-sm EditSiswa" title="Edit" id="EditSiswa" data-toggle="modal" data-target="#ModalEditSiswa"><i class="fa fa-edit"></i></button>
+								<a href="<?= base_url() ?>" class="btn btn-info btn-sm" title="Detail"><i class="fa fa-pen"></i></a>
+							</td>
+						</tr>
+					<?php endforeach; ?>
 				</tbody>
 			</table>
 		</div>
@@ -42,55 +51,249 @@
 </div>
 
 
-<div class="modal fade" id="exampleModalTambahSiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalTambahSiswa" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+
+<!-- Modal Add-->
+<div class="modal fade" id="ModalTambahSiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="staticBackdropLabel">Tambah Siswa</h5>
+				<h5 class="modal-title" id="exampleModalScrollableTitle">Tambah Data</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<form method="post" act>
+				<form method="post" action="<?= base_url() ?>Siswa/Create">
 					<div class="form-group">
-						<label for="">NIS</label>
-						<input type="text" class="form-control" name="nis" placeholder="Masukan nis">
+						<label for="">Nama <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="nama" placeholder="Masukan nama Siswa">
 					</div>
 					<div class="form-group">
-						<label for="">Nama</label>
-						<input type="text" class="form-control" name="nama" placeholder="Masukan email">
+						<label for="">NIS <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="nis" placeholder="Masukan NIS">
+						<small class="text-danger">* NIS Tidak Boleh Sama!</small>
 					</div>
 					<div class="form-group">
-						<label for="">Password</label>
-						<input type="Password" class="form-control" name="password" placeholder="Masukan password">
+						<label for="">Password <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="password" placeholder="Masukan Password">
 					</div>
 					<div class="form-group">
-						<label for="">Jurusan</label>
-						<select class="form-control" id="exampleFormControlSelect1">
-							<option selected>-- Jurusan --</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+						<label for="">NIK Orang tua <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="nik-ortu" placeholder="Masukan NIK Orang tua">
+						<small class="text-danger">* NIK akan di cocokan dengan NIK Orang tua!</small>
+					</div>
+					<div class="form-group jk-ortu">
+						<label for="">Kelas <span class="text-danger">*</span></label>
+						<select class="form-control" name="kelas">
+							<option disabled selected>-- Kelas --</option>
+							<?php foreach ($kelas as $k) : ?>
+								<option value="<?= $k['idkelas'] ?>"><?= $k['kelas'] ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+					<div class="form-group jk-ortu">
+						<label for="">Jenis Kelamin <span class="text-danger">*</span></label>
+						<select class="form-control" name="jk">
+							<option disabled selected>-- Jenis Kelamin --</option>
+							<option value="Laki-laki">Laki-laki</option>
+							<option value="Perempuan">Perempuan</option>
+						</select>
+					</div>
+					<div class="form-group agama-ortu">
+						<label for="">Agama <span class="text-danger">*</span></label>
+						<select class="form-control" name="agama">
+							<option disabled selected>-- Agama --</option>
+							<option value="Islam">Islam</option>
+							<option value="Kristen">Kristen</option>
+							<option value="Katolik">Katolik</option>
+							<option value="Buddha">Buddha</option>
+							<option value="Hindu">Hindu</option>
+							<option value="Kong Hu Cu">Kong Hu Cu</option>
+						</select>
+					</div>
+					<div class="form-group goldarah-ortu">
+						<label for="">Gol Darah <span class="text-danger">*</span></label>
+						<select class="form-control" name="gol-darah">
+							<option disabled selected>-- Gol Darah --</option>
+							<option value="A+">A+</option>
+							<option value="A-">A-</option>
+							<option value="B+">B+</option>
+							<option value="B-">B-</option>
+							<option value="AB+">AB+</option>
+							<option value="AB-">AB-</option>
+							<option value="O+">O+</option>
+							<option value="O-">O-</option>
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="">Kelas</label>
-						<select class="form-control" id="exampleFormControlSelect1">
-							<option selected>-- Kelas --</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						</select>
+						<label for="">Pendidikan Terakhir <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
 					</div>
+					<div class="form-group">
+						<label for="">Tempat Lahir <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="tempat-lahir" placeholder="Masukan Tempat Lahir">
+					</div>
+					<div class="form-group">
+						<label for="">Tanggal Lahir <span class="text-danger">*</span></label>
+						<input type="date" class="form-control" name="tanggal-lahir">
+						<!-- <input type="date" class="form-control" name="tanggal-lahir" value="2013-01-08"> -->
+					</div>
+					<div class="form-group">
+						<label for="">Alamat <span class="text-danger">*</span></label>
+						<textarea name="alamat" cols="30" rows="2" class="form-control"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="">Telpon <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="telpon" placeholder="Masukan Telpon">
+					</div>
+					<div class="form-group">
+						<label for="">kewarganegaraan <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
+					</div>
+					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
 						<button class="btn btn-primary float-right">Tambah</button>
 					</div>
 				</form>
 			</div>
+			<div class="modal-footer text-left">
+				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+			</div>
 		</div>
 	</div>
 </div>
 <!-- End Modal -->
+
+<!-- Modal Edit -->
+<div class="modal fade EditSiswa" id="ModalEditSiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalScrollableTitle">Edit Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form method="post" action="<?= base_url() ?>Siswa/Edit">
+					<input type="hidden" name="id" id="id-siswa">
+					<div class="form-group">
+						<label for="">Nama <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="nama" placeholder="Masukan nama Siswa" id="nama-siswa">
+					</div>
+					<div class="form-group">
+						<label for="">NIS <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="nis" placeholder="Masukan nis" id="nis-siswa">
+						<small class="text-danger">* NIS Tidak Boleh Sama!</small>
+					</div>
+					<div class="form-group">
+						<label for="">Password <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="password" placeholder="Masukan Password" id="password-siswa">
+					</div>
+					<div class="form-group jk-siswa">
+						<label for="">Jenis Kelamin <span class="text-danger">*</span></label>
+						<select class="form-control" id="jk-siswa" name="jk">
+							<option disabled selected>-- Jenis Kelamin --</option>
+							<option value="Laki-laki">Laki-laki</option>
+							<option value="Perempuan">Perempuan</option>
+						</select>
+					</div>
+					<div class="form-group kelas-siswa">
+						<label for="">Kelas <span class="text-danger">*</span></label>
+						<select class="form-control" name="kelas">
+							<option disabled selected>-- Kelas --</option>
+							<?php foreach ($kelas as $k) : ?>
+								<option value="<?= $k['idkelas'] ?>"><?= $k['kelas'] ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+					<div class="form-group agama-siswa">
+						<label for="">Agama <span class="text-danger">*</span></label>
+						<select class="form-control" id="agama-siswa" name="agama">
+							<option disabled selected>-- Agama --</option>
+							<option value="Islam">Islam</option>
+							<option value="Kristen">Kristen</option>
+							<option value="Katolik">Katolik</option>
+							<option value="Buddha">Buddha</option>
+							<option value="Hindu">Hindu</option>
+							<option value="Kong Hu Cu">Kong Hu Cu</option>
+						</select>
+					</div>
+					<div class="form-group goldarah-siswa">
+						<label for="">Gol Darah <span class="text-danger">*</span></label>
+						<select class="form-control" id="gol-darah-siswa" name="gol-darah">
+							<option disabled selected>-- Gol Darah --</option>
+							<option value="A+">A+</option>
+							<option value="A-">A-</option>
+							<option value="B+">B+</option>
+							<option value="B-">B-</option>
+							<option value="AB+">AB+</option>
+							<option value="AB-">AB-</option>
+							<option value="O+">O+</option>
+							<option value="O-">O-</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="">NIK Orang tua <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="nik" id="nik-ortu" placeholder="Masukan NIK Orang tua">
+					</div>
+					<div class="form-group">
+						<label for="">Pendidikan Terakhir <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" id="pendidikan-siswa" name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
+					</div>
+					<div class="form-group">
+						<label for="">Tempat Lahir <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" id="tempat-lahir-siswa" name="tempat-lahir" placeholder="Masukan Tempat Lahir">
+					</div>
+					<div class="form-group">
+						<label for="">Tanggal Lahir <span class="text-danger">*</span></label>
+						<input type="date" class="form-control" id="tanggal-lahir-siswa" name="tanggal-lahir">
+						<!-- <input type="date" class="form-control" name="tanggal-lahir" value="2013-01-08"> -->
+					</div>
+					<div class="form-group">
+						<label for="">Alamat <span class="text-danger">*</span></label>
+						<textarea name="alamat" id="alamat-siswa" cols="30" rows="2" class="form-control"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="">Telpon <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" id="telpon-siswa" name="telpon" placeholder="Masukan Telpon">
+					</div>
+					<div class="form-group">
+						<label for="">kewarganegaraan <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" id="kewarganegaraan-siswa" name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
+					</div>
+					<span class="text-danger">* Wajib diisi!</span>
+					<div class="form-group">
+						<button class="btn btn-primary float-right">Edit</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer text-left">
+				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal -->
+
+
+<!-- Modal Delete -->
+<div class="modal fade DeleteSiswa" id="modalHapusSiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">Konfirmasi</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h6>Apakah Anda Yakin Ingin Menghapus?</h6>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<a href="" data-id="<?= $s['id'] ?>" class="btn btn-danger hapusSiswa" id="hapusSiswa" title="Hapus">Delete!</a>
+			</div>
+		</div>
+	</div>
+</div>

@@ -44,19 +44,18 @@
 				</li>
 			</ul>
 
-			<a class="nav-link text-light" href="#"><i class="fa fa-user-circle"> Logout</i></a>
+			<a class="nav-link text-light" href="<?= base_url() ?>Auth/logout"><i class="fa fa-user-circle"> Logout</i></a>
 		</div>
 	</nav>
-	<div class="jumbotron jumbotron-fluid shadow-lg">
+	<div class="jumbotron jumbotron-fluid shadow-sm">
 		<div class="container">
-			<h1 class="display-4">SMK Yadika 4</h1>
+			<h1 class="">SMK Yadika 4</h1>
 			<p class="text-muted">JL. RADEN SALEH NO.11 RT.02/001, KELURAHAN KARANG TENGAH, KECAMATAN KARANG TENGAH, KOTA TANGERANG, BANTEN, 15157.</p>
 			<h4 class="">Program Keahlian</h4>
 			<ol type="1">
-				<li>OTOMATISASI DAN TATAKELOLA PERKANTORAN (OTKP)</li>
-				<li>AKUNTANSI DAN KEUANGAN LEMBAGA (AKL)</li>
-				<li>TEKNIK KOMPUTER DAN JARINGAN (TKJ)</li>
+				<?php foreach($jurusan as $data): ?>
+					<li><?= $data['jurusan'] ?></li>
+				<?php endforeach; ?>
 			</ol>
-			<button href="" class="btn btn-info ml-3"><i class="fa fa-sign-in-alt" data-toggle="modal" data-target="#exampleModal"> Login</i></button>
 		</div>
 	</div>

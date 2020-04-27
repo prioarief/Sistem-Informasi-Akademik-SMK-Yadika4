@@ -73,7 +73,7 @@
 					</div>
 					<div class="form-group jk-ortu">
 						<label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-						<select class="form-control">
+						<select class="form-control" name="jk">
 							<option selected>-- Jenis Kelamin --</option>
 							<option value="Laki-laki">Laki-laki</option>
 							<option value="Perempuan">Perempuan</option>
@@ -81,7 +81,7 @@
 					</div>
 					<div class="form-group agama-ortu">
 						<label for="">Agama <span class="text-danger">*</span></label>
-						<select class="form-control">
+						<select class="form-control" name="agama">
 							<option selected>-- Agama --</option>
 							<option value="Islam">Islam</option>
 							<option value="Kristen">Kristen</option>
@@ -130,9 +130,13 @@
 						<label for="">Telpon <span class="text-danger">*</span></label>
 						<input type="text" class="form-control"  name="telpon" placeholder="Masukan Telpon">
 					</div>
+					<div class="form-group">
+						<label for="">kewarganegaraan <span class="text-danger">*</span></label>
+						<input type="text" class="form-control"  name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
+					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
-						<button class="btn btn-primary float-right">Edit</button>
+						<button class="btn btn-primary float-right">Tambah</button>
 					</div>
 				</form>
 			</div>
@@ -228,6 +232,10 @@
 					<div class="form-group">
 						<label for="">Telpon <span class="text-danger">*</span></label>
 						<input type="text" class="form-control" id="telpon-ortu" name="telpon" placeholder="Masukan Telpon">
+					</div>
+					<div class="form-group">
+						<label for="">kewarganegaraan <span class="text-danger">*</span></label>
+						<input type="text" class="form-control"  id="kewarganegaraan-ortu" name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
