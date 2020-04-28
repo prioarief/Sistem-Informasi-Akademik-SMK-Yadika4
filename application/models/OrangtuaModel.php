@@ -14,6 +14,16 @@ class OrangtuaModel extends CI_Model
 	{
 		return $this->db->get_where('orang_tua', ['id' => $id])->row_array();
 	}
+	
+	public function getDataBynik($nik) 
+	{
+		$this->db->select('orang_tua.*, siswa.nama as namaSiswa');
+		$this->db->from('orang_tua');
+		$this->db->join('siswa', 'orang_tua.nik = siswa.nik_orangtua');
+		$this->db->where('nik', $nik);
+		$query = $this->db->get()->row_array();
+		return $query;
+	}
 
 	public function AddData($data)
 	{

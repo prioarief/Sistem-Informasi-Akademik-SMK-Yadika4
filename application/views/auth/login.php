@@ -12,12 +12,12 @@
 	<link rel="shortcut icon" href="<?= base_url('assets/img/logo.png') ?>" type="image/x-icon">
 	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
-	<title>Sistem Informasi Sekolah</title>
+	<title>Sistem Informasi Sekolah | <?= $title ?></title>
 </head>
 
 <body background="<?= base_url('assets/img/bg.png') ?>">
 	<div class="container my-5">
-		
+
 		<div class="flashdata-gagal" data-alert2="<?= $this->session->flashdata('login-gagal') ?>"></div>
 		<h4 class="text-center font-weight-bold">Selamat Datang, Silakan login!</h4>
 
@@ -29,9 +29,9 @@
 						<small class="text-muted">JL. RADEN SALEH NO.11 RT.02/001, KELURAHAN KARANG TENGAH, KECAMATAN KARANG TENGAH, KOTA TANGERANG, BANTEN, 15157.</small>
 						<h4 class="mt-2">Program Keahlian</h4>
 						<ol type="1">
-							<li>OTOMATISASI DAN TATAKELOLA PERKANTORAN (OTKP)</li>
-							<li>AKUNTANSI DAN KEUANGAN LEMBAGA (AKL)</li>
-							<li>TEKNIK KOMPUTER DAN JARINGAN (TKJ)</li>
+							<?php foreach ($jurusan as $data) : ?>
+								<li><?= $data['jurusan'] ?></li>
+							<?php endforeach; ?>
 						</ol>
 
 					</div>
