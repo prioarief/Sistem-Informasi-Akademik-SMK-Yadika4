@@ -58,7 +58,7 @@ class Guru extends CI_Controller
 			redirect('Guru');
 		} else {
 			$data = [
-				'nama' => strtoupper($this->input->post('nama', true)),
+				'nama' => $this->input->post('nama', true),
 				'jk' => $this->input->post('jk', true),
 				'email' => $this->input->post('email'),
 				'password' => strtolower($this->input->post('password', true)),
@@ -123,7 +123,7 @@ class Guru extends CI_Controller
 			
 			if ($req) {
 				$data = [
-					'nama' => strtoupper($this->input->post('nama', true)),
+					'nama' => $this->input->post('nama', true),
 					'jk' => $this->input->post('jk', true),
 					'email' => $this->input->post('email'),
 					'password' => strtolower($this->input->post('password', true)),

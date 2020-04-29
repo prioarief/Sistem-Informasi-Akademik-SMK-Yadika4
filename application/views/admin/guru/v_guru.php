@@ -34,7 +34,8 @@
 							<td>
 								<button data-id="<?= $g['id'] ?>" class="btn btn-danger btn-sm hapus" data-toggle="modal" data-target="#modalHapusGuru"><i class="fa fa-trash"></i></button>
 								<button data-id="<?= $g['id'] ?>" class="btn btn-success btn-sm EditGuru" title="Edit" id="EditGuru" data-toggle="modal" data-target="#ModalEditGuru"><i class="fa fa-edit"></i></button>
-								<a href="<?= base_url() ?>" class="btn btn-info btn-sm" title="Detail"><i class="fa fa-pen"></i></a>
+								<button data-id="<?= $g['id'] ?>" class="btn btn-success btn-sm DetailGuru" title="Detail" id="DetailGuru" data-toggle="modal" data-target="#modalDetailGuru"><i class="fa fa-pencil-alt"></i></button>
+		
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -64,7 +65,7 @@
 					</div>
 					<div class="form-group">
 						<label for="">Email <span class="text-danger">*</span></label>
-						<input type="email" class="form-control" name="emaill" placeholder="Masukan Email">
+						<input type="email" class="form-control" name="email" placeholder="Masukan Email">
 						<small class="text-danger">* Email Tidak Boleh Sama!</small>
 					</div>
 					<div class="form-group">
@@ -277,6 +278,26 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				<a href="" data-id="<?= $g['id'] ?>" class="btn btn-danger hapusGuru" id="hapusGuru" title="Hapus">Delete!</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Detail -->
+<div class="modal fade DetailGuru" id="modalDetailGuru" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title detail" id="exampleModalCenterTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>

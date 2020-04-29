@@ -48,6 +48,16 @@ class Auth extends CI_Controller
 						'nis' => $req['nis'],
 						'kelas' => $req['kelas'],
 						'orangtua' => $req['orangtua'],
+						'password' => $req['password'],
+						'jk' => $req['jk'],
+						'agama' => $req['agama'],
+						'gol_darah' => $req['gol_darah'],
+						'tempat_lahir' => $req['tempat_lahir'],
+						'tanggal_lahir' => $req['tanggal_lahir'],
+						'alamat' => $req['alamat'],
+						'telpon' => $req['telpon'],
+						'pendidikan' => $req['pendidikan'],
+						'kewarganegaraan' => $req['kewarganegaraan'],
 						'akses' => 'Siswa'
 					];
 
@@ -88,7 +98,7 @@ class Auth extends CI_Controller
 					$dataOrangtua = [
 						'nama' => $req['nama'],
 						'nik' => $req['nik'],
-						'orangtua' => $req['orangtua'],
+						'namaSiswa' => $req['namaSiswa'],
 						'akses' => 'Orangtua'
 					];
 
