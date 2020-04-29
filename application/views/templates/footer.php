@@ -8,7 +8,7 @@
 <script src="<?= base_url() ?>assets/sweetalert/js/sweetalert2.all.min.js"></script>
 <script src="<?= base_url() ?>assets/bootstrap/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <!-- Sweet Alert -->
-<script src="<?= base_url() ?>assets/user.js"></script>
+<script src="<?= base_url() ?>assets/js/user.js"></script>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 	<script>
 		AOS.init();

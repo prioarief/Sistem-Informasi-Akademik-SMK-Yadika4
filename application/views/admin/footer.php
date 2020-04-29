@@ -64,7 +64,8 @@
 	<!-- Sweet Alert -->
 	<script src="<?= base_url() ?>assets/sweetalert/js/sweetalert2.all.min.js"></script>
 	<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> -->
-	<script src="<?=  base_url() ?>assets/myJs.js"></script>
+	<script src="<?=  base_url() ?>assets/js/<?= $javascript ?>"></script>
+	<script src="<?=  base_url() ?>assets/js/myJs.js"></script>
 </body>
 
 </html>

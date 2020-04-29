@@ -40,7 +40,7 @@
 							<td>
 								<button data-id="<?= $s['id'] ?>" class="btn btn-danger btn-sm hapus" data-toggle="modal" data-target="#modalHapusSiswa"><i class="fa fa-trash"></i></button>
 								<button data-id="<?= $s['id'] ?>" class="btn btn-success btn-sm EditSiswa" title="Edit" id="EditSiswa" data-toggle="modal" data-target="#ModalEditSiswa"><i class="fa fa-edit"></i></button>
-								<a href="<?= base_url() ?>" class="btn btn-info btn-sm" title="Detail"><i class="fa fa-pen"></i></a>
+								<button data-id="<?= $s['nis'] ?>" class="btn btn-success btn-sm DetailSiswa" title="Detail" id="DetailSiswa" data-toggle="modal" data-target="#modalDetailSiswa"><i class="fa fa-pencil-alt"></i></button>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -293,6 +293,27 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				<a href="" data-id="<?= $s['id'] ?>" class="btn btn-danger hapusSiswa" id="hapusSiswa" title="Hapus">Delete!</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal Detail -->
+<div class="modal fade DetailSiswa" id="modalDetailSiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title detail" id="exampleModalCenterTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>

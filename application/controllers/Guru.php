@@ -16,11 +16,12 @@ class Guru extends CI_Controller
 		$data = [
 			'title' => 'Data Guru',
 			'guru' => $this->Guru->get(),
+			'javascript' => 'Guru.js'
 
 		];
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/Guru/v_Guru', $data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer', $data);
 	}
 
 	public function Detail($id = null)

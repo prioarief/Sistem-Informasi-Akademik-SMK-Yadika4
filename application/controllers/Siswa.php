@@ -18,17 +18,18 @@ class Siswa extends CI_Controller
 			'title' => 'Data Siswa',
 			'siswa' => $this->Siswa->get(),
 			'kelas' => $this->Kelas->get(),
+			'javascript' => 'siswa.js'
 
 		];
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/siswa/v_siswa', $data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer', $data);
 	}
 
 	public function Detail($id = null)
 	{
 		if (is_null($id)) {
-			redirect('Orangtua');
+			redirect('Siswa');
 		}
 
 		$req = $this->Siswa->getDataByid($id);
@@ -36,7 +37,22 @@ class Siswa extends CI_Controller
 			echo json_encode($this->Siswa->getDataByid($id));
 			# code...
 		} else {
-			redirect('Orangtua');
+			redirect('Siswa');
+		}
+	}
+	
+	public function DetailSiswa($nis = null)
+	{
+		if (is_null($nis)) {
+			redirect('Siswa');
+		}
+
+		$req = $this->Siswa->getDataByNis($nis);
+		if ($req) {
+			echo json_encode($this->Siswa->getDataByNis($nis));
+			# code...
+		} else {
+			redirect('Siswa');
 		}
 	}
 
