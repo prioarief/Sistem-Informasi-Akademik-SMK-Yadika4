@@ -34,7 +34,7 @@
 							<td>
 								<button data-id="<?= $ot['id'] ?>" class="btn btn-danger btn-sm hapus" data-toggle="modal" data-target="#modalHapusOrangtua"><i class="fa fa-trash"></i></button>
 								<button data-id="<?= $ot['id'] ?>" class="btn btn-success btn-sm EditOrangtua" title="Edit" id="EditOrangtua" data-toggle="modal" data-target="#ModalEditOrangtua"><i class="fa fa-edit"></i></button>
-								<a href="<?= base_url() ?>" class="btn btn-info btn-sm" title="Detail"><i class="fa fa-pen"></i></a>
+								<button data-id="<?= $ot['nik'] ?>" class="btn btn-info btn-sm DetailOrangtua" title="Detail" id="DetailOrangtua" data-toggle="modal" data-target="#modalDetailOrangtua"><i class="fa fa-pencil-alt"></i></button>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -271,4 +271,25 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<!-- Modal Detail -->
+<div class="modal fade DetailOrangtua" id="modalDetailOrangtua" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title detail" id="exampleModalCenterTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>

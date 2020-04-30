@@ -18,10 +18,11 @@ class Kelas extends CI_Controller
 			'title' => 'Data kelas',
 			'kelas' => $this->Kelas->get(),
 			'jurusan' => $this->Jurusan->getJurusan(),
+			'javascript' => 'kelas.js'
 		];
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/kelas/v_kelas', $data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer', $data);
 	}
 
 	public function Detail($id = null)
@@ -33,6 +34,21 @@ class Kelas extends CI_Controller
 		$req = $this->Kelas->getKelasByid($id);
 		if ($req) {
 			echo json_encode($this->Kelas->getKelasByid($id));
+			# code...
+		} else {
+			redirect('Kelas');
+		}
+	}
+	
+	public function DetailKelas($id = null)
+	{
+		if (is_null($id)) {
+			redirect('Kelas');
+		}
+
+		$req = $this->Kelas->getKelas($id);
+		if ($req) {
+			echo json_encode($this->Kelas->getKelas($id));
 			# code...
 		} else {
 			redirect('Kelas');

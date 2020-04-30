@@ -11,6 +11,18 @@ class Jurusan extends CI_Controller
 		$this->load->model('JurusanModel', 'Jurusan');
 	}
 
+	public function index()
+	{
+		$data = [
+			'title' => 'Data Jurusan',
+			'jurusan' => $this->Jurusan->getJurusan(),
+			'javascript' => 'jurusan.js'
+		];
+		$this->load->view('admin/header', $data);
+		$this->load->view('admin/jurusan/v_jurusan', $data);
+		$this->load->view('admin/footer', $data);
+	}
+
 	public function Detail($id = null)
 	{
 		if (is_null($id)) {
@@ -26,16 +38,6 @@ class Jurusan extends CI_Controller
 		}
 	}
 
-	public function index()
-	{
-		$data = [
-			'title' => 'Data Jurusan',
-			'jurusan' => $this->Jurusan->getJurusan()
-		];
-		$this->load->view('admin/header', $data);
-		$this->load->view('admin/jurusan/v_jurusan', $data);
-		$this->load->view('admin/footer');
-	}
 
 	public function Create()
 	{
@@ -54,7 +56,7 @@ class Jurusan extends CI_Controller
 			redirect('Jurusan');
 		}
 	}
-	
+
 	public function Edit()
 	{
 		$this->form_validation->set_rules('jurusan', 'Jurusan', 'required');

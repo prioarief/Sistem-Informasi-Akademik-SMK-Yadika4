@@ -1,13 +1,13 @@
 $(document).ready(function () {
 	let url = $("#url").val();
 
-	// Event Edit Siswa
-	$(".EditSiswa").on("show.bs.modal", function (e) {
+	// Event Edit Orangtua
+	$(".EditOrangtua").on("show.bs.modal", function (e) {
 		let button = $(e.relatedTarget);
 		let id = button.data("id");
 
 		$.ajax({
-			url: url + "Siswa/detail/" + id,
+			url: url + "Orangtua/detail/" + id,
 			data: {
 				id: id,
 			},
@@ -16,33 +16,32 @@ $(document).ready(function () {
 				// console.log(response)
 				const result = JSON.parse(response);
 
-				$("#id-siswa").val(result.id);
-				$("#nama-siswa").val(result.nama);
-				$("#nis-siswa").val(result.nis);
-				$("#password-siswa").val(result.password);
-				$("div.jk-siswa select").val(result.jk);
-				$("div.kelas-siswa select").val(result.kelas_id);
-				$("div.agama-siswa select").val(result.agama);
-				$("div.goldarah-siswa select").val(result.gol_darah);
-				$("#nik-ortu").val(result.nik_orangtua);
-				$("#pendidikan-siswa").val(result.pendidikan);
-				$("#tempat-lahir-siswa").val(result.tempat_lahir);
-				$("#tanggal-lahir-siswa").val(result.tanggal_lahir);
-				$("#alamat-siswa").val(result.alamat);
-				$("#telpon-siswa").val(result.telpon);
-				$("#kewarganegaraan-siswa").val(result.kewarganegaraan);
+				$("#id-ortu").val(result.id);
+				$("#nama-ortu").val(result.nama);
+				$("#nik-ortu").val(result.nik);
+				$("#password-ortu").val(result.password);
+				$("div.jk-ortu select").val(result.jk);
+				$("div.agama-ortu select").val(result.agama);
+				$("div.goldarah-ortu select").val(result.gol_darah);
+				$("#pekerjaan-ortu").val(result.pekerjaan);
+				$("#pendidikan-ortu").val(result.pendidikan);
+				$("#tempat-lahir-ortu").val(result.tempat_lahir);
+				$("#tanggal-lahir-ortu").val(result.tanggal_lahir);
+				$("#alamat-ortu").val(result.alamat);
+				$("#telpon-ortu").val(result.telpon);
+				$("#kewarganegaraan-ortu").val(result.kewarganegaraan);
 			},
 		});
 	});
 
-	// Delete Siswa
-	$(".DeleteSiswa").on("show.bs.modal", (e) => {
-		$(".DeleteSiswa").modal('show');
+	// Delete Orangtua
+	$(".DeleteOrangtua").on("show.bs.modal", (e) => {
+		$(".DeleteOrangtua").modal("show");
 		let trigger = $(e.relatedTarget);
 		let id = trigger.data("id");
-		console.log(id)
-		$(".hapusSiswa").on("click", (e) => {
-			$(".DeleteSiswa").modal('hide');
+		console.log(id);
+		$(".hapusOrangtua").on("click", (e) => {
+			$(".DeleteOrangtua").modal("hide");
 			e.preventDefault();
 			// let href = $(this).data("id");
 
@@ -57,22 +56,22 @@ $(document).ready(function () {
 				confirmButtonText: "Hapus!",
 			}).then((result) => {
 				if (result.value) {
-					document.location.href = url + 'Siswa/Delete/' + id;
+					document.location.href = url + "Orangtua/Delete/" + id;
 				}
 			});
 		});
 	});
 
 
-	// Event Detail Siswa
-	$(".DetailSiswa").on("show.bs.modal", function (e) {
+	// Event Detail Orangtua
+	$(".DetailOrangtua").on("show.bs.modal", function (e) {
 		let button = $(e.relatedTarget);
-		let nis = button.data("id");
+		let nik = button.data("id");
 
 		$.ajax({
-			url: url + "Siswa/detailSiswa/" + nis,
+			url: url + "Orangtua/DetailOrangtua/" + nik,
 			data: {
-				nis: nis,
+				nik: nik,
 			},
 			method: "post",
 			success: function (response) {
@@ -80,12 +79,12 @@ $(document).ready(function () {
 				$('h5.detail').html(`<b>${result.nama}</b>`)
 				$('div.modal-body').html(`
 					<p>Nama : ${result.nama}</p>
-					<p>NIS : ${result.nis}</p>
-					<p>Kelas : ${result.kelas}</p>
+					<p>NIK : ${result.nik}</p>
 					<p>Password : ${result.password}</p>
 					<p>Jenis Kelamin : ${result.jk}</p>
-					<p>Nama Orangtua : ${result.orangtua}</p>
+					<p>Nama Siswa : ${result.namaSiswa}</p>
 					<p>Agama : ${result.agama}</p>
+					<p>Pekerjaan : ${result.pekerjaan}</p>
 					<p>Gol Darah : ${result.gol_darah}</p>
 					<p>Pendidikan Terakhir : ${result.pendidikan}</p>
 					<p>Tempat, tanggal lahir : ${result.tempat_lahir}, ${result.tanggal_lahir}</p>

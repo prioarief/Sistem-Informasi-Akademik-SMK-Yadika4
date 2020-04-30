@@ -29,9 +29,9 @@
 							<td><?= $s['kelas']; ?></td>
 							<td><?= $s['jurusan']; ?></td>
 							<td>
-								<button  data-id="<?= $s['idkelas'] ?>" class="btn btn-danger btn-sm hapusKelass" id="hapusKelas" title="Hapus" data-toggle="modal" data-target="#modalHapusKelas" ><i class="fa fa-trash" ></i></button>
+								<button data-id="<?= $s['idkelas'] ?>" class="btn btn-danger btn-sm hapusKelass" id="hapusKelas" title="Hapus" data-toggle="modal" data-target="#modalHapusKelas"><i class="fa fa-trash"></i></button>
 								<button data-id="<?= $s['idkelas'] ?>" data-kelas="<?= $s['kelas']; ?>" class="btn btn-success btn-sm EditKelas" title="Edit" id="EditKelas" data-toggle="modal" data-target="#exampleModalEditKelas"><i class="fa fa-edit"></i></button>
-
+								<button data-id="<?= $s['idkelas'] ?>" class="btn btn-info btn-sm DetailKelas" title="Detail" id="DetailKelas" data-toggle="modal" data-target="#modalDetailKelas"><i class="fa fa-pencil-alt"></i></button>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -117,21 +117,41 @@
 
 <!-- Modal Delete -->
 <div class="modal fade DeleteKelas" id="modalHapusKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Konfirmasi</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h6>Apakah Anda Yakin Ingin Menghapus?</h6>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a href="" data-id="<?= $s['idkelas'] ?>" class="btn btn-danger hapusKelass" id="hapusKelas" title="Hapus" >Delete!</a>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">Konfirmasi</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h6>Apakah Anda Yakin Ingin Menghapus?</h6>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<a href="" data-id="<?= $s['idkelas'] ?>" class="btn btn-danger hapusKelass" id="hapusKelas" title="Hapus">Delete!</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Detail -->
+<div class="modal fade DetailKelas" id="modalDetailKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title detail" id="exampleModalCenterTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>

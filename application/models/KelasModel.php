@@ -18,6 +18,16 @@ class KelasModel extends CI_Model
 	{
 		return $this->db->get_where('kelas', ['id' => $id])->row_array();
 	}
+	
+	public function getKelas($id)
+	{
+		$this->db->select('kelas.id as idkelas, kelas.kelas, jurusan.jurusan, jurusan.id as idjurusan');
+		$this->db->from('kelas');
+		$this->db->join('jurusan', 'jurusan.id = kelas.jurusan_id');
+		$this->db->where('kelas.id', $id);
+		$query = $this->db->get()->row_array();
+		return $query;
+	}
 
 	public function EditKelas($id, $data)
 	{

@@ -40,7 +40,7 @@
 							<td>
 								<button data-id="<?= $s['id'] ?>" class="btn btn-danger btn-sm hapus" data-toggle="modal" data-target="#modalHapusSiswa"><i class="fa fa-trash"></i></button>
 								<button data-id="<?= $s['id'] ?>" class="btn btn-success btn-sm EditSiswa" title="Edit" id="EditSiswa" data-toggle="modal" data-target="#ModalEditSiswa"><i class="fa fa-edit"></i></button>
-								<button data-id="<?= $s['nis'] ?>" class="btn btn-success btn-sm DetailSiswa" title="Detail" id="DetailSiswa" data-toggle="modal" data-target="#modalDetailSiswa"><i class="fa fa-pencil-alt"></i></button>
+								<button data-id="<?= $s['nis'] ?>" class="btn btn-info btn-sm DetailSiswa" title="Detail" id="DetailSiswa" data-toggle="modal" data-target="#modalDetailSiswa"><i class="fa fa-pencil-alt"></i></button>
 							</td>
 						</tr>
 					<?php endforeach; ?>

@@ -15,11 +15,12 @@ class Orangtua extends CI_Controller
 	{
 		$data = [
 			'title' => 'Data Orangtua',
-			'orangtua' => $this->Orangtua->getData()
+			'orangtua' => $this->Orangtua->getData(),
+			'javascript' => 'orangtua.js'
 		];
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/orangtua/v_orangtua', $data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer', $data);
 	}
 
 	public function Detail($id = null)
@@ -31,6 +32,21 @@ class Orangtua extends CI_Controller
 		$req = $this->Orangtua->getDataByid($id);
 		if ($req) {
 			echo json_encode($this->Orangtua->getDataByid($id));
+			# code...
+		} else {
+			redirect('Orangtua');
+		}
+	}
+	
+	public function DetailOrangtua($nik = null)
+	{
+		if (is_null($nik)) {
+			redirect('Orangtua');
+		}
+
+		$req = $this->Orangtua->getDataBynik($nik);
+		if ($req) {
+			echo json_encode($this->Orangtua->getDataBynik($nik));
 			# code...
 		} else {
 			redirect('Orangtua');
