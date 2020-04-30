@@ -1,18 +1,30 @@
 $(document).ready(function () {
 	// login
-	$('.loginOrtu').hide()
-	$('a#loginOrtu').on('click', (e) => {
-		e.preventDefault()
-		$('.loginOrtu').show()
-		$('.loginSiswa').hide()
+	$(".loginOrtu").hide();
+	$(".loginGuru").hide();
 
-	})
-	$('a#loginSiswa').on('click', (e) => {
-		e.preventDefault()
-		$('.loginSiswa').show()
-		$('.loginOrtu').hide()
+	$("a#loginGuru").on("click", (e) => {
+		e.preventDefault();
+		$(".loginGuru").show();
+		$(".loginSiswa").hide();
+		$(".loginOrtu").hide();
+	});
+	
+	$("a#loginOrtu").on("click", (e) => {
+		e.preventDefault();
+		$(".loginOrtu").show();
+		$(".loginGuru").hide();
+		$(".loginSiswa").hide();
+	});
+	
 
-	})
+	$("a#loginSiswa").on("click", (e) => {
+		e.preventDefault();
+		$(".loginSiswa").show();
+		$(".loginGuru").hide();
+		$(".loginOrtu").hide();
+	});
+
 
 	const flashdataGagal = $("div.flashdata-gagal").data("alert2");
 	if (flashdataGagal) {
@@ -23,7 +35,7 @@ $(document).ready(function () {
 			showConfirmButton: true,
 		});
 	}
-	
+
 	const flashdatasukses = $("div.flashdata-sukses").data("alert");
 	if (flashdatasukses) {
 		Swal.fire({

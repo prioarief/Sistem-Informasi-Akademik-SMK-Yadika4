@@ -7,7 +7,11 @@ class JurusanModel extends CI_Model
 
 	public function getJurusan()
 	{
-		return $this->db->get('jurusan')->result_array();
+		$this->db->select('*');
+		$this->db->from('jurusan');
+		$this->db->order_by('jurusan', 'ASC');
+		$query = $this->db->get()->result_array();
+		return $query;
 	}
 
 	public function getJurusanByid($id)

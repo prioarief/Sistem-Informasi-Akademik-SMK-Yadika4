@@ -11,6 +11,7 @@ class Auth extends CI_Controller
 		$this->load->model('SiswaModel', 'Siswa');
 		$this->load->model('JurusanModel', 'Jurusan');
 		$this->load->model('OrangtuaModel', 'Orangtua');
+		$this->load->model('GuruModel', 'Guru');
 	}
 
 	public function index()
@@ -113,6 +114,48 @@ class Auth extends CI_Controller
 			} else {
 				$this->session->set_flashdata('login-gagal', 'NIK belum terdaftar sebagai Siswa, silakan hubungi petugas TU');
 				redirect('Auth');
+			}
+		}
+	}
+
+	public function Guru()
+	{
+		$this->form_validation->set_rules('email', 'email', 'required|valid_email', [
+			'required' => 'Email harus diisi!',
+			'valid_email' => 'Email tidak valid!'
+		]);
+		$this->form_validation->set_rules('password', 'password', 'required', [
+			'required' => 'Password harus diisi!'
+		]);
+
+		if ($this->form_validation->run() == false) {
+			$this->index();
+		} else {
+			$email = $this->input->post('email');
+			$password = $this->input->post('password');
+
+			$req = $this->Guru->getDataByemail($email);
+			if ($req) {
+				if ($req['password'] == $password) {
+
+					$dataGuru = [
+						'nama' => $req['nama'],
+						'nik' => $req['nik'],
+						'namaSiswa' => $req['namaSiswa'],
+						'akses' => 'Guru'
+					];
+
+					$this->session->set_userdata($dataGuru);
+
+					$this->session->set_flashdata('login-sukses', 'Silakan manfaatkan fitur dengan bijak!!');
+					redirect('Home');
+				} else {
+					$this->session->set_flashdata('login-gagal', 'Password salah, silakan hubungi petugas TU jika ingin reset password!');
+					redirect('Auth/Guru');
+				}
+			} else {
+				$this->session->set_flashdata('login-gagal', 'NIK belum terdaftar sebagai Siswa, silakan hubungi petugas TU');
+				redirect('Auth/Guru');
 			}
 		}
 	}

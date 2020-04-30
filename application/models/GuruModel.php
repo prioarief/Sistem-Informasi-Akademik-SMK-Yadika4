@@ -14,6 +14,11 @@ class GuruModel extends CI_Model
 	{
 		return $this->db->get_where('guru', ['id' => $id])->row_array();
 	}
+	
+	public function getDataByemail($email)
+	{
+		return $this->db->get_where('guru', ['email' => $email])->row_array();
+	}
 
 	public function EditData($id, $data)
 	{
