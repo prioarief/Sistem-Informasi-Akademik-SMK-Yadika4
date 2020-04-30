@@ -6,16 +6,21 @@
 			<div class="col-sm-6 my-3">
 				<ul class="list-group">
 					<li class="list-group-item">Nama : <?= $this->session->userdata('nama') ?></li>
-					<li class="list-group-item">NIS : <?= $this->session->userdata('nis') ?></li>
-					<li class="list-group-item">Nama Orangtua : <?= $this->session->userdata('orangtua') ?></li>
-					<li class="list-group-item">Kelas : <?= $this->session->userdata('kelas') ?> </li>
+					<li class="list-group-item">NIK : <?= $this->session->userdata('nik') ?></li>
+					<li class="list-group-item">Nama Anak :
+						<ol type="1">
+							<?php foreach($this->session->userdata('nama-siswa') as $siswa): ?>
+								<li><?= $siswa['nama'] ?></li>
+							<?php endforeach; ?>
+						</ol>
+					</li>
 					<li class="list-group-item">Jenis Kelamin : <?= $this->session->userdata('jk') ?> </li>
-					<li class="list-group-item">password : <?= $this->session->userdata('password') ?></li>
+					<li class="list-group-item">Password : <?= $this->session->userdata('password') ?></li>
+					<li class="list-group-item">Agama : <?= $this->session->userdata('agama') ?></li>
 				</ul>
 			</div>
 			<div class="col-sm-6 my-3">
 				<ul class="list-group">
-					<li class="list-group-item">Agama : <?= $this->session->userdata('agama') ?></li>
 					<li class="list-group-item">Alamat : <?= $this->session->userdata('alamat') ?></li>
 					<li class="list-group-item">Telpon : <?= $this->session->userdata('telpon') ?></li>
 					<li class="list-group-item">Gol Darah : <?= $this->session->userdata('gol_darah') ?></li>
@@ -50,31 +55,30 @@
 				</ul>
 			</div>
 		</div>
-		<?php elseif ($this->session->userdata('akses') == 'Guru') : ?>
-			<h4 data-aos="fade-up" class="text-center">Selamat Datang <?= $this->session->userdata('nama') ?></h4>
-			<div class="row" data-aos="fade-down">
-				<div class="col-sm-6 my-3">
-					<ul class="list-group">
-						<li class="list-group-item">Nama : <?= $this->session->userdata('nama') ?></li>
-						<li class="list-group-item">NIS : <?= $this->session->userdata('nis') ?></li>
-						<li class="list-group-item">Nama Orangtua : <?= $this->session->userdata('orangtua') ?></li>
-						<li class="list-group-item">Kelas : <?= $this->session->userdata('kelas') ?> </li>
-						<li class="list-group-item">Jenis Kelamin : <?= $this->session->userdata('jk') ?> </li>
-						<li class="list-group-item">password : <?= $this->session->userdata('password') ?></li>
-					</ul>
-				</div>
-				<div class="col-sm-6 my-3">
-					<ul class="list-group">
-						<li class="list-group-item">Agama : <?= $this->session->userdata('agama') ?></li>
-						<li class="list-group-item">Alamat : <?= $this->session->userdata('alamat') ?></li>
-						<li class="list-group-item">Telpon : <?= $this->session->userdata('telpon') ?></li>
-						<li class="list-group-item">Gol Darah : <?= $this->session->userdata('gol_darah') ?></li>
-						<li class="list-group-item">Tempat tanggal lahir : <?= $this->session->userdata('tempat_lahir') . ',' . $this->session->userdata('tanggal_lahir') ?> </li>
-						<li class="list-group-item">Pendidikan Terakhir : <?= $this->session->userdata('pendidikan') ?> </li>
-						<li class="list-group-item">Kewarganegaraan : <?= $this->session->userdata('kewarganegaraan') ?> </li>
-					</ul>
-				</div>
+	<?php elseif ($this->session->userdata('akses') == 'Guru') : ?>
+		<h4 data-aos="fade-up" class="text-center">Selamat Datang <?= $this->session->userdata('nama') ?></h4>
+		<div class="row" data-aos="fade-down">
+			<div class="col-sm-6 my-3">
+				<ul class="list-group">
+					<li class="list-group-item">Nama : <?= $this->session->userdata('nama') ?></li>
+					<li class="list-group-item">Email : <?= $this->session->userdata('email') ?></li>
+					<li class="list-group-item">Nama Orangtua : <?= $this->session->userdata('orangtua') ?></li>
+					<li class="list-group-item">Jenis Kelamin : <?= $this->session->userdata('jk') ?> </li>
+					<li class="list-group-item">Password : <?= $this->session->userdata('password') ?></li>
+					<li class="list-group-item">Agama : <?= $this->session->userdata('agama') ?></li>
+				</ul>
 			</div>
+			<div class="col-sm-6 my-3">
+				<ul class="list-group">
+					<li class="list-group-item">Alamat : <?= $this->session->userdata('alamat') ?></li>
+					<li class="list-group-item">Telpon : <?= $this->session->userdata('telpon') ?></li>
+					<li class="list-group-item">Gol Darah : <?= $this->session->userdata('gol_darah') ?></li>
+					<li class="list-group-item">Tempat tanggal lahir : <?= $this->session->userdata('tempat_lahir') . ',' . $this->session->userdata('tanggal_lahir') ?> </li>
+					<li class="list-group-item">Pendidikan Terakhir : <?= $this->session->userdata('pendidikan') ?> </li>
+					<li class="list-group-item">Kewarganegaraan : <?= $this->session->userdata('kewarganegaraan') ?> </li>
+				</ul>
+			</div>
+		</div>
 	<?php endif; ?>
 
 	<span class="m-auto text-danger">Jika ada ketidaksesuaian data, silakan hubungi petugas TU</span>

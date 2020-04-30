@@ -22,7 +22,7 @@
 		<h4 class="text-center font-weight-bold">Selamat Datang, Silakan login!</h4>
 
 		<div class="row mt-3">
-			<div data-aos="zoom-in-up" class="col-sm-6">
+			<div data-aos="zoom-in-up" class="col-sm-5">
 				<div class="card border-0">
 					<div class="card-body">
 						<h1 class="">SMK Yadika 4</h1>
@@ -37,7 +37,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 ">
+			<div class="col-sm-7">
 				<div class="card py-2 border-0">
 					<div data-aos="fade-left">
 						<img src="<?= base_url('assets/img/logo.png') ?>" alt="" class="img-fluid m-auto mt-4 text-center d-block" style="height : 150px" width="150px">
@@ -92,14 +92,14 @@
 							</div>
 						</form>
 					</div>
-					<div class="card-body loginOrtu">
-						<form method="post" action="<?= base_url() ?>Auth/Orangtua">
+					<div class="card-body loginGuru">
+						<form method="post" action="<?= base_url() ?>Auth/Guru">
 							<div data-aos="fade-up">
 								<div class="form-group row">
-									<label for="nik" class="col-sm-3 col-form-label">NIK Orangtua<span class="text-danger">*</span></label>
+									<label for="email" class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
 									<div class="col-sm-9">
-										<input type="text" name="nik" class="form-control" id="nik" placeholder="NIK Orangtua">
-										<small class="text-danger"><?= form_error('nik') ?></small>
+										<input type="text" name="email" class="form-control" id="email" placeholder="Email" value="<?= set_value('email') ?>">
+										<small class="text-danger"><?= form_error('email') ?></small>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -120,14 +120,14 @@
 							</div>
 						</form>
 					</div>
-					<div class="card-body loginGuru">
-						<form method="post" action="<?= base_url() ?>Auth/Guru">
+					<div class="card-body loginOrtu">
+						<form method="post" action="<?= base_url() ?>Auth/Orangtua">
 							<div data-aos="fade-up">
 								<div class="form-group row">
-									<label for="email" class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
+									<label for="nik" class="col-sm-3 col-form-label">NIK Orangtua<span class="text-danger">*</span></label>
 									<div class="col-sm-9">
-										<input type="text" name="email" class="form-control" id="email" placeholder="Email" value="<?= set_value('email') ?>">
-										<small class="text-danger"><?= form_error('email') ?></small>
+										<input type="text" name="nik" class="form-control" id="nik" placeholder="NIK Orangtua">
+										<small class="text-danger"><?= form_error('nik') ?></small>
 									</div>
 								</div>
 								<div class="form-group row">

@@ -96,10 +96,23 @@ class Auth extends CI_Controller
 			if ($req) {
 				if ($req['password'] == $password) {
 
+					$namaSiswa = $this->Siswa->GetSiswaByNikOrtu($req['nik']);
+
 					$dataOrangtua = [
 						'nama' => $req['nama'],
 						'nik' => $req['nik'],
-						'namaSiswa' => $req['namaSiswa'],
+						'nama-siswa' => $namaSiswa,
+						'orangtua' => $req['orangtua'],
+						'password' => $req['password'],
+						'jk' => $req['jk'],
+						'agama' => $req['agama'],
+						'gol_darah' => $req['gol_darah'],
+						'tempat_lahir' => $req['tempat_lahir'],
+						'tanggal_lahir' => $req['tanggal_lahir'],
+						'alamat' => $req['alamat'],
+						'telpon' => $req['telpon'],
+						'pendidikan' => $req['pendidikan'],
+						'kewarganegaraan' => $req['kewarganegaraan'],
 						'akses' => 'Orangtua'
 					];
 
@@ -140,8 +153,17 @@ class Auth extends CI_Controller
 
 					$dataGuru = [
 						'nama' => $req['nama'],
-						'nik' => $req['nik'],
-						'namaSiswa' => $req['namaSiswa'],
+						'email' => $req['email'],
+						'password' => $req['password'],
+						'jk' => $req['jk'],
+						'agama' => $req['agama'],
+						'gol_darah' => $req['gol_darah'],
+						'tempat_lahir' => $req['tempat_lahir'],
+						'tanggal_lahir' => $req['tanggal_lahir'],
+						'alamat' => $req['alamat'],
+						'telpon' => $req['telpon'],
+						'pendidikan' => $req['pendidikan'],
+						'kewarganegaraan' => $req['kewarganegaraan'],
 						'akses' => 'Guru'
 					];
 

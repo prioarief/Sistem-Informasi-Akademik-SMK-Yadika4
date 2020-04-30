@@ -31,6 +31,15 @@ class SiswaModel extends CI_Model
 		return $query;
 	}
 
+	public function GetSiswaByNikOrtu($nik)
+	{
+		$this->db->select('siswa.nama');
+		$this->db->from('siswa');
+		$this->db->where('nik_orangtua', $nik);
+		$query = $this->db->get()->result_array();
+		return $query;
+	}
+
 	public function EditData($id, $data)
 	{
 		$this->db->where('id', $id);

@@ -44,9 +44,6 @@ $(document).ready(function () {
 		$(".hapusSiswa").on("click", (e) => {
 			$(".DeleteSiswa").modal('hide');
 			e.preventDefault();
-			// let href = $(this).data("id");
-
-			// console.log(href);
 
 			Swal.fire({
 				title: "Data yang sudah dihapus tidak dapat kembali lagi!",
@@ -78,7 +75,7 @@ $(document).ready(function () {
 			success: function (response) {
 				const result = JSON.parse(response);
 				$('h5.detail').html(`<b>${result.nama}</b>`)
-				$('div.modal-body').html(`
+				$('div.detail').html(`
 					<p>Nama : ${result.nama}</p>
 					<p>NIS : ${result.nis}</p>
 					<p>Kelas : ${result.kelas}</p>

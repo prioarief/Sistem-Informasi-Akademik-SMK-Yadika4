@@ -56,6 +56,18 @@ class Siswa extends CI_Controller
 		}
 	}
 
+	public function GetSiswaByNikOrtu($nik = null)
+	{
+		if (is_null($nik)) {
+			redirect('Siswa');
+		}
+
+		$req = $this->Siswa->GetSiswaByNikOrtu($nik);
+		if ($req) {
+			echo json_encode($req);
+		}
+	}
+
 	public function Create()
 	{
 		$this->form_validation->set_rules('nama', 'nama', 'required');

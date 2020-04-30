@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('assets/fontawesome/css/all.css') ?>">
 	<link rel="shortcut icon" href="<?= base_url('assets/img/logo.png') ?>" type="image/x-icon">
-	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+	<link rel="stylesheet" href="<?= base_url() ?>assets/aos/aos.css" />
 
 	<title>Sistem Informasi Sekolah</title>
 </head>

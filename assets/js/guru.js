@@ -77,7 +77,7 @@ $(document).ready(function () {
 				const result = JSON.parse(response);
 
 				$('h5.detail').html(`<b>${result.nama}</b>`)
-				$('div.modal-body').html(`
+				$('div.detail').html(`
 					<p>Nama : ${result.nama}</p>
 					<p>Email : ${result.email}</p>
 					<p>Password : ${result.password}</p>

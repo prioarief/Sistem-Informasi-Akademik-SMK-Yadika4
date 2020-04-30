@@ -62,7 +62,6 @@ $(document).ready(function () {
 		});
 	});
 
-
 	// Event Detail Orangtua
 	$(".DetailOrangtua").on("show.bs.modal", function (e) {
 		let button = $(e.relatedTarget);
@@ -76,25 +75,44 @@ $(document).ready(function () {
 			method: "post",
 			success: function (response) {
 				const result = JSON.parse(response);
-				$('h5.detail').html(`<b>${result.nama}</b>`)
-				$('div.modal-body').html(`
-					<p>Nama : ${result.nama}</p>
-					<p>NIK : ${result.nik}</p>
-					<p>Password : ${result.password}</p>
-					<p>Jenis Kelamin : ${result.jk}</p>
-					<p>Nama Siswa : ${result.namaSiswa}</p>
-					<p>Agama : ${result.agama}</p>
-					<p>Pekerjaan : ${result.pekerjaan}</p>
-					<p>Gol Darah : ${result.gol_darah}</p>
-					<p>Pendidikan Terakhir : ${result.pendidikan}</p>
-					<p>Tempat, tanggal lahir : ${result.tempat_lahir}, ${result.tanggal_lahir}</p>
-					<p>Alamat : ${result.alamat}</p>
-					<p>Telpon : ${result.telpon}</p>
-					<p>Kewarganegaraan : ${result.kewarganegaraan}</p>
-				`)
+				const nikOrtu = result.nik
+				$.ajax({
+					url: url + "Siswa/GetSiswaByNikOrtu/" + nikOrtu,
+					data: {
+						nikOrtu: nikOrtu,
+					},
+					method: "post",
+					success: function (response) {
+						const hasil = JSON.parse(response)
+						const siswa = []
+						const data = hasil.forEach(element => {
+							siswa.push(element.nama)
+						});
+						$("h5.detail").html(`<b>${result.nama}</b>`);
+						$("div.detail").html(`
+							<p>Nama : ${result.nama}</p>
+							<p>NIK : ${result.nik}</p>
+							<p>Password : ${result.password}</p>
+							<p>Jenis Kelamin : ${result.jk}</p>
+							<p>Nama Siswa : ${siswa.map((item =>item))}</p>
+							<p>Agama : ${result.agama}</p>
+							<p>Pekerjaan : ${result.pekerjaan}</p>
+							<p>Gol Darah : ${result.gol_darah}</p>
+							<p>Pendidikan Terakhir : ${result.pendidikan}</p>
+							<p>Tempat, tanggal lahir : ${result.tempat_lahir}, ${result.tanggal_lahir}</p>
+							<p>Alamat : ${result.alamat}</p>
+							<p>Telpon : ${result.telpon}</p>
+							<p>Kewarganegaraan : ${result.kewarganegaraan}</p>
+						`);
+						
+					},
+				});
+
+
+
+
+				
 			},
 		});
 	});
-
-
 });
