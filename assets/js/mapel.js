@@ -1,13 +1,14 @@
 $(document).ready(function () {
 	let url = $("#url").val();
 
-	// Event Edit Siswa
-	$(".EditSiswa").on("show.bs.modal", function (e) {
+	// Event Edit Mapel
+	$(".EditMapel").on("show.bs.modal", function (e) {
 		let button = $(e.relatedTarget);
 		let id = button.data("id");
+		$(`input.kelas`).prop('checked', false)
 
 		$.ajax({
-			url: url + "Siswa/detail/" + id,
+			url: url + "Mapel/Detail/" + id,
 			data: {
 				id: id,
 			},
@@ -15,24 +16,31 @@ $(document).ready(function () {
 			success: function (response) {
 				// console.log(response)
 				const result = JSON.parse(response);
+				const guru = result.guru_id;
+				const mapel = result.id;
 
-				$("#id-siswa").val(result.id);
-				$("#nama-siswa").val(result.nama);
-				$("#nis-siswa").val(result.nis);
-				$("#password-siswa").val(result.password);
-				$("div.jk-siswa select").val(result.jk);
-				$("div.kelas-siswa select").val(result.kelas_id);
-				$("div.agama-siswa select").val(result.agama);
-				$("div.goldarah-siswa select").val(result.gol_darah);
-				$("#nik-ortu").val(result.nik_orangtua);
-				$("#pendidikan-siswa").val(result.pendidikan);
-				$("#tempat-lahir-siswa").val(result.tempat_lahir);
-				$("#tanggal-lahir-siswa").val(result.tanggal_lahir);
-				$("#alamat-siswa").val(result.alamat);
-				$("#telpon-siswa").val(result.telpon);
-				$("#kewarganegaraan-siswa").val(result.kewarganegaraan);
+				$.ajax({
+					url: url + "Mapel/DetailKelas/" + mapel,
+					data: {
+						mapel: mapel,
+					},
+					method: "post",
+					success: function (response) {
+						const data = JSON.parse(response);
+						$('input#mapel').val(result.mapel)
+						$("div.guruEdit select").val(result.guru_id);
+						data.map(kelas => {
+							$(`input#kelas${kelas.kelas_id}`).prop('checked', true)
+						})
+		
+		
+					},
+				});
+
+				
 			},
 		});
+		
 	});
 
 	// Delete Siswa
@@ -61,37 +69,37 @@ $(document).ready(function () {
 	});
 
 	// Event Detail Siswa
-	$(".DetailSiswa").on("show.bs.modal", function (e) {
-		let button = $(e.relatedTarget);
-		let nis = button.data("id");
+	// $(".DetailSiswa").on("show.bs.modal", function (e) {
+	// 	let button = $(e.relatedTarget);
+	// 	let nis = button.data("id");
 
-		$.ajax({
-			url: url + "Siswa/detailSiswa/" + nis,
-			data: {
-				nis: nis,
-			},
-			method: "post",
-			success: function (response) {
-				const result = JSON.parse(response);
-				$("h5.detail").html(`<b>${result.nama}</b>`);
-				$("div.detail").html(`
-					<p>Nama : ${result.nama}</p>
-					<p>NIS : ${result.nis}</p>
-					<p>Kelas : ${result.kelas}</p>
-					<p>Password : ${result.password}</p>
-					<p>Jenis Kelamin : ${result.jk}</p>
-					<p>Nama Orangtua : ${result.orangtua}</p>
-					<p>Agama : ${result.agama}</p>
-					<p>Gol Darah : ${result.gol_darah}</p>
-					<p>Pendidikan Terakhir : ${result.pendidikan}</p>
-					<p>Tempat, tanggal lahir : ${result.tempat_lahir}, ${result.tanggal_lahir}</p>
-					<p>Alamat : ${result.alamat}</p>
-					<p>Telpon : ${result.telpon}</p>
-					<p>Kewarganegaraan : ${result.kewarganegaraan}</p>
-				`);
-			},
-		});
-	});
+	// 	$.ajax({
+	// 		url: url + "Siswa/detailSiswa/" + nis,
+	// 		data: {
+	// 			nis: nis,
+	// 		},
+	// 		method: "post",
+	// 		success: function (response) {
+	// 			const result = JSON.parse(response);
+	// 			$("h5.detail").html(`<b>${result.nama}</b>`);
+	// 			$("div.detail").html(`
+	// 				<p>Nama : ${result.nama}</p>
+	// 				<p>NIS : ${result.nis}</p>
+	// 				<p>Kelas : ${result.kelas}</p>
+	// 				<p>Password : ${result.password}</p>
+	// 				<p>Jenis Kelamin : ${result.jk}</p>
+	// 				<p>Nama Orangtua : ${result.orangtua}</p>
+	// 				<p>Agama : ${result.agama}</p>
+	// 				<p>Gol Darah : ${result.gol_darah}</p>
+	// 				<p>Pendidikan Terakhir : ${result.pendidikan}</p>
+	// 				<p>Tempat, tanggal lahir : ${result.tempat_lahir}, ${result.tanggal_lahir}</p>
+	// 				<p>Alamat : ${result.alamat}</p>
+	// 				<p>Telpon : ${result.telpon}</p>
+	// 				<p>Kewarganegaraan : ${result.kewarganegaraan}</p>
+	// 			`);
+	// 		},
+	// 	});
+	// });
 
 	// Event Detail Kelas
 	$(".DetailKelas").on("show.bs.modal", function (e) {

@@ -65,20 +65,20 @@
 						<label for="">Guru<span class="text-danger">*</span></label>
 						<select class="form-control guru" id="exampleFormControlSelect1" name="guru">
 							<option disabled selected>-- Guru Yang Mengajar --</option>
-							<?php foreach ($guru as $guru) : ?>
-								<option value="<?= $guru['id'] ?>"><?= $guru['nama'] ?></option>
+							<?php foreach ($guru as $g) : ?>
+								<option value="<?= $g['id'] ?>"><?= $g['nama'] ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>
 					<div class="form-group" id="">
 						<p>Kelas Yang Diajar <span class="text-danger">*</span></p>
 						<div class="row">
-							<?php foreach ($kelas as $kelas) : ?>
+							<?php foreach ($kelas as $k) : ?>
 								<div class="col-sm-3">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" name="kelas[]" value="<?= $kelas['idkelas'] ?>" id="kelas<?= $kelas['idkelas'] ?>">
-										<label class="form-check-label" for="kelas<?= $kelas['idkelas'] ?>">
-											<?= $kelas['kelas'] ?>
+										<input class="form-check-input" type="checkbox" name="kelas[]" value="<?= $k['idkelas'] ?>" id="kelas<?= $k['idkelas'] ?>">
+										<label class="form-check-label" for="kelas<?= $k['idkelas'] ?>">
+											<?= $k['kelas'] ?>
 										</label>
 									</div>
 								</div>
@@ -108,14 +108,37 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" action="<?= base_url() ?>Mapel/Edit">
-					<input type="hidden" name="id" id="idMapel">
 					<div class="form-group">
 						<label for="">Mapel <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="Mapel" placeholder="Masukan nama Mapel" id="inputMapel">
+						<input type="text" id="mapel" class="form-control" name="mapel" placeholder="Masukan Mapel">
+					</div>
+					<div class="form-group guruEdit" id="">
+						<label for="">Guru<span class="text-danger">*</span></label>
+						<select class="form-control guru" id="exampleFormControlSelect1" name="guru">
+							<option disabled selected>-- Guru Yang Mengajar --</option>
+							<?php foreach ($guru as $guru) : ?>
+								<option value="<?= $guru['id'] ?>"><?= $guru['nama'] ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+					<div class="form-group kelasEdit" id="">
+						<p>Kelas Yang Diajar <span class="text-danger">*</span></p>
+						<div class="row">
+							<?php foreach ($kelas as $kelas) : ?>
+								<div class="col-sm-3">
+									<div class="form-check">
+										<input class="form-check-input kelas" type="checkbox" name="kelas[]" value="<?= $kelas['idkelas'] ?>" id="kelas<?= $kelas['idkelas'] ?>">
+										<label class="form-check-label" for="kelas<?= $kelas['idkelas'] ?>">
+											<?= $kelas['kelas'] ?>
+										</label>
+									</div>
+								</div>
+							<?php endforeach; ?>
+						</div>
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
-						<button class="btn btn-primary float-right">Edit</button>
+						<button class="btn btn-primary float-right">Tambah</button>
 					</div>
 				</form>
 			</div>

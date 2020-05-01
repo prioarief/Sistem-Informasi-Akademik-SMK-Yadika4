@@ -30,15 +30,15 @@ class Mapel extends CI_Controller
 	public function Detail($id = null)
 	{
 		if (is_null($id)) {
-			redirect('Jurusan');
+			redirect('Mapel');
 		}
 
-		$req = $this->Jurusan->getJurusanByid($id);
+		$req = $this->Mapel->getMapelByid($id);
 		if ($req) {
-			echo json_encode($this->Jurusan->getJurusanByid($id));
+			echo json_encode($this->Mapel->getMapelByid($id));
 			# code...
 		} else {
-			redirect('Jurusan');
+			redirect('Mapel');
 		}
 	}
 
@@ -134,7 +134,6 @@ class Mapel extends CI_Controller
 		$req = $this->Mapel->getDetailMapel($id);
 		if ($req) {
 			echo json_encode($req);
-			# code...
 		} else {
 			redirect('Jurusan');
 		}

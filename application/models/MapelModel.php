@@ -26,9 +26,9 @@ class MapelModel extends CI_Model
 		return $query;
 	}
 
-	public function getJurusanByid($id)
+	public function getMapelByid($id)
 	{
-		return $this->db->get_where('jurusan', ['id' => $id])->row_array();
+		return $this->db->get_where('mapel', ['id' => $id])->row_array();
 	}
 
 	public function AddMapel($data)
