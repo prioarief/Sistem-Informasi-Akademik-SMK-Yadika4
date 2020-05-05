@@ -5,7 +5,7 @@ $(document).ready(function () {
 	$(".EditMapel").on("show.bs.modal", function (e) {
 		let button = $(e.relatedTarget);
 		let id = button.data("id");
-		$(`input.kelas`).prop('checked', false)
+		$(`input.kelas`).prop("checked", false);
 
 		$.ajax({
 			url: url + "Mapel/Detail/" + id,
@@ -19,6 +19,10 @@ $(document).ready(function () {
 				const guru = result.guru_id;
 				const mapel = result.id;
 
+				$("input#id").val(result.id);
+				$("input#mapel").val(result.mapel);
+				$("div.guruEdit select").val(guru);
+
 				$.ajax({
 					url: url + "Mapel/DetailKelas/" + mapel,
 					data: {
@@ -27,20 +31,17 @@ $(document).ready(function () {
 					method: "post",
 					success: function (response) {
 						const data = JSON.parse(response);
-						$('input#mapel').val(result.mapel)
-						$("div.guruEdit select").val(result.guru_id);
-						data.map(kelas => {
-							$(`input#kelas${kelas.kelas_id}`).prop('checked', true)
-						})
-		
-		
+
+						data.map((kelas) => {
+							$(`input#kelas${kelas.kelas_id}`).prop("checked", true);
+						});
+					},
+					error: (err) => {
+						console.log(err);
 					},
 				});
-
-				
 			},
 		});
-		
 	});
 
 	// Delete Siswa
@@ -68,39 +69,6 @@ $(document).ready(function () {
 		});
 	});
 
-	// Event Detail Siswa
-	// $(".DetailSiswa").on("show.bs.modal", function (e) {
-	// 	let button = $(e.relatedTarget);
-	// 	let nis = button.data("id");
-
-	// 	$.ajax({
-	// 		url: url + "Siswa/detailSiswa/" + nis,
-	// 		data: {
-	// 			nis: nis,
-	// 		},
-	// 		method: "post",
-	// 		success: function (response) {
-	// 			const result = JSON.parse(response);
-	// 			$("h5.detail").html(`<b>${result.nama}</b>`);
-	// 			$("div.detail").html(`
-	// 				<p>Nama : ${result.nama}</p>
-	// 				<p>NIS : ${result.nis}</p>
-	// 				<p>Kelas : ${result.kelas}</p>
-	// 				<p>Password : ${result.password}</p>
-	// 				<p>Jenis Kelamin : ${result.jk}</p>
-	// 				<p>Nama Orangtua : ${result.orangtua}</p>
-	// 				<p>Agama : ${result.agama}</p>
-	// 				<p>Gol Darah : ${result.gol_darah}</p>
-	// 				<p>Pendidikan Terakhir : ${result.pendidikan}</p>
-	// 				<p>Tempat, tanggal lahir : ${result.tempat_lahir}, ${result.tanggal_lahir}</p>
-	// 				<p>Alamat : ${result.alamat}</p>
-	// 				<p>Telpon : ${result.telpon}</p>
-	// 				<p>Kewarganegaraan : ${result.kewarganegaraan}</p>
-	// 			`);
-	// 		},
-	// 	});
-	// });
-
 	// Event Detail Kelas
 	$(".DetailKelas").on("show.bs.modal", function (e) {
 		let button = $(e.relatedTarget);
@@ -114,14 +82,26 @@ $(document).ready(function () {
 			method: "post",
 			success: function (response) {
 				const result = JSON.parse(response);
-				
-				let html = `<ol type='1'>`;
-					result.forEach((data) => {
-						html += `<li>${data.kelas}</li>`;;
-					});
+				console.log(result)
 
-					html += `</ol>`
-				
+				let html = `<form method="post" action="${url}Mapel/Edit">
+							<div class="form-group kelasEdit" id="">
+							<p>Kelas Yang Diajar <span class="text-danger">*</span></p>
+							<div class="row">`;
+				result.forEach((data) => {
+					html += `
+							<div class="col-sm-3">
+								<div class="form-check">
+									<input class="form-check-input kelas" type="checkbox" name="kelas[]" value="${data.kelas_id}" id="kelas${data.kelas_id}" data-status="">
+									<label class="form-check-label" for="kelas${data.kelas_id}">
+										${data.kelas}
+									</label>
+								</div>
+							</div>`;
+				});
+
+				html += `</div><small class="text-danger d-block mt-3">Pilih untuk menghapus!</small><a href="" class="badge badge-info mt-1">Hapus!</a></form>`;
+
 				$("h5.detail").html(`<b>${result.id}</b>`);
 				$("div.detailKelas").html(html);
 			},
@@ -129,5 +109,14 @@ $(document).ready(function () {
 				$("h5.detail").html(`<b>${err}</b>`);
 			},
 		});
+	});
+
+	// Event checked kelas
+	$("input.kelas").on("change", (e) => {
+		if ($(this).prop("checked", true)) {
+			$("input.kelas").data("status", 1);
+		} else {
+			$("input.kelas").data("status", 0);
+		}
 	});
 });

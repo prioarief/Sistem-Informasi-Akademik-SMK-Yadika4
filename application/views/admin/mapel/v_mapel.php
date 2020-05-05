@@ -70,7 +70,7 @@
 							<?php endforeach; ?>
 						</select>
 					</div>
-					<div class="form-group" id="">
+					<!-- <div class="form-group" id="">
 						<p>Kelas Yang Diajar <span class="text-danger">*</span></p>
 						<div class="row">
 							<?php foreach ($kelas as $k) : ?>
@@ -84,7 +84,7 @@
 								</div>
 							<?php endforeach; ?>
 						</div>
-					</div>
+					</div> -->
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
 						<button class="btn btn-primary float-right">Tambah</button>
@@ -108,6 +108,7 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" action="<?= base_url() ?>Mapel/Edit">
+					<input type="hidden" name="id" id="id">
 					<div class="form-group">
 						<label for="">Mapel <span class="text-danger">*</span></label>
 						<input type="text" id="mapel" class="form-control" name="mapel" placeholder="Masukan Mapel">
@@ -127,7 +128,7 @@
 							<?php foreach ($kelas as $kelas) : ?>
 								<div class="col-sm-3">
 									<div class="form-check">
-										<input class="form-check-input kelas" type="checkbox" name="kelas[]" value="<?= $kelas['idkelas'] ?>" id="kelas<?= $kelas['idkelas'] ?>">
+										<input class="form-check-input kelas" type="checkbox" name="kelas[]" value="<?= $kelas['idkelas'] ?>" id="kelas<?= $kelas['idkelas'] ?>" data-status="">
 										<label class="form-check-label" for="kelas<?= $kelas['idkelas'] ?>">
 											<?= $kelas['kelas'] ?>
 										</label>
@@ -138,7 +139,7 @@
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
-						<button class="btn btn-primary float-right">Tambah</button>
+						<button class="btn btn-primary float-right">Edit</button>
 					</div>
 				</form>
 			</div>
@@ -179,6 +180,7 @@
 				</button>
 			</div>
 			<div class="modal-body detailKelas">
+				
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

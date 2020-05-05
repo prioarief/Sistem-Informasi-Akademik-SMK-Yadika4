@@ -47,7 +47,7 @@ class Mapel extends CI_Controller
 	{
 		$this->form_validation->set_rules('mapel', 'mapel', 'required');
 		$this->form_validation->set_rules('guru', 'guru', 'required');
-		$this->form_validation->set_rules('kelas[]', 'kelas', 'required');
+		// $this->form_validation->set_rules('kelas[]', 'kelas', 'required');
 
 		if ($this->form_validation->run() == false) {
 			$this->session->set_flashdata('alert2', 'Gagal Di Tambahkan');
@@ -55,7 +55,7 @@ class Mapel extends CI_Controller
 		} else {
 			$this->db->trans_start();
 
-			$kelas = $this->input->post('kelas[]');
+			$kelas = $this->Kelas->get();
 			$data = [
 				'mapel' => $this->input->post('mapel', true),
 				'guru_Id' => $this->input->post('guru', true),
@@ -69,7 +69,8 @@ class Mapel extends CI_Controller
 			foreach ($kelas as $k) {
 				$detail[] = [
 					'mapel_id' => $mapel_id,
-					'kelas_id' => $k
+					'kelas_id' => $k['idkelas'],
+					'status' => 0
 				];
 			}
 			$this->db->insert_batch('detail_mapel', $detail);
@@ -82,26 +83,41 @@ class Mapel extends CI_Controller
 
 	public function Edit()
 	{
-		$this->form_validation->set_rules('jurusan', 'Jurusan', 'required');
+		$this->form_validation->set_rules('mapel', 'mapel', 'required');
+		$this->form_validation->set_rules('guru', 'guru', 'required');
+		// $this->form_validation->set_rules('kelas[]', 'kelas', 'required');
 
 		if ($this->form_validation->run() == false) {
-			$this->session->set_flashdata('alert2', 'Gagal Di Edit');
-			redirect('Jurusan');
+			$this->session->set_flashdata('alert2', 'Gagal Di Tambahkan');
+			redirect('Mapel');
 		} else {
-			$id = $this->input->post('id');
-			$req = $this->Jurusan->getJurusanByid($id);
-			if ($req) {
-				$data = [
-					'Jurusan' => $this->input->post('jurusan', true),
+			$this->db->trans_start();
+			$id = $this->input->post('id', true);
+			$kelas = $this->input->post('kelas[]');
+			$data = [
+				'mapel' => $this->input->post('mapel', true),
+				'guru_Id' => $this->input->post('guru', true),
+			];
+			$this->Mapel->EditMapel($id, $data);
+
+
+			$detail = array();
+			foreach ($kelas as $k) {
+
+				$req = $this->Mapel->getDetailKelasMapel($id, $k);
+				$detail = [
+					'mapel_id' => $id,
+					'kelas_id' => $k,
 				];
 
-				$this->Jurusan->EditJurusan($id, $data);
-				$this->session->set_flashdata('alert', 'Berhasil Di Edit');
-				redirect('Jurusan');
-			} else {
-				$this->session->set_flashdata('alert2', 'Gagal Di Edit');
-				redirect('Jurusan');
+				if (!$req) {
+					$this->db->insert('detail_mapel', $detail);
+				}
 			}
+			$this->db->trans_complete();
+
+			$this->session->set_flashdata('alert', 'Berhasil Di Edit');
+			redirect('Mapel');
 		}
 	}
 
@@ -126,8 +142,7 @@ class Mapel extends CI_Controller
 
 	public function DetailKelas($id = null)
 	{
-		if(is_null($id))
-		{
+		if (is_null($id)) {
 			redirect('Mapel');
 		}
 
@@ -137,8 +152,12 @@ class Mapel extends CI_Controller
 		} else {
 			redirect('Jurusan');
 		}
-
 	}
+
+	// public function Kelas()
+	// {
+	// 	var_dump($this->Kelas->get());
+	// }
 }
         
     /* End of file  Jurusan.php */

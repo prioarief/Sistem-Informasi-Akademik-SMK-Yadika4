@@ -41,16 +41,27 @@ class MapelModel extends CI_Model
 		$this->db->insert('detail_mapel', $data);
 	}
 
-	public function EditJurusan($id, $data)
+	public function EditMapel($id, $data)
 	{
 		$this->db->where('id', $id);
-		$this->db->update('jurusan', $data);
+		$this->db->update('mapel', $data);
+	}
+	
+	// public function EditDetailMapel($id, $data)
+	// {
+	// 	$this->db->where('id', $id);
+	// 	$this->db->update('detail_mapel', $data);
+	// }
+
+	public function getDetailKelasMapel($idmapel, $idkelas)
+	{
+		return $this->db->get_where('detail_mapel', ['mapel_id' => $idmapel, 'kelas_id' => $idkelas])->row_array();
 	}
 
-	public function DeleteJurusan($id)
+	public function DeleteMapel($id)
 	{
 		$this->db->where('id', $id);
-		$this->db->delete('jurusan');
+		$this->db->delete('mapel');
 	}
 }
                         
