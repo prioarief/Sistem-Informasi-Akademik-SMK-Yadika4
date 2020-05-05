@@ -44,8 +44,8 @@
 					</div>
 				</li>
 			</ul>
-
-			<a class="nav-link text-light" href="<?= base_url() ?>Auth/logout"><i class="fa fa-user-circle"> Logout</i></a>
+			<span class="d-inline text-light"><?= $this->session->userdata('nama') ?> </span>
+			<a class="nav-link text-light" href="<?= base_url() ?>Auth/logout">Logout</a>
 		</div>
 	</nav>
 	<div class="jumbotron jumbotron-fluid shadow-sm">

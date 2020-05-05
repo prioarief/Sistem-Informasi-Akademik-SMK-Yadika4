@@ -46,12 +46,6 @@ class MapelModel extends CI_Model
 		$this->db->where('id', $id);
 		$this->db->update('mapel', $data);
 	}
-	
-	// public function EditDetailMapel($id, $data)
-	// {
-	// 	$this->db->where('id', $id);
-	// 	$this->db->update('detail_mapel', $data);
-	// }
 
 	public function getDetailKelasMapel($idmapel, $idkelas)
 	{
@@ -63,6 +57,13 @@ class MapelModel extends CI_Model
 		$this->db->where('id', $id);
 		$this->db->delete('mapel');
 	}
+	
+	public function DeleteDetailMapel($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('detail_mapel');
+	}
+
 }
                         
 /* End of file JurusanModel.php */

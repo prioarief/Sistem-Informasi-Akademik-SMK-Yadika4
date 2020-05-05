@@ -44,14 +44,14 @@ $(document).ready(function () {
 		});
 	});
 
-	// Delete Siswa
-	$(".DeleteSiswa").on("show.bs.modal", (e) => {
-		$(".DeleteSiswa").modal("show");
+	// Delete Mapel
+	$(".DeleteMapel").on("show.bs.modal", (e) => {
+		$(".DeleteMapel").modal("show");
 		let trigger = $(e.relatedTarget);
 		let id = trigger.data("id");
 		console.log(id);
-		$(".hapusSiswa").on("click", (e) => {
-			$(".DeleteSiswa").modal("hide");
+		$(".hapusMapel").on("click", (e) => {
+			$(".DeleteMapel").modal("hide");
 			e.preventDefault();
 
 			Swal.fire({
@@ -63,7 +63,7 @@ $(document).ready(function () {
 				confirmButtonText: "Hapus!",
 			}).then((result) => {
 				if (result.value) {
-					document.location.href = url + "Siswa/Delete/" + id;
+					document.location.href = url + "Mapel/DeleteMapel/" + id;
 				}
 			});
 		});
@@ -82,25 +82,19 @@ $(document).ready(function () {
 			method: "post",
 			success: function (response) {
 				const result = JSON.parse(response);
-				console.log(result)
 
-				let html = `<form method="post" action="${url}Mapel/Edit">
-							<div class="form-group kelasEdit" id="">
-							<p>Kelas Yang Diajar <span class="text-danger">*</span></p>
-							<div class="row">`;
-				result.forEach((data) => {
+				let html = `<input type="hidden" name="idmapel" value="${id}">`;
+				result.map((data) => {
 					html += `
 							<div class="col-sm-3">
 								<div class="form-check">
-									<input class="form-check-input kelas" type="checkbox" name="kelas[]" value="${data.kelas_id}" id="kelas${data.kelas_id}" data-status="">
-									<label class="form-check-label" for="kelas${data.kelas_id}">
+									<input class="form-check-input kelas" type="checkbox" name="kelas[]" value="${data.id}" id="${data.kelas_id}" data-status="">
+									<label class="form-check-label" for="${data.kelas_id}">
 										${data.kelas}
 									</label>
 								</div>
 							</div>`;
 				});
-
-				html += `</div><small class="text-danger d-block mt-3">Pilih untuk menghapus!</small><a href="" class="badge badge-info mt-1">Hapus!</a></form>`;
 
 				$("h5.detail").html(`<b>${result.id}</b>`);
 				$("div.detailKelas").html(html);
@@ -111,12 +105,4 @@ $(document).ready(function () {
 		});
 	});
 
-	// Event checked kelas
-	$("input.kelas").on("change", (e) => {
-		if ($(this).prop("checked", true)) {
-			$("input.kelas").data("status", 1);
-		} else {
-			$("input.kelas").data("status", 0);
-		}
-	});
 });

@@ -85,6 +85,11 @@
 					<i class="fas fa-fw fa-chalkboard-teacher"></i>
 					<span>Guru</span></a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url() ?>TU">
+					<i class="fas fa-fw fa-user-shield"></i>
+					<span>Petugas TU</span></a>
+			</li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -113,22 +118,16 @@
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
 
-
-
-
-
-
-
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
-								<i class="fas fa-fw fa-user-circle"></i>
+								<span class="mr-2 d-none d-lg-inline text-gray-600 small"> <?= $this->session->userdata('email') ?></span>
+								<i class="fas fa-fw fa-user-circle"> </i>
 							</a>
 							<!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="<?= base_url() ?>Login/logout" data-toggle="modal" data-target="#logoutModal">
+								<a class="dropdown-item" href="<?= base_url() ?>TU/logout" data-toggle="modal" data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
 								</a>

@@ -10,6 +10,7 @@ class Kelas extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->model('KelasModel', 'Kelas');
 		$this->load->model('JurusanModel', 'Jurusan');
+		login_tu();
 	}
 
 	public function index()

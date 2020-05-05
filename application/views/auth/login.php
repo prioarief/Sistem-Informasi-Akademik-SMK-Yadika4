@@ -40,114 +40,123 @@
 			<div class="col-sm-7">
 				<div class="card py-2 border-0">
 					<div data-aos="fade-left">
-						<img src="<?= base_url('assets/img/logo.png') ?>" alt="" class="img-fluid m-auto mt-4 text-center d-block" style="height : 150px" width="150px">
+						<img src="<?= base_url('assets/img/logo.png') ?>" alt="" class="img-fluid m-auto mt-4 mb-5 text-center d-block" style="height : 150px" width="150px">
 					</div>
-					<div data-aos="fade-right" class="row my-5 text-center">
-						<div class="col-4">
-							<a href="" class="text-decoration-none text-center mt-3" id="loginSiswa">
-								<i class="fas fa-fw fa-users"></i>
-								<span>Login Siswa</span>
-							</a>
-						</div>
-						<div class="col-4">
-							<a href="" class="text-decoration-none text-center mt-3" id="loginOrtu">
-								<i class="fas fa-fw fa-user-friends"></i>
-								<span>Login Orangtua</span>
-							</a>
-						</div>
-						<div class="col-4">
-							<a href="" class="text-decoration-none text-center mt-3" id="loginGuru">
-								<i class="fas fa-fw fa-chalkboard-teacher"></i>
-								<span>Login Guru</span>
-							</a>
+					<div data-aos="fade-right" class="row text-center mt-5 mb-5">
+						<div class="col-12">
+							<div class="list-group d-inline mt-5" id="list-tab" role="tablist">
+								<a class="list-group-item list-group-item-action active d-inline" id="list-Siswa-list" data-toggle="list" href="#list-Siswa" role="tab" aria-controls="Siswa">
+									<i class="fas fa-fw fa-users"></i>
+									<span>Siswa</span>
+								</a>
+								<a class="list-group-item list-group-item-action d-inline" id="list-Orangtua-list" data-toggle="list" href="#list-Orangtua" role="tab" aria-controls="Orangtua">
+									<i class="fas fa-fw fa-user-friends"></i>
+									<span>Orangtua</span>
+								</a>
+								<a class="list-group-item list-group-item-action d-inline" id="list-Guru-list" data-toggle="list" href="#list-Guru" role="tab" aria-controls="Guru">
+									<i class="fas fa-fw fa-chalkboard-teacher"></i>
+									<span>Guru</span>
+								</a>
+							</div>
 						</div>
 					</div>
 
 
-					<div class="card-body loginSiswa">
-						<form method="post" action="<?= base_url() ?>Auth/Siswa">
-							<div data-aos="fade-up">
-								<div class="form-group row">
-									<label for="nis" class="col-sm-3 col-form-label">NIS <span class="text-danger">*</span></label>
-									<div class="col-sm-9">
-										<input type="text" name="nis" class="form-control" id="nis" placeholder="NIS Siswa" value="<?= set_value('nis') ?>">
-										<small class="text-danger"><?= form_error('nis') ?></small>
+					<div class="tab-content" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="list-Siswa" role="tabpanel" aria-labelledby="list-Siswa-list">
+							<div class="card-body loginSiswa">
+								<form method="post" action="<?= base_url() ?>Auth/Siswa">
+									<div data-aos="fade-up">
+										<div class="form-group row">
+											<label for="nis" class="col-sm-3 col-form-label">NIS <span class="text-danger">*</span></label>
+											<div class="col-sm-9">
+												<input type="text" name="nis" class="form-control" id="nis" placeholder="NIS Siswa" value="<?= set_value('nis') ?>">
+												<small class="text-danger"><?= form_error('nis') ?></small>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="password" class="col-sm-3 col-form-label">Password <span class="text-danger">*</span></label>
+											<div class="col-sm-9">
+												<input type="password" name="password" class="form-control" id="password" placeholder="Password">
+												<small class="text-danger"><?= form_error('password') ?></small>
+											</div>
+										</div>
+										<small class="text-danger">* Harus Diisi!</small>
+										<div class="form-group row">
+											<label for="inputPassword" class="col-sm-3 col-form-label"> </label>
+											<div class="col-offset-3 col-sm-9">
+												<button class="btn btn-primary"> <i class="fas fa-fw fa-sign-in-alt"></i>
+													<span>Login</span></a></button>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="form-group row">
-									<label for="password" class="col-sm-3 col-form-label">Password <span class="text-danger">*</span></label>
-									<div class="col-sm-9">
-										<input type="password" name="password" class="form-control" id="password" placeholder="Password">
-										<small class="text-danger"><?= form_error('password') ?></small>
-									</div>
-								</div>
-								<small class="text-danger">* Harus Diisi!</small>
-								<div class="form-group row">
-									<label for="inputPassword" class="col-sm-3 col-form-label"> </label>
-									<div class="col-offset-3 col-sm-9">
-										<button class="btn btn-primary"> <i class="fas fa-fw fa-sign-in-alt"></i>
-											<span>Login</span></a></button>
-									</div>
-								</div>
+								</form>
 							</div>
-						</form>
-					</div>
-					<div class="card-body loginGuru">
-						<form method="post" action="<?= base_url() ?>Auth/Guru">
-							<div data-aos="fade-up">
-								<div class="form-group row">
-									<label for="email" class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
-									<div class="col-sm-9">
-										<input type="text" name="email" class="form-control" id="email" placeholder="Email" value="<?= set_value('email') ?>">
-										<small class="text-danger"><?= form_error('email') ?></small>
+						</div>
+						<div class="tab-pane fade" id="list-Guru" role="tabpanel" aria-labelledby="list-Guru-list">
+							<div class="card-body loginGuru">
+								<form method="post" action="<?= base_url() ?>Auth/Guru">
+									<div data-aos="fade-up">
+										<div class="form-group row">
+											<label for="email" class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
+											<div class="col-sm-9">
+												<input type="text" name="email" class="form-control" id="email" placeholder="Email" value="<?= set_value('email') ?>">
+												<small class="text-danger"><?= form_error('email') ?></small>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="password" class="col-sm-3 col-form-label">Password <span class="text-danger">*</span></label>
+											<div class="col-sm-9">
+												<input type="password" name="password" class="form-control" id="password" placeholder="Password">
+												<small class="text-danger"><?= form_error('password') ?></small>
+											</div>
+										</div>
+										<small class="text-danger">* Harus Diisi!</small>
+										<div class="form-group row">
+											<label for="inputPassword" class="col-sm-3 col-form-label"> </label>
+											<div class="col-offset-3 col-sm-9">
+												<button class="btn btn-primary"> <i class="fas fa-fw fa-sign-in-alt"></i>
+													<span>Login</span></a></button>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="form-group row">
-									<label for="password" class="col-sm-3 col-form-label">Password <span class="text-danger">*</span></label>
-									<div class="col-sm-9">
-										<input type="password" name="password" class="form-control" id="password" placeholder="Password">
-										<small class="text-danger"><?= form_error('password') ?></small>
-									</div>
-								</div>
-								<small class="text-danger">* Harus Diisi!</small>
-								<div class="form-group row">
-									<label for="inputPassword" class="col-sm-3 col-form-label"> </label>
-									<div class="col-offset-3 col-sm-9">
-										<button class="btn btn-primary"> <i class="fas fa-fw fa-sign-in-alt"></i>
-											<span>Login</span></a></button>
-									</div>
-								</div>
+								</form>
 							</div>
-						</form>
-					</div>
-					<div class="card-body loginOrtu">
-						<form method="post" action="<?= base_url() ?>Auth/Orangtua">
-							<div data-aos="fade-up">
-								<div class="form-group row">
-									<label for="nik" class="col-sm-3 col-form-label">NIK Orangtua<span class="text-danger">*</span></label>
-									<div class="col-sm-9">
-										<input type="text" name="nik" class="form-control" id="nik" placeholder="NIK Orangtua">
-										<small class="text-danger"><?= form_error('nik') ?></small>
+						</div>
+						<div class="tab-pane fade" id="list-Orangtua" role="tabpanel" aria-labelledby="list-Orangtua-list">
+							<div class="card-body loginOrtu">
+								<form method="post" action="<?= base_url() ?>Auth/Orangtua">
+									<div data-aos="fade-up">
+										<div class="form-group row">
+											<label for="nik" class="col-sm-3 col-form-label">NIK Orangtua<span class="text-danger">*</span></label>
+											<div class="col-sm-9">
+												<input type="text" name="nik" class="form-control" id="nik" placeholder="NIK Orangtua">
+												<small class="text-danger"><?= form_error('nik') ?></small>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="password" class="col-sm-3 col-form-label">Password <span class="text-danger">*</span></label>
+											<div class="col-sm-9">
+												<input type="password" name="password" class="form-control" id="password" placeholder="Password">
+												<small class="text-danger"><?= form_error('password') ?></small>
+											</div>
+										</div>
+										<small class="text-danger">* Harus Diisi!</small>
+										<div class="form-group row">
+											<label for="inputPassword" class="col-sm-3 col-form-label"> </label>
+											<div class="col-offset-3 col-sm-9">
+												<button class="btn btn-primary"> <i class="fas fa-fw fa-sign-in-alt"></i>
+													<span>Login</span></a></button>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="form-group row">
-									<label for="password" class="col-sm-3 col-form-label">Password <span class="text-danger">*</span></label>
-									<div class="col-sm-9">
-										<input type="password" name="password" class="form-control" id="password" placeholder="Password">
-										<small class="text-danger"><?= form_error('password') ?></small>
-									</div>
-								</div>
-								<small class="text-danger">* Harus Diisi!</small>
-								<div class="form-group row">
-									<label for="inputPassword" class="col-sm-3 col-form-label"> </label>
-									<div class="col-offset-3 col-sm-9">
-										<button class="btn btn-primary"> <i class="fas fa-fw fa-sign-in-alt"></i>
-											<span>Login</span></a></button>
-									</div>
-								</div>
+								</form>
 							</div>
-						</form>
+						</div>
 					</div>
+
+
+
 				</div>
 			</div>
 		</div>

@@ -9,6 +9,7 @@ class Jurusan extends CI_Controller
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('JurusanModel', 'Jurusan');
+		login_tu();
 	}
 
 	public function index()

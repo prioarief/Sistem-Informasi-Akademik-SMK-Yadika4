@@ -16,18 +16,11 @@ function login_false()
 	}	
 }
 
-// function login_admin()
-// {
-// 	$ini = get_instance();
-// 	if (!$ini->session->userdata('id_petugas')) {
-// 		redirect('Home');
-// 	}
-// }
+function login_tu()
+{
+	$ini = get_instance();
+	if ($ini->session->userdata('akses') != 'TU') {
+		redirect('TU/Auth');
+	}	
+}
 
-// function hakAkses()
-// {
-// 	$ini = get_instance();
-// 	if ($ini->session->userdata('id_petugas')) {
-// 		redirect('Admin');
-// 	}
-// }

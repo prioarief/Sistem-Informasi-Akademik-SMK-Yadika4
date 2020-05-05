@@ -9,6 +9,7 @@ class Guru extends CI_Controller
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('GuruModel', 'Guru');
+		login_tu();
 	}
 
 	public function index()
@@ -27,14 +28,14 @@ class Guru extends CI_Controller
 	public function Detail($id = null)
 	{
 		if (is_null($id)) {
-			redirect('Orangtua');
+			redirect('Guru');
 		}
 
 		$req = $this->Guru->getDataByid($id);
 		if ($req) {
 			echo json_encode($this->Guru->getDataByid($id));
 		} else {
-			redirect('Orangtua');
+			redirect('Guru');
 		}
 	}
 

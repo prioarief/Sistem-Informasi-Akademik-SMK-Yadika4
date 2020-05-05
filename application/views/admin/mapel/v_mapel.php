@@ -70,7 +70,7 @@
 							<?php endforeach; ?>
 						</select>
 					</div>
-					<!-- <div class="form-group" id="">
+					<div class="form-group" id="">
 						<p>Kelas Yang Diajar <span class="text-danger">*</span></p>
 						<div class="row">
 							<?php foreach ($kelas as $k) : ?>
@@ -84,7 +84,7 @@
 								</div>
 							<?php endforeach; ?>
 						</div>
-					</div> -->
+					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
 						<button class="btn btn-primary float-right">Tambah</button>
@@ -174,13 +174,24 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalCenterTitle">Detail</h5>
+				<h5 class="modal-title" id="exampleModalCenterTitle">Detail Kelas Yang Diajar</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body detailKelas">
-				
+			<div class="modal-body ">
+				<form method="post" action="<?= base_url() ?>Mapel/DeleteKelas">
+					<div class="form-group kelasEdit" id="">
+						<p>Kelas Yang Diajar <span class="text-danger">*</span></p>
+						<div class="row detailKelas">
+							
+						</div>
+					</div>
+					<small class="text-danger">Pilih untuk menghapus!</small>
+					<div class="form-group">
+						<button class="btn btn-info btn-sm float-left">Hapus</button>
+					</div>
+				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

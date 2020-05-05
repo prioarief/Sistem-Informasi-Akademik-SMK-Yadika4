@@ -11,6 +11,7 @@ class Mapel extends CI_Controller
 		$this->load->model('MapelModel', 'Mapel');
 		$this->load->model('GuruModel', 'Guru');
 		$this->load->model('KelasModel', 'Kelas');
+		login_tu();
 	}
 
 	public function index()
@@ -36,7 +37,6 @@ class Mapel extends CI_Controller
 		$req = $this->Mapel->getMapelByid($id);
 		if ($req) {
 			echo json_encode($this->Mapel->getMapelByid($id));
-			# code...
 		} else {
 			redirect('Mapel');
 		}
@@ -55,7 +55,7 @@ class Mapel extends CI_Controller
 		} else {
 			$this->db->trans_start();
 
-			$kelas = $this->Kelas->get();
+			$kelas = $this->input->post('kelas[]', true);
 			$data = [
 				'mapel' => $this->input->post('mapel', true),
 				'guru_Id' => $this->input->post('guru', true),
@@ -69,8 +69,7 @@ class Mapel extends CI_Controller
 			foreach ($kelas as $k) {
 				$detail[] = [
 					'mapel_id' => $mapel_id,
-					'kelas_id' => $k['idkelas'],
-					'status' => 0
+					'kelas_id' => $k
 				];
 			}
 			$this->db->insert_batch('detail_mapel', $detail);
@@ -121,22 +120,22 @@ class Mapel extends CI_Controller
 		}
 	}
 
-	public function Delete($id = null)
+	public function DeleteMapel($id = null)
 	{
 		if (is_null($id)) {
 			$this->session->set_flashdata('alert2', 'Gagal Di Hapus');
-			redirect('Kelas');
+			redirect('Mapel');
 		}
 
-		$req = $this->Jurusan->getJurusanByid($id);
+		$req = $this->Mapel->getMapelByid($id);
 		if ($req) {
 
-			$this->Jurusan->DeleteJurusan($id);
+			$this->Mapel->DeleteMapel($id);
 			$this->session->set_flashdata('alert', 'Berhasil Di Hapus');
-			redirect('Jurusan');
+			redirect('Mapel');
 		} else {
 			$this->session->set_flashdata('alert2', 'Gagal Di Hapus');
-			redirect('Jurusan');
+			redirect('Mapel');
 		}
 	}
 
@@ -150,14 +149,27 @@ class Mapel extends CI_Controller
 		if ($req) {
 			echo json_encode($req);
 		} else {
-			redirect('Jurusan');
+			redirect('Mapel');
 		}
 	}
 
-	// public function Kelas()
-	// {
-	// 	var_dump($this->Kelas->get());
-	// }
+	public function DeleteKelas()
+	{
+		$this->form_validation->set_rules('kelas[]', 'kelas', 'required');
+
+		if ($this->form_validation->run() == false) {
+			$this->session->set_flashdata('alert2', 'Gagal Di Hapus');
+			redirect('Mapel');
+		} else {
+			$kelas = $this->input->post('kelas[]', true);
+			foreach ($kelas as $k) {
+				$this->Mapel->DeleteDetailMapel($k);
+			}
+		}
+
+		$this->session->set_flashdata('alert', 'Berhasil Di Hapus');
+		redirect('Mapel');
+	}
 }
         
     /* End of file  Jurusan.php */

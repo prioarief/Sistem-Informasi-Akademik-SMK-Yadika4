@@ -10,6 +10,7 @@ class Siswa extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->model('SiswaModel', 'Siswa');
 		$this->load->model('KelasModel', 'Kelas');
+		login_tu();
 	}
 
 	public function index()
