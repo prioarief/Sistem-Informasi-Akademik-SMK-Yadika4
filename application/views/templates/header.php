@@ -34,15 +34,17 @@
 				<li class="nav-item">
 					<a class="nav-link" href="#"><i class="fa fa-clipboard-list"> Nilai</i></a>
 				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-calendar-alt"> Jadwal</i>
-					</a>
-					<div class="dropdown-menu mt-2" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#"><i class="fa fa-book-open"> Jadwal Pelajaran</i></a>
-						<a class="dropdown-item" href="#"><i class="fa fa-book-reader"> Jadwal Ujian</i></a>
-					</div>
-				</li>
+				<?php if ($this->session->userdata('akses') == 'Siswa') : ?>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-calendar-alt"> Jadwal</i>
+						</a>
+						<div class="dropdown-menu mt-2" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#"><i class="fa fa-book-open"> Jadwal Pelajaran</i></a>
+							<a class="dropdown-item" href="#"><i class="fa fa-book-reader"> Jadwal Ujian</i></a>
+						</div>
+					</li>
+				<?php endif; ?>
 			</ul>
 			<span class="d-inline text-light"><?= $this->session->userdata('nama') ?> </span>
 			<a class="nav-link text-light" href="<?= base_url() ?>Auth/logout">Logout</a>
@@ -54,7 +56,7 @@
 			<p class="text-muted">JL. RADEN SALEH NO.11 RT.02/001, KELURAHAN KARANG TENGAH, KECAMATAN KARANG TENGAH, KOTA TANGERANG, BANTEN, 15157.</p>
 			<h4 class="">Program Keahlian</h4>
 			<ol type="1">
-				<?php foreach($jurusan as $data): ?>
+				<?php foreach ($jurusan as $data) : ?>
 					<li><?= $data['jurusan'] ?></li>
 				<?php endforeach; ?>
 			</ol>

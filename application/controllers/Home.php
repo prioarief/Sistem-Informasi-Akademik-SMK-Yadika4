@@ -9,7 +9,6 @@ class Home extends CI_Controller
 		parent::__construct();
 		$this->load->model('JurusanModel', 'Jurusan');
 		login_true();
-		
 	}
 
 	public function index()
