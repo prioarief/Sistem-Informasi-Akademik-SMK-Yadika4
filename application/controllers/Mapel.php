@@ -170,6 +170,7 @@ class Mapel extends CI_Controller
 		$this->session->set_flashdata('alert', 'Berhasil Di Hapus');
 		redirect('Mapel');
 	}
+
 }
         
     /* End of file  Jurusan.php */

@@ -152,6 +152,7 @@ class Auth extends CI_Controller
 				if ($req['password'] == $password) {
 
 					$dataGuru = [
+						'id' => $req['id'],
 						'nama' => $req['nama'],
 						'email' => $req['email'],
 						'password' => $req['password'],

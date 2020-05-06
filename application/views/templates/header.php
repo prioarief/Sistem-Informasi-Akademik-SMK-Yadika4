@@ -17,8 +17,10 @@
 
 <body>
 
+	<input type="hidden" name="url" value="<?= base_url() ?>" id="url">
+
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="<?= base_url() ?>">
+		<a class="navbar-brand" href="<?= base_url() ?>Home">
 			<img src="<?= base_url('assets/img/logo.png') ?>" width="30" height="30" class="d-inline-block align-top" alt="">
 			SMK Yadika 4
 		</a>
@@ -29,10 +31,10 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto right">
 				<li class="nav-item right">
-					<a class="nav-link" href="#"><i class="fa fa-book"> Absensi</i></a>
+					<a class="nav-link" href="<?= base_url() ?>Home/DataAbsensi"><i class="fa fa-book"> Absensi</i></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i class="fa fa-clipboard-list"> Nilai</i></a>
+					<a class="nav-link" href="<?= base_url() ?>Home/Nilai"><i class="fa fa-clipboard-list"> Nilai</i></a>
 				</li>
 				<?php if ($this->session->userdata('akses') == 'Siswa') : ?>
 					<li class="nav-item dropdown">

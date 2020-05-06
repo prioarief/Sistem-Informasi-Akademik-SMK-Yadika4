@@ -30,7 +30,12 @@ class MapelModel extends CI_Model
 	{
 		return $this->db->get_where('mapel', ['id' => $id])->row_array();
 	}
-
+	
+	public function getMapelByGuru($guru_id)
+	{
+		return $this->db->get_where('mapel', ['guru_id' => $guru_id])->result_array();
+	}
+	
 	public function AddMapel($data)
 	{
 		$this->db->insert('mapel', $data);

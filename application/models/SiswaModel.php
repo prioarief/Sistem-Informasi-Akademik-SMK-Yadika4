@@ -40,6 +40,16 @@ class SiswaModel extends CI_Model
 		return $query;
 	}
 
+	public function GetSiswaByKelas($id)
+	{
+		$this->db->select('siswa.nama, siswa.id, siswa.nis');
+		$this->db->from('siswa');
+		$this->db->where('kelas_id', $id);
+		$this->db->order_by('siswa.nama', 'ASC');
+		$query = $this->db->get()->result_array();
+		return $query;
+	}
+
 	public function EditData($id, $data)
 	{
 		$this->db->where('id', $id);

@@ -1,30 +1,52 @@
 $(document).ready(function () {
-	// login
-	// $(".loginOrtu").hide();
-	// $(".loginGuru").hide();
+	let url = $("#url").val();
+	// Event Detail Kelas
+	$(".DetailKelas").on("show.bs.modal", function (e) {
+		let button = $(e.relatedTarget);
+		let id = button.data("id");
 
-	// $("a#loginGuru").on("click", (e) => {
-	// 	e.preventDefault();
-	// 	$(".loginGuru").show();
-	// 	$(".loginSiswa").hide();
-	// 	$(".loginOrtu").hide();
-	// });
+		$.ajax({
+			url: url + "Home/DetailKelas/" + id,
+			data: {
+				id: id,
+			},
+			method: "post",
+			success: function (response) {
+				const result = JSON.parse(response);
+				let html = ``;
+				result.map((data) => {
+					html += `
+							<div class="col-sm-3">
+								<div class="form-check">
+								<a href="${url}Home/Absen/${data.kelas_id}" class="text-decoration-none">${data.kelas}</a>
+								</div>
+							</div>`;
+				});
+
+				$("h5.detail").html(`<b>${result.id}</b>`);
+				$("div.detailKelas").html(html);
+			},
+		});
+	});
+	$("button.absen").prop('disabled', true)
+	$("input.hadirsemua").on("change", () => {
+		$("input.absen-hadir").prop("checked", true);
+		$("button.absen").prop('disabled', false)
+	});
 	
-	// $("a#loginOrtu").on("click", (e) => {
-	// 	e.preventDefault();
-	// 	$(".loginOrtu").show();
-	// 	$(".loginGuru").hide();
-	// 	$(".loginSiswa").hide();
-	// });
+	$("input.tidakhadirsemua").on("change", () => {
+		$("input.absen-hadir").prop("checked", false);
+		$("button.absen").prop('disabled', true)
+	});
 	
+	$("input.absen-hadir").on("change", () => {
+		$("button.absen").prop('disabled', false)
+	});
 
-	// $("a#loginSiswa").on("click", (e) => {
-	// 	e.preventDefault();
-	// 	$(".loginSiswa").show();
-	// 	$(".loginGuru").hide();
-	// 	$(".loginOrtu").hide();
-	// });
-
+	$("button.absen").on('click', (e) => {
+		e.preventDefault
+		console.log('aakak')
+	})
 
 	const flashdataGagal = $("div.flashdata-gagal").data("alert2");
 	if (flashdataGagal) {
