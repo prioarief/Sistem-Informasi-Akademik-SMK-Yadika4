@@ -66,25 +66,25 @@
 				<form method="post" action="<?= base_url() ?>Siswa/Create">
 					<div class="form-group">
 						<label for="">Nama <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nama" placeholder="Masukan nama Siswa">
+						<input type="text" class="form-control" required name="nama" placeholder="Masukan nama Siswa">
 					</div>
 					<div class="form-group">
 						<label for="">NIS <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nis" placeholder="Masukan NIS">
+						<input type="text" class="form-control" required name="nis" placeholder="Masukan NIS">
 						<small class="text-danger">* NIS Tidak Boleh Sama!</small>
 					</div>
 					<div class="form-group">
 						<label for="">Password <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="password" placeholder="Masukan Password">
+						<input type="text" class="form-control" required name="password" placeholder="Masukan Password">
 					</div>
 					<div class="form-group">
 						<label for="">NIK Orang tua <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nik-ortu" placeholder="Masukan NIK Orang tua">
+						<input type="text" class="form-control" required name="nik-ortu" placeholder="Masukan NIK Orang tua">
 						<small class="text-danger">* NIK akan di cocokan dengan NIK Orang tua!</small>
 					</div>
 					<div class="form-group jk-ortu">
 						<label for="">Kelas <span class="text-danger">*</span></label>
-						<select class="form-control" name="kelas">
+						<select class="form-control" required name="kelas">
 							<option disabled selected>-- Kelas --</option>
 							<?php foreach ($kelas as $k) : ?>
 								<option value="<?= $k['idkelas'] ?>"><?= $k['kelas'] ?></option>
@@ -93,7 +93,7 @@
 					</div>
 					<div class="form-group jk-ortu">
 						<label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-						<select class="form-control" name="jk">
+						<select class="form-control" required name="jk">
 							<option disabled selected>-- Jenis Kelamin --</option>
 							<option value="Laki-laki">Laki-laki</option>
 							<option value="Perempuan">Perempuan</option>
@@ -101,7 +101,7 @@
 					</div>
 					<div class="form-group agama-ortu">
 						<label for="">Agama <span class="text-danger">*</span></label>
-						<select class="form-control" name="agama">
+						<select class="form-control" required name="agama">
 							<option disabled selected>-- Agama --</option>
 							<option value="Islam">Islam</option>
 							<option value="Kristen">Kristen</option>
@@ -113,7 +113,7 @@
 					</div>
 					<div class="form-group goldarah-ortu">
 						<label for="">Gol Darah <span class="text-danger">*</span></label>
-						<select class="form-control" name="gol-darah">
+						<select class="form-control" required name="gol-darah">
 							<option disabled selected>-- Gol Darah --</option>
 							<option value="A+">A+</option>
 							<option value="A-">A-</option>
@@ -127,28 +127,28 @@
 					</div>
 					<div class="form-group">
 						<label for="">Pendidikan Terakhir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
+						<input type="text" class="form-control" required name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
 					</div>
 					<div class="form-group">
 						<label for="">Tempat Lahir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="tempat-lahir" placeholder="Masukan Tempat Lahir">
+						<input type="text" class="form-control" required name="tempat-lahir" placeholder="Masukan Tempat Lahir">
 					</div>
 					<div class="form-group">
 						<label for="">Tanggal Lahir <span class="text-danger">*</span></label>
-						<input type="date" class="form-control" name="tanggal-lahir">
-						<!-- <input type="date" class="form-control" name="tanggal-lahir" value="2013-01-08"> -->
+						<input type="date" class="form-control" required name="tanggal-lahir">
+						<!-- <input type="date" class="form-control" required name="tanggal-lahir" value="2013-01-08"> -->
 					</div>
 					<div class="form-group">
 						<label for="">Alamat <span class="text-danger">*</span></label>
-						<textarea name="alamat" cols="30" rows="2" class="form-control"></textarea>
+						<textarea required name="alamat" cols="30" rows="2" class="form-control"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="">Telpon <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="telpon" placeholder="Masukan Telpon">
+						<input type="text" class="form-control" required name="telpon" placeholder="Masukan Telpon">
 					</div>
 					<div class="form-group">
 						<label for="">kewarganegaraan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
+						<input type="text" class="form-control" required name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
@@ -176,23 +176,23 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" action="<?= base_url() ?>Siswa/Edit">
-					<input type="hidden" name="id" id="id-siswa">
+					<input type="hidden" required name="id" id="id-siswa">
 					<div class="form-group">
 						<label for="">Nama <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nama" placeholder="Masukan nama Siswa" id="nama-siswa">
+						<input type="text" class="form-control" required name="nama" placeholder="Masukan nama Siswa" id="nama-siswa">
 					</div>
 					<div class="form-group">
 						<label for="">NIS <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nis" placeholder="Masukan nis" id="nis-siswa">
+						<input type="text" class="form-control" required name="nis" placeholder="Masukan nis" id="nis-siswa">
 						<small class="text-danger">* NIS Tidak Boleh Sama!</small>
 					</div>
 					<div class="form-group">
 						<label for="">Password <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="password" placeholder="Masukan Password" id="password-siswa">
+						<input type="text" class="form-control" required name="password" placeholder="Masukan Password" id="password-siswa">
 					</div>
 					<div class="form-group jk-siswa">
 						<label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-						<select class="form-control" id="jk-siswa" name="jk">
+						<select class="form-control" id="jk-siswa" required name="jk">
 							<option disabled selected>-- Jenis Kelamin --</option>
 							<option value="Laki-laki">Laki-laki</option>
 							<option value="Perempuan">Perempuan</option>
@@ -200,7 +200,7 @@
 					</div>
 					<div class="form-group kelas-siswa">
 						<label for="">Kelas <span class="text-danger">*</span></label>
-						<select class="form-control" name="kelas">
+						<select class="form-control" required name="kelas">
 							<option disabled selected>-- Kelas --</option>
 							<?php foreach ($kelas as $k) : ?>
 								<option value="<?= $k['idkelas'] ?>"><?= $k['kelas'] ?></option>
@@ -209,7 +209,7 @@
 					</div>
 					<div class="form-group agama-siswa">
 						<label for="">Agama <span class="text-danger">*</span></label>
-						<select class="form-control" id="agama-siswa" name="agama">
+						<select class="form-control" id="agama-siswa" required name="agama">
 							<option disabled selected>-- Agama --</option>
 							<option value="Islam">Islam</option>
 							<option value="Kristen">Kristen</option>
@@ -221,7 +221,7 @@
 					</div>
 					<div class="form-group goldarah-siswa">
 						<label for="">Gol Darah <span class="text-danger">*</span></label>
-						<select class="form-control" id="gol-darah-siswa" name="gol-darah">
+						<select class="form-control" id="gol-darah-siswa" required name="gol-darah">
 							<option disabled selected>-- Gol Darah --</option>
 							<option value="A+">A+</option>
 							<option value="A-">A-</option>
@@ -235,32 +235,32 @@
 					</div>
 					<div class="form-group">
 						<label for="">NIK Orang tua <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nik" id="nik-ortu" placeholder="Masukan NIK Orang tua">
+						<input type="text" class="form-control" required name="nik" id="nik-ortu" placeholder="Masukan NIK Orang tua">
 					</div>
 					<div class="form-group">
 						<label for="">Pendidikan Terakhir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="pendidikan-siswa" name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
+						<input type="text" class="form-control" id="pendidikan-siswa" required name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
 					</div>
 					<div class="form-group">
 						<label for="">Tempat Lahir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="tempat-lahir-siswa" name="tempat-lahir" placeholder="Masukan Tempat Lahir">
+						<input type="text" class="form-control" id="tempat-lahir-siswa" required name="tempat-lahir" placeholder="Masukan Tempat Lahir">
 					</div>
 					<div class="form-group">
 						<label for="">Tanggal Lahir <span class="text-danger">*</span></label>
-						<input type="date" class="form-control" id="tanggal-lahir-siswa" name="tanggal-lahir">
-						<!-- <input type="date" class="form-control" name="tanggal-lahir" value="2013-01-08"> -->
+						<input type="date" class="form-control" id="tanggal-lahir-siswa" required name="tanggal-lahir">
+						<!-- <input type="date" class="form-control" required name="tanggal-lahir" value="2013-01-08"> -->
 					</div>
 					<div class="form-group">
 						<label for="">Alamat <span class="text-danger">*</span></label>
-						<textarea name="alamat" id="alamat-siswa" cols="30" rows="2" class="form-control"></textarea>
+						<textarea required name="alamat" id="alamat-siswa" cols="30" rows="2" class="form-control"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="">Telpon <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="telpon-siswa" name="telpon" placeholder="Masukan Telpon">
+						<input type="text" class="form-control" id="telpon-siswa" required name="telpon" placeholder="Masukan Telpon">
 					</div>
 					<div class="form-group">
 						<label for="">kewarganegaraan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="kewarganegaraan-siswa" name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
+						<input type="text" class="form-control" id="kewarganegaraan-siswa" required name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">

@@ -60,20 +60,20 @@
 				<form method="post" action="<?= base_url() ?>Orangtua/Create">
 					<div class="form-group">
 						<label for="">Nama <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nama" placeholder="Masukan nama Orangtua">
+						<input type="text" class="form-control" required name="nama" placeholder="Masukan nama Orangtua">
 					</div>
 					<div class="form-group">
 						<label for="">NIK <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nik" placeholder="Masukan NIK" >
+						<input type="text" class="form-control" required name="nik" placeholder="Masukan NIK" >
 						<small class="text-danger">* NIK Tidak Boleh Sama!</small>
 					</div>
 					<div class="form-group">
 						<label for="">Password <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="password" placeholder="Masukan Password">
+						<input type="text" class="form-control" required name="password" placeholder="Masukan Password">
 					</div>
 					<div class="form-group jk-ortu">
 						<label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-						<select class="form-control" name="jk">
+						<select class="form-control" required name="jk">
 							<option selected>-- Jenis Kelamin --</option>
 							<option value="Laki-laki">Laki-laki</option>
 							<option value="Perempuan">Perempuan</option>
@@ -81,7 +81,7 @@
 					</div>
 					<div class="form-group agama-ortu">
 						<label for="">Agama <span class="text-danger">*</span></label>
-						<select class="form-control" name="agama">
+						<select class="form-control" required name="agama">
 							<option selected>-- Agama --</option>
 							<option value="Islam">Islam</option>
 							<option value="Kristen">Kristen</option>
@@ -93,7 +93,7 @@
 					</div>
 					<div class="form-group goldarah-ortu">
 						<label for="">Gol Darah <span class="text-danger">*</span></label>
-						<select class="form-control"  name="gol-darah">
+						<select class="form-control"  required name="gol-darah">
 							<option selected>-- Gol Darah --</option>
 							<option value="A+">A+</option>
 							<option value="A-">A-</option>
@@ -107,32 +107,32 @@
 					</div>
 					<div class="form-group">
 						<label for="">Pekerjaan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="pekerjaan"  placeholder="Masukan Pekerjaan">
+						<input type="text" class="form-control" required name="pekerjaan"  placeholder="Masukan Pekerjaan">
 					</div>
 					<div class="form-group">
 						<label for="">Pendidikan Terakhir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control"  name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
+						<input type="text" class="form-control"  required name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
 					</div>
 					<div class="form-group">
 						<label for="">Tempat Lahir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control"  name="tempat-lahir" placeholder="Masukan Tempat Lahir">
+						<input type="text" class="form-control"  required name="tempat-lahir" placeholder="Masukan Tempat Lahir">
 					</div>
 					<div class="form-group">
 						<label for="">Tanggal Lahir <span class="text-danger">*</span></label>
-						<input type="date" class="form-control" name="tanggal-lahir">
-						<!-- <input type="date" class="form-control" name="tanggal-lahir" value="2013-01-08"> -->
+						<input type="date" class="form-control" required name="tanggal-lahir">
+						<!-- <input type="date" class="form-control" required name="tanggal-lahir" value="2013-01-08"> -->
 					</div>
 					<div class="form-group">
 						<label for="">Alamat <span class="text-danger">*</span></label>
-						<textarea name="alamat" cols="30" rows="2" class="form-control"></textarea>
+						<textarea required name="alamat" cols="30" rows="2" class="form-control"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="">Telpon <span class="text-danger">*</span></label>
-						<input type="text" class="form-control"  name="telpon" placeholder="Masukan Telpon">
+						<input type="text" class="form-control"  required name="telpon" placeholder="Masukan Telpon">
 					</div>
 					<div class="form-group">
 						<label for="">kewarganegaraan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control"  name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
+						<input type="text" class="form-control"  required name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
@@ -160,23 +160,23 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" action="<?= base_url() ?>Orangtua/Edit">
-					<input type="hidden" name="id" id="id-ortu">
+					<input type="hidden" required name="id" id="id-ortu">
 					<div class="form-group">
 						<label for="">Nama <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nama" placeholder="Masukan nama Orangtua" id="nama-ortu">
+						<input type="text" class="form-control" required name="nama" placeholder="Masukan nama Orangtua" id="nama-ortu">
 					</div>
 					<div class="form-group">
 						<label for="">NIK <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nik" placeholder="Masukan NIK" id="nik-ortu">
+						<input type="text" class="form-control" required name="nik" placeholder="Masukan NIK" id="nik-ortu">
 						<small class="text-danger">* NIK Tidak Boleh Sama!</small>
 					</div>
 					<div class="form-group">
 						<label for="">Password <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="password" placeholder="Masukan Password" id="password-ortu">
+						<input type="text" class="form-control" required name="password" placeholder="Masukan Password" id="password-ortu">
 					</div>
 					<div class="form-group jk-ortu">
 						<label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-						<select class="form-control" id="jk-ortu" name="jk">
+						<select class="form-control" id="jk-ortu" required name="jk">
 							<option selected>-- Jenis Kelamin --</option>
 							<option value="Laki-laki">Laki-laki</option>
 							<option value="Perempuan">Perempuan</option>
@@ -184,7 +184,7 @@
 					</div>
 					<div class="form-group agama-ortu">
 						<label for="">Agama <span class="text-danger">*</span></label>
-						<select class="form-control" id="agama-ortu" name="agama">
+						<select class="form-control" id="agama-ortu" required name="agama">
 							<option selected>-- Agama --</option>
 							<option value="Islam">Islam</option>
 							<option value="Kristen">Kristen</option>
@@ -196,7 +196,7 @@
 					</div>
 					<div class="form-group goldarah-ortu">
 						<label for="">Gol Darah <span class="text-danger">*</span></label>
-						<select class="form-control" id="gol-darah-ortu" name="gol-darah">
+						<select class="form-control" id="gol-darah-ortu" required name="gol-darah">
 							<option selected>-- Gol Darah --</option>
 							<option value="A+">A+</option>
 							<option value="A-">A-</option>
@@ -210,32 +210,32 @@
 					</div>
 					<div class="form-group">
 						<label for="">Pekerjaan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="pekerjaan" id="pekerjaan-ortu" placeholder="Masukan Pekerjaan">
+						<input type="text" class="form-control" required name="pekerjaan" id="pekerjaan-ortu" placeholder="Masukan Pekerjaan">
 					</div>
 					<div class="form-group">
 						<label for="">Pendidikan Terakhir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="pendidikan-ortu" name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
+						<input type="text" class="form-control" id="pendidikan-ortu" required name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
 					</div>
 					<div class="form-group">
 						<label for="">Tempat Lahir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="tempat-lahir-ortu" name="tempat-lahir" placeholder="Masukan Tempat Lahir">
+						<input type="text" class="form-control" id="tempat-lahir-ortu" required name="tempat-lahir" placeholder="Masukan Tempat Lahir">
 					</div>
 					<div class="form-group">
 						<label for="">Tanggal Lahir <span class="text-danger">*</span></label>
-						<input type="date" class="form-control" id="tanggal-lahir-ortu" name="tanggal-lahir">
-						<!-- <input type="date" class="form-control" name="tanggal-lahir" value="2013-01-08"> -->
+						<input type="date" class="form-control" id="tanggal-lahir-ortu" required name="tanggal-lahir">
+						<!-- <input type="date" class="form-control" required name="tanggal-lahir" value="2013-01-08"> -->
 					</div>
 					<div class="form-group">
 						<label for="">Alamat <span class="text-danger">*</span></label>
-						<textarea name="alamat" id="alamat-ortu" cols="30" rows="2" class="form-control"></textarea>
+						<textarea required name="alamat" id="alamat-ortu" cols="30" rows="2" class="form-control"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="">Telpon <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="telpon-ortu" name="telpon" placeholder="Masukan Telpon">
+						<input type="text" class="form-control" id="telpon-ortu" required name="telpon" placeholder="Masukan Telpon">
 					</div>
 					<div class="form-group">
 						<label for="">kewarganegaraan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control"  id="kewarganegaraan-ortu" name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
+						<input type="text" class="form-control"  id="kewarganegaraan-ortu" required name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">

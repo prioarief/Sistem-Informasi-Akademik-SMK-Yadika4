@@ -51,7 +51,7 @@
 				<form method="post" action="<?= base_url() ?>Jurusan/Create">
 					<div class="form-group">
 						<label for="">Jurusan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="jurusan" placeholder="Masukan nama jurusan">
+						<input type="text" class="form-control" required name="jurusan" placeholder="Masukan nama jurusan">
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
@@ -76,10 +76,10 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" action="<?= base_url() ?>Jurusan/Edit">
-					<input type="hidden" name="id" id="idJurusan">
+					<input type="hidden" required name="id" id="idJurusan">
 					<div class="form-group">
 						<label for="">Jurusan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="jurusan" placeholder="Masukan nama jurusan" id="inputJurusan">
+						<input type="text" class="form-control" required name="jurusan" placeholder="Masukan nama jurusan" id="inputJurusan">
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">

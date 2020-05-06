@@ -59,11 +59,11 @@
 				<form method="post" action="<?= base_url() ?>Mapel/Create">
 					<div class="form-group">
 						<label for="">Mapel <span class="text-danger">*</span></label>
-						<input type="text" id="mapel" class="form-control" name="mapel" placeholder="Masukan Mapel">
+						<input type="text" id="mapel" class="form-control" required name="mapel" placeholder="Masukan Mapel">
 					</div>
 					<div class="form-group" id="">
 						<label for="">Guru<span class="text-danger">*</span></label>
-						<select class="form-control guru" id="exampleFormControlSelect1" name="guru">
+						<select class="form-control guru" id="exampleFormControlSelect1" required name="guru">
 							<option disabled selected>-- Guru Yang Mengajar --</option>
 							<?php foreach ($guru as $g) : ?>
 								<option value="<?= $g['id'] ?>"><?= $g['nama'] ?></option>
@@ -76,7 +76,7 @@
 							<?php foreach ($kelas as $k) : ?>
 								<div class="col-sm-3">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" name="kelas[]" value="<?= $k['idkelas'] ?>" id="kelas<?= $k['idkelas'] ?>">
+										<input class="form-check-input" type="checkbox" required name="kelas[]" value="<?= $k['idkelas'] ?>" id="kelas<?= $k['idkelas'] ?>">
 										<label class="form-check-label" for="kelas<?= $k['idkelas'] ?>">
 											<?= $k['kelas'] ?>
 										</label>
@@ -108,14 +108,14 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" action="<?= base_url() ?>Mapel/Edit">
-					<input type="hidden" name="id" id="id">
+					<input type="hidden" required name="id" id="id">
 					<div class="form-group">
 						<label for="">Mapel <span class="text-danger">*</span></label>
-						<input type="text" id="mapel" class="form-control" name="mapel" placeholder="Masukan Mapel">
+						<input type="text" id="mapel" class="form-control" required name="mapel" placeholder="Masukan Mapel">
 					</div>
 					<div class="form-group guruEdit" id="">
 						<label for="">Guru<span class="text-danger">*</span></label>
-						<select class="form-control guru" id="exampleFormControlSelect1" name="guru">
+						<select class="form-control guru" id="exampleFormControlSelect1" required name="guru">
 							<option disabled selected>-- Guru Yang Mengajar --</option>
 							<?php foreach ($guru as $guru) : ?>
 								<option value="<?= $guru['id'] ?>"><?= $guru['nama'] ?></option>
@@ -128,7 +128,7 @@
 							<?php foreach ($kelas as $kelas) : ?>
 								<div class="col-sm-3">
 									<div class="form-check">
-										<input class="form-check-input kelas" type="checkbox" name="kelas[]" value="<?= $kelas['idkelas'] ?>" id="kelas<?= $kelas['idkelas'] ?>" data-status="">
+										<input class="form-check-input kelas" type="checkbox" required name="kelas[]" value="<?= $kelas['idkelas'] ?>" id="kelas<?= $kelas['idkelas'] ?>" data-status="">
 										<label class="form-check-label" for="kelas<?= $kelas['idkelas'] ?>">
 											<?= $kelas['kelas'] ?>
 										</label>

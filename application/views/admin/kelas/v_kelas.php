@@ -55,11 +55,11 @@
 				<form method="post" action="<?= base_url() ?>Kelas/Create">
 					<div class="form-group">
 						<label for="">Kelas <span class="text-danger">*</span></label>
-						<input type="text" class="form-control kelas" id="Kelas" name="kelas" placeholder="Masukan nama kelas">
+						<input type="text" class="form-control kelas" id="Kelas" required name="kelas" placeholder="Masukan nama kelas">
 					</div>
 					<div class="form-group" id="jurusanKelasAdd">
 						<label for="">Jurusan <span class="text-danger">*</span></label>
-						<select class="form-control jurusan" id="exampleFormControlSelect1 jurusanKelas" name="jurusan">
+						<select class="form-control jurusan" id="exampleFormControlSelect1 jurusanKelas" required name="jurusan">
 							<option disabled selected>-- Jurusan --</option>
 							<?php foreach ($jurusan as $j) : ?>
 								<option value="<?= $j['id'] ?>"><?= $j['jurusan'] ?></option>
@@ -89,14 +89,14 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" action="<?= base_url() ?>Kelas/Edit">
-					<input type="hidden" name="id" id="id">
+					<input type="hidden" required name="id" id="id">
 					<div class="form-group">
 						<label for="">Kelas <span class="text-danger">*</span></label>
-						<input type="text" class="form-control inputKelas" name="kelas" id="inputKelas" placeholder="Masukan nama kelas">
+						<input type="text" class="form-control inputKelas" required name="kelas" id="inputKelas" placeholder="Masukan nama kelas">
 					</div>
 					<div class="form-group jurusanEdit">
 						<label for="">Jurusan <span class="text-danger">*</span></label>
-						<select class="form-control" id="exampleFormControlSelect1 jurusanKelas" name="jurusan">
+						<select class="form-control" id="exampleFormControlSelect1 jurusanKelas" required name="jurusan">
 							<!-- <option selected>-- Jurusan --</option> -->
 							<?php foreach ($jurusan as $j) : ?>
 								<option value="<?= $j['id'] ?>"><?= $j['jurusan'] ?></option>

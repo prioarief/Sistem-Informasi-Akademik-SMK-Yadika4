@@ -61,20 +61,20 @@
 				<form method="post" action="<?= base_url() ?>Guru/Create">
 					<div class="form-group">
 						<label for="">Nama <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nama" placeholder="Masukan nama Guru">
+						<input type="text" class="form-control" required name="nama" placeholder="Masukan nama Guru">
 					</div>
 					<div class="form-group">
 						<label for="">Email <span class="text-danger">*</span></label>
-						<input type="email" class="form-control" name="email" placeholder="Masukan Email">
+						<input type="email" class="form-control" required name="email" placeholder="Masukan Email">
 						<small class="text-danger">* Email Tidak Boleh Sama!</small>
 					</div>
 					<div class="form-group">
 						<label for="">Password <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="password" placeholder="Masukan Password">
+						<input type="text" class="form-control" required name="password" placeholder="Masukan Password">
 					</div>
 					<div class="form-group jk-ortu">
 						<label for="">Status <span class="text-danger">*</span></label>
-						<select class="form-control" name="status">
+						<select class="form-control" required name="status">
 							<option disabled selected>-- Status --</option>>
 							<option value="Menikah">Menikah</option>>
 							<option value="Belum Menikah">Belum Menikah</option>>
@@ -82,7 +82,7 @@
 					</div>
 					<div class="form-group jk-ortu">
 						<label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-						<select class="form-control" name="jk">
+						<select class="form-control" required name="jk">
 							<option disabled selected>-- Jenis Kelamin --</option>
 							<option value="Laki-laki">Laki-laki</option>
 							<option value="Perempuan">Perempuan</option>
@@ -90,7 +90,7 @@
 					</div>
 					<div class="form-group agama-ortu">
 						<label for="">Agama <span class="text-danger">*</span></label>
-						<select class="form-control" name="agama">
+						<select class="form-control" required name="agama">
 							<option disabled selected>-- Agama --</option>
 							<option value="Islam">Islam</option>
 							<option value="Kristen">Kristen</option>
@@ -102,7 +102,7 @@
 					</div>
 					<div class="form-group goldarah-ortu">
 						<label for="">Gol Darah <span class="text-danger">*</span></label>
-						<select class="form-control" name="gol-darah">
+						<select class="form-control" required name="gol-darah">
 							<option disabled selected>-- Gol Darah --</option>
 							<option value="A+">A+</option>
 							<option value="A-">A-</option>
@@ -116,28 +116,28 @@
 					</div>
 					<div class="form-group">
 						<label for="">Pendidikan Terakhir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
+						<input type="text" class="form-control" required name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
 					</div>
 					<div class="form-group">
 						<label for="">Tempat Lahir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="tempat-lahir" placeholder="Masukan Tempat Lahir">
+						<input type="text" class="form-control" required name="tempat-lahir" placeholder="Masukan Tempat Lahir">
 					</div>
 					<div class="form-group">
 						<label for="">Tanggal Lahir <span class="text-danger">*</span></label>
-						<input type="date" class="form-control" name="tanggal-lahir">
-						<!-- <input type="date" class="form-control" name="tanggal-lahir" value="2013-01-08"> -->
+						<input type="date" class="form-control" required name="tanggal-lahir">
+						<!-- <input type="date" class="form-control" required name="tanggal-lahir" value="2013-01-08"> -->
 					</div>
 					<div class="form-group">
 						<label for="">Alamat <span class="text-danger">*</span></label>
-						<textarea name="alamat" cols="30" rows="2" class="form-control"></textarea>
+						<textarea required name="alamat" cols="30" rows="2" class="form-control"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="">Telpon <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="telpon" placeholder="Masukan Telpon">
+						<input type="text" class="form-control" required name="telpon" placeholder="Masukan Telpon">
 					</div>
 					<div class="form-group">
 						<label for="">kewarganegaraan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
+						<input type="text" class="form-control" required name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
@@ -165,23 +165,23 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" action="<?= base_url() ?>Guru/Edit">
-					<input type="hidden" name="id" id="id-guru">
+					<input type="hidden" required name="id" id="id-guru">
 					<div class="form-group">
 						<label for="">Nama <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="nama" placeholder="Masukan nama Guru" id="nama-guru">
+						<input type="text" class="form-control" required name="nama" placeholder="Masukan nama Guru" id="nama-guru">
 					</div>
 					<div class="form-group">
 						<label for="">Email <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="email" placeholder="Masukan Email" id="email-guru">
+						<input type="text" class="form-control" required name="email" placeholder="Masukan Email" id="email-guru">
 						<small class="text-danger">* Email Tidak Boleh Sama!</small>
 					</div>
 					<div class="form-group">
 						<label for="">Password <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="password" placeholder="Masukan Password" id="password-guru">
+						<input type="text" class="form-control" required name="password" placeholder="Masukan Password" id="password-guru">
 					</div>
 					<div class="form-group jk-guru">
 						<label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-						<select class="form-control" id="jk-guru" name="jk">
+						<select class="form-control" id="jk-guru" required name="jk">
 							<option disabled selected>-- Jenis Kelamin --</option>
 							<option value="Laki-laki">Laki-laki</option>
 							<option value="Perempuan">Perempuan</option>
@@ -189,7 +189,7 @@
 					</div>
 					<div class="form-group status-guru">
 						<label for="">Status <span class="text-danger">*</span></label>
-						<select class="form-control" name="status">
+						<select class="form-control" required name="status">
 							<option disabled selected>-- Status --</option>>
 							<option value="Menikah">Menikah</option>>
 							<option value="Belum Menikah">Belum Menikah</option>>
@@ -198,7 +198,7 @@
 					
 					<div class="form-group agama-guru">
 						<label for="">Agama <span class="text-danger">*</span></label>
-						<select class="form-control" id="agama-Guru" name="agama">
+						<select class="form-control" id="agama-Guru" required name="agama">
 							<option disabled selected>-- Agama --</option>
 							<option value="Islam">Islam</option>
 							<option value="Kristen">Kristen</option>
@@ -210,7 +210,7 @@
 					</div>
 					<div class="form-group goldarah-guru">
 						<label for="">Gol Darah <span class="text-danger">*</span></label>
-						<select class="form-control" id="gol-darah-guru" name="gol-darah">
+						<select class="form-control" id="gol-darah-guru" required name="gol-darah">
 							<option disabled selected>-- Gol Darah --</option>
 							<option value="A+">A+</option>
 							<option value="A-">A-</option>
@@ -224,28 +224,28 @@
 					</div>
 					<div class="form-group">
 						<label for="">Pendidikan Terakhir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="pendidikan-guru" name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
+						<input type="text" class="form-control" id="pendidikan-guru" required name="pendidikan" placeholder="CONTOH : S1 PENDIDIKAN SENI RUPA">
 					</div>
 					<div class="form-group">
 						<label for="">Tempat Lahir <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="tempat-lahir-guru" name="tempat-lahir" placeholder="Masukan Tempat Lahir">
+						<input type="text" class="form-control" id="tempat-lahir-guru" required name="tempat-lahir" placeholder="Masukan Tempat Lahir">
 					</div>
 					<div class="form-group">
 						<label for="">Tanggal Lahir <span class="text-danger">*</span></label>
-						<input type="date" class="form-control" id="tanggal-lahir-guru" name="tanggal-lahir">
-						<!-- <input type="date" class="form-control" name="tanggal-lahir" value="2013-01-08"> -->
+						<input type="date" class="form-control" id="tanggal-lahir-guru" required name="tanggal-lahir">
+						<!-- <input type="date" class="form-control" required name="tanggal-lahir" value="2013-01-08"> -->
 					</div>
 					<div class="form-group">
 						<label for="">Alamat <span class="text-danger">*</span></label>
-						<textarea name="alamat" id="alamat-guru" cols="30" rows="2" class="form-control"></textarea>
+						<textarea required name="alamat" id="alamat-guru" cols="30" rows="2" class="form-control"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="">Telpon <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="telpon-guru" name="telpon" placeholder="Masukan Telpon">
+						<input type="text" class="form-control" id="telpon-guru" required name="telpon" placeholder="Masukan Telpon">
 					</div>
 					<div class="form-group">
 						<label for="">kewarganegaraan <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="kewarganegaraan-guru" name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
+						<input type="text" class="form-control" id="kewarganegaraan-guru" required name="kewarganegaraan" placeholder="Contoh : Warga Negara Indonesia">
 					</div>
 					<span class="text-danger">* Wajib diisi!</span>
 					<div class="form-group">
