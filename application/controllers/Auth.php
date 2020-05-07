@@ -177,7 +177,7 @@ class Auth extends CI_Controller
 					redirect('Auth/Guru');
 				}
 			} else {
-				$this->session->set_flashdata('login-gagal', 'NIK belum terdaftar sebagai Siswa, silakan hubungi petugas TU');
+				$this->session->set_flashdata('login-gagal', 'Email belum terdaftar sebagai Siswa, silakan hubungi petugas TU');
 				redirect('Auth/Guru');
 			}
 		}
@@ -185,13 +185,16 @@ class Auth extends CI_Controller
 
 	public function logout()
 	{
-		$user_data = $this->session->all_userdata();
+		// $user_data = $this->session->all_userdata();
 
-		foreach ($user_data as $key => $value) {
-			if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
-				$this->session->unset_userdata($key);
-			}
-		}
+		// foreach ($user_data as $key => $value) {
+		// 	if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
+		// 		$this->session->unset_userdata($key);
+		// 	}
+		// }
+
+		$this->session->sess_destroy();
+
 
 		redirect('Auth');
 	}

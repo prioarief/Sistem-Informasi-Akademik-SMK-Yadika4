@@ -76,7 +76,7 @@
 							<?php foreach ($kelas as $k) : ?>
 								<div class="col-sm-3">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" required name="kelas[]" value="<?= $k['idkelas'] ?>" id="kelas<?= $k['idkelas'] ?>">
+										<input class="form-check-input" type="checkbox" name="kelas[]" value="<?= $k['idkelas'] ?>" id="kelas<?= $k['idkelas'] ?>">
 										<label class="form-check-label" for="kelas<?= $k['idkelas'] ?>">
 											<?= $k['kelas'] ?>
 										</label>
@@ -111,7 +111,7 @@
 					<input type="hidden" required name="id" id="id">
 					<div class="form-group">
 						<label for="">Mapel <span class="text-danger">*</span></label>
-						<input type="text" id="mapel" class="form-control" required name="mapel" placeholder="Masukan Mapel">
+						<input type="text" id="mapelEdit" class="form-control" required name="mapel" placeholder="Masukan Mapel">
 					</div>
 					<div class="form-group guruEdit" id="">
 						<label for="">Guru<span class="text-danger">*</span></label>
@@ -128,8 +128,8 @@
 							<?php foreach ($kelas as $kelas) : ?>
 								<div class="col-sm-3">
 									<div class="form-check">
-										<input class="form-check-input kelas" type="checkbox" required name="kelas[]" value="<?= $kelas['idkelas'] ?>" id="kelas<?= $kelas['idkelas'] ?>" data-status="">
-										<label class="form-check-label" for="kelas<?= $kelas['idkelas'] ?>">
+										<input class="form-check-input kelas" type="checkbox" name="kelas[]" value="<?= $kelas['idkelas'] ?>" id="editkelas<?= $kelas['idkelas'] ?>" data-status="">
+										<label class="form-check-label" for="editkelas<?= $kelas['idkelas'] ?>">
 											<?= $kelas['kelas'] ?>
 										</label>
 									</div>

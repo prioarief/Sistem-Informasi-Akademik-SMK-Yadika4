@@ -1,5 +1,5 @@
 <div class="container mt-5">
-	<h3 class="text-center">Data Siswa Kelas <?= $kelas['kelas'] ?></h3>
+	<h3 class="text-center mb-3">Data Siswa Kelas <?= $kelas['kelas'] ?> <br> <b><?= $mapel['mapel'] ?></b></h3>
 	<?php if ($siswa) : ?>
 		<div class="col-12">
 			<table class="table table-responsive-md">
@@ -12,6 +12,9 @@
 					</tr>
 				</thead>
 				<tbody>
+					<form action="<?= base_url() ?>Home/AbsenAction" method="post">
+					<input type="hidden" name="kelas" value="<?= $kelas['id'] ?>">
+					<input type="hidden" name="mapel" id="mapel" value="<?= $mapel['id'] ?>">
 					<?php $no = 1; ?>
 					<?php foreach ($siswa as $siswa) : ?>
 						<tr>
@@ -19,42 +22,23 @@
 							<td><?= $siswa['nama'] ?></td>
 							<td><?= $siswa['nis'] ?></td>
 							<td>
-								<form action="<?= base_url() ?>Home/AbsenAction" method="post">
 									<div class="form-group" id="">
 										<div class="row">
-											<!-- <div class="col-sm-4">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" name="absen[]" data-nis="<?= $siswa['id'] ?>" value="hadir" id="hadir<?= $siswa['nis'] ?>">
-													<label class="form-check-label" for="hadir<?= $siswa['nis'] ?>">Hadir</label>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" name="absen[]" data-nis="<?= $siswa['id'] ?>" value="sakit" id="sakit<?= $siswa['nis'] ?>">
-													<label class="form-check-label" for="sakit<?= $siswa['nis'] ?>">Sakit</label>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" name="absen[]" data-nis="<?= $siswa['id'] ?>" value="ijin" id="ijin<?= $siswa['nis'] ?>">
-													<label class="form-check-label" for="ijin<?= $siswa['nis'] ?>">Ijin</label>
-												</div>
-											</div> -->
 											<div class="custom-control custom-radio custom-control-inline">
-												<input type="radio" data-nis="<?= $siswa['id'] ?>" id="hadir<?= $siswa['nis'] ?>" required name="absen<?= $siswa['nis'] ?>" class="custom-control-input absen-hadir" value="hadir">
+												<input type="radio" id="hadir<?= $siswa['nis'] ?>" required name="absen<?= $siswa['id'] ?>" class="custom-control-input absen-hadir" value="hadir">
 												<label class="custom-control-label" for="hadir<?= $siswa['nis'] ?>">Hadir</label>
 											</div>
 											<div class="custom-control custom-radio custom-control-inline">
-												<input type="radio" data-nis="<?= $siswa['id'] ?>" id="sakit<?= $siswa['nis'] ?>" required name="absen<?= $siswa['nis'] ?>" class="custom-control-input absen sakit" value="sakit">
+												<input type="radio" id="sakit<?= $siswa['nis'] ?>" required name="absen<?= $siswa['id'] ?>" class="custom-control-input absen sakit" value="sakit">
 												<label class="custom-control-label" for="sakit<?= $siswa['nis'] ?>">Sakit</label>
 											</div>
 											<div class="custom-control custom-radio custom-control-inline">
-												<input type="radio" data-nis="<?= $siswa['id'] ?>" id="ijin<?= $siswa['nis'] ?>" required name="absen<?= $siswa['nis'] ?>" class="custom-control-input absen ijin" value="ijin">
+												<input type="radio" id="ijin<?= $siswa['nis'] ?>" required name="absen<?= $siswa['id'] ?>" class="custom-control-input absen ijin" value="ijin">
 												<label class="custom-control-label" for="ijin<?= $siswa['nis'] ?>">Ijin</label>
 											</div>
 											<div class="custom-control custom-radio custom-control-inline">
-												<input type="radio" data-nis="<?= $siswa['id'] ?>" id="alpa<?= $siswa['nis'] ?>" required name="absen<?= $siswa['nis'] ?>" class="custom-control-input absen alpa" value="alpa">
-												<label class="custom-control-label" for="alpa<?= $siswa['nis'] ?>">alpa</label>
+												<input type="radio" id="alpa<?= $siswa['nis'] ?>" required name="absen<?= $siswa['id'] ?>" class="custom-control-input absen alpa" value="alpa">
+												<label class="custom-control-label" for="alpa<?= $siswa['nis'] ?>">Alpa</label>
 											</div>
 										</div>
 									</div>
@@ -62,7 +46,7 @@
 						</tr>
 						<?php $no++; ?>
 					<?php endforeach; ?>
-					<!-- <tr>
+					<tr>
 						<td></td>
 						<td></td>
 						<td></td>
@@ -77,7 +61,7 @@
 							</div>
 
 						</td>
-					</tr> -->
+					</tr>
 				</tbody>
 			</table>
 			<button type="submit" class="btn btn-primary text-right absen">Submit</button>

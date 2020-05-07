@@ -20,7 +20,7 @@ $(document).ready(function () {
 				const mapel = result.id;
 
 				$("input#id").val(result.id);
-				$("input#mapel").val(result.mapel);
+				$("input#mapelEdit").val(result.mapel);
 				$("div.guruEdit select").val(guru);
 
 				$.ajax({
@@ -33,7 +33,7 @@ $(document).ready(function () {
 						const data = JSON.parse(response);
 
 						data.map((kelas) => {
-							$(`input#kelas${kelas.kelas_id}`).prop("checked", true);
+							$(`input#editkelas${kelas.kelas_id}`).prop("checked", true);
 						});
 					},
 					error: (err) => {

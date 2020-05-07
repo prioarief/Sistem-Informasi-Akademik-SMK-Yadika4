@@ -7,10 +7,12 @@ class Home extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		date_default_timezone_set("Asia/Bangkok");
 		$this->load->model('JurusanModel', 'Jurusan');
 		$this->load->model('KelasModel', 'Kelas');
 		$this->load->model('SiswaModel', 'Siswa');
 		$this->load->model('MapelModel', 'Mapel');
+		$this->load->model('AbsenModel', 'Absen');
 		login_true();
 	}
 
@@ -40,23 +42,48 @@ class Home extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function Absen($id = null)
+	public function Absen($id = null, $mapel = null)
 	{
-		if (is_null($id)) {
+		if (is_null($id) || is_null($mapel)) {
 			redirect('Home/DataAbsensi');
 		} else {
 			if ($this->Kelas->getKelasByid($id)) {
 				$data = [
-					'title' => 'Home',
+					'title' => 'Absensi',
 					'jurusan' => $this->Jurusan->getJurusan(),
 					'kelas' => $this->Kelas->getKelasByid($id),
-					'siswa' => $this->Siswa->GetSiswaByKelas($id)
+					'siswa' => $this->Siswa->GetSiswaByKelas($id),
+					'mapel' => $this->Mapel->getMapelByid($mapel)
 				];
 
 				$this->load->view('templates/header', $data);
 				$this->load->view('home/absen/absen-siswa', $data);
 				$this->load->view('templates/footer');
-			}else{
+			} else {
+				redirect('Home/DataAbsensi');
+			}
+		}
+	}
+
+	public function Absensi($id = null, $mapel = null)
+	{
+		if (is_null($id) || is_null($mapel)) {
+			redirect('Home/DataAbsensi');
+		} else {
+			if ($this->Kelas->getKelasByid($id)) {
+				$data = [
+					'title' => 'Absensi',
+					'jurusan' => $this->Jurusan->getJurusan(),
+					'kelas' => $this->Kelas->getKelasByid($id),
+					'siswa' => $this->Siswa->GetSiswaByKelas($id),
+					'mapel' => $this->Mapel->getMapelByid($mapel),
+					'absen' => $this->Absen->getAbsenByKelasMapel($id, $mapel),
+				];
+
+				$this->load->view('templates/header', $data);
+				$this->load->view('home/absen/absen-kelas', $data);
+				$this->load->view('templates/footer');
+			} else {
 				redirect('Home/DataAbsensi');
 			}
 		}
@@ -78,15 +105,80 @@ class Home extends CI_Controller
 
 	public function AbsenAction()
 	{
+		$this->db->trans_start();
+		$kelas = $this->input->post('kelas');
+		$mapel = $this->input->post('mapel');
+		$absen = [
+			'mapel_id' => $mapel,
+			'kelas_id' => $kelas,
+			'tanggal' => date('Y-m-d', time()),
+		];
+
+		$this->Absen->AddData($absen);
+
+		$absen_id = $this->db->insert_id();
+
 		$data = $this->input->post();
 		foreach ($data as $key => $value) {
-			// echo $key . '<br>';
-			
+			if ($key != 'kelas' && $key != 'mapel' && $key != 'hadir') {
+				$entry = strlen($key);
+				$result = substr($key, 5, $entry);
 
-			$entry = strlen($key);
-			$result = substr($key, 5, $entry);
-			echo $result . '  - status = '. $value .'<br>';
-		
+				if ($key && $value) {
+					$detailAbsen = [
+						'absen_id' => $absen_id,
+						'siswa_id' => $result,
+						'keterangan' => $value,
+					];
+
+
+					$this->db->insert('detail_absen', $detailAbsen);
+				} else {
+					die;
+				}
+			}
+		}
+		$this->db->trans_complete();
+		redirect('Home/DataAbsensi');
+	}
+
+	public function DetailAbsen($id = null)
+	{
+		if (is_null($id)) {
+			redirect('Home/DataAbsensi');
+		} else {
+			$req = $this->Absen->getAbsen($id);
+			$data = [
+				'jurusan' => $this->Jurusan->getJurusan(),
+				'title' => 'Detail Absen',
+				'absen' => $req
+			];
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('home/absen/detail-absen', $data);
+			$this->load->view('templates/footer');
+		}
+	}
+
+	public function EditAbsen()
+	{
+		$data = $this->input->post();
+		foreach ($data as $key => $value) {
+			if ($key != 'kelas' && $key != 'mapel' && $key != 'hadir') {
+				$entry = strlen($key);
+				$result = substr($key, 5, $entry);
+
+				if ($key && $value) {
+					$detailAbsen = [
+						'keterangan' => $value,
+					];
+
+					$this->db->where('id', $result);
+					$this->db->update('detail_absen', $detailAbsen);
+				} else {
+					die;
+				}
+			}
 		}
 	}
 }
