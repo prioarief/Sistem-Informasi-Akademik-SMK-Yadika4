@@ -16,26 +16,34 @@ class Home extends CI_Controller
 		login_true();
 	}
 
-	public function AbsenSaya($id = null, $mapel = null)
+	public function AbsenSaya($id = null, $matapelajaran = null)
 	{
-		if (is_null($id || is_null($mapel))) {
+		if (is_null($id || is_null($matapelajaran))) {
 			redirect('Home/DataAbsensi');
 		}else{
 			$bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-			$req = $this->Absen->getAbsenBySiswa($id, $mapel);
-			$mapel = $this->Mapel->getMapelByid($mapel);
+			$req = $this->Absen->getAbsenBySiswa($id, $matapelajaran);
+			$mapel = $this->Mapel->getMapelByid($matapelajaran);
 			$data = [
 				'title' => 'Absen Saya',
 				'jurusan' => $this->Jurusan->getJurusan(),
 				'absen' => $req,
 				'mapel' => $mapel,
 				'bulan' => $bulan,
+				'siswa' => $id,
+				'matapelajaran' => $matapelajaran
+
 			];
 	
 			$this->load->view('templates/header', $data);
 			$this->load->view('home/absen/absen-saya', $data);
 			$this->load->view('templates/footer');
 		}
+	}
+
+	public function getAbsenPerBulan($siswa, $mapel, $bulan)
+	{
+		echo json_encode($this->Absen->getAbsenPerBulan($siswa, $mapel, $bulan));
 	}
 
 	public function index()

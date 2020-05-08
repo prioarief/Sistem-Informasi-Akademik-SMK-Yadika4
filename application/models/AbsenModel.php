@@ -46,16 +46,16 @@ class AbsenModel extends CI_Model
 		return $query;
 	}
 	
-	public function getAbsenPerBulan($kelas, $mapel, $bulan)
+	public function getAbsenPerBulan($siswa, $mapel, $bulan)
 	{
-		$this->db->select('absen.*, kelas.kelas, mapel.mapel');
-		$this->db->from('absen');
-		$this->db->join('kelas', 'kelas.id = absen.kelas_id');
-		$this->db->join('mapel', 'mapel.id = absen.mapel_id');
-		$this->db->where('absen.kelas_id', $kelas);
+		$this->db->select('detail_absen.*,  siswa.id as idSiswa, absen.tanggal');
+		$this->db->from('detail_absen');
+		$this->db->join('absen', 'absen.id = detail_absen.absen_id');
+		$this->db->join('siswa', 'siswa.id = detail_absen.siswa_id');
 		$this->db->where('absen.mapel_id', $mapel);
-		$this->db->where('absen.tanggal', $bulan);
-		$this->db->order_by('absen.tanggal', 'ASC');
+		$this->db->where('detail_absen.siswa_id', $siswa);
+		$this->db->where('MONTH(absen.tanggal)', $bulan);
+		$this->db->order_by('absen.tanggal', 'desc');
 		$query = $this->db->get()->result_array();
 		return $query;
 	}

@@ -3,21 +3,24 @@
 	<form action="" method="post">
 		<div class="form-group jurusanEdit">
 			<label for="order">Bulan</label>
-			<select class="form-control" id="order" required name="bulan">
+			<select class="form-control order" id="order" required name="bulan">
 				<option selected disabled>-- Order By --</option>
 				<?php $no = 1; ?>
 				<?php foreach ($bulan as $bulan) : ?>
-					<option value="<?= $no ?>"><?= $bulan ?></option>
+					<option class="orderr" data-siswa="<?= $siswa ?>" data-mapel="<?= $matapelajaran ?>" value="<?= $no ?>"><?= $bulan ?></option>
 					<?php $no++ ?>
 				<?php endforeach; ?>
 			</select>
 		</div>
 	</form>
+	
 	<div class="col-12">
-		<table class="table table-responsive-md">
+		<div id="konten">
+			<h1 id="message"></h1>
+			<!-- <table class="table table-responsive-md">
 			<thead>
 				<tr>
-					<?php foreach ($absen as $a) : ?>
+				<?php foreach ($absen as $a) : ?>
 						<th scope="col"><?= $a['tanggal'] ?></th>
 					<?php endforeach; ?>
 				</tr>
@@ -27,7 +30,6 @@
 
 				<tr>
 					<?php foreach ($absen as $absen) : ?>
-						<!-- <td><?= $absen['tanggal'] ?></td> -->
 						<td>
 							<?php if ($absen['keterangan'] == 'hadir') : ?>
 								<div class="bg-success" style="width: 30px; height:30px" title="Hadir">
@@ -52,7 +54,8 @@
 
 
 			</tbody>
-		</table>
+		</table> -->
+		</div>
 		<table class="table table-responsive-md">
 			<thead>
 				<tr>
