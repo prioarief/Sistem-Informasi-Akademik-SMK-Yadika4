@@ -25,6 +25,19 @@ class MapelModel extends CI_Model
 		$query = $this->db->get()->result_array();
 		return $query;
 	}
+	
+	public function getDetailMapelByKelas($id)
+	{
+		$this->db->select('detail_mapel.*, kelas.kelas, mapel.mapel, guru.nama ');
+		$this->db->from('detail_mapel');
+		$this->db->join('mapel', 'mapel.id = detail_mapel.mapel_id');
+		$this->db->join('kelas', 'kelas.id = detail_mapel.kelas_id');
+		$this->db->join('guru', 'guru.id = mapel.guru_id');
+		$this->db->where('detail_mapel.kelas_id', $id);
+		$this->db->order_by('mapel', 'ASC');
+		$query = $this->db->get()->result_array();
+		return $query;
+	}
 
 	public function getMapelByid($id)
 	{

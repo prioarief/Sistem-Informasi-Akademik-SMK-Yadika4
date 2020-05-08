@@ -17,6 +17,7 @@
 <!-- Core plugin JavaScript-->
 <script src="<?= base_url() ?>assets/template/vendor/jquery-easing/jquery.easing.min.js"></script>
 
+<script src="<?= base_url() ?>assets/js/myJs.js"></script>
 <script src="<?= base_url() ?>assets/js/user.js"></script>
 <script src="<?= base_url() ?>assets/aos/aos.js"></script>
 <script>

@@ -60,6 +60,39 @@ $(document).ready(function () {
 		});
 	});
 
+	// delete absen
+	$('a.deleteAbsen').on('click', function (e) {
+		e.preventDefault();
+		const href = $(this).attr('href');
+		const text = $(this).data('text');
+
+		Swal.fire({
+			title: "Data yang sudah dihapus tidak dapat kembali lagi!",
+			text: `${text} akan di hapus!!`,
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Hapus!",
+		}).then((result) => {
+			if (result.value) {
+				
+				document.location.href = href;
+				// Swal.fire({
+				// 	icon: "success",
+				// 	title: "Berhasil Di Hapus!",
+				// 	text: `${text} berhasil di hapus`,
+				// 	showConfirmButton: true,
+				// });
+			}
+		});
+	})
+
+	// order absen
+	$('#order').on('change', function (){
+		console.log($(this).val())
+	})
+
 
 
 	// $("button.absen").prop('disabled', true)

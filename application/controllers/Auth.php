@@ -45,9 +45,11 @@ class Auth extends CI_Controller
 				if ($req['password'] == $password) {
 
 					$dataSiswa = [
+						'idSiswa' => $req['id'],
 						'nama' => $req['nama'],
 						'nis' => $req['nis'],
 						'kelas' => $req['kelas'],
+						'kelasSaya' => $req['kelas_id'],
 						'orangtua' => $req['orangtua'],
 						'password' => $req['password'],
 						'jk' => $req['jk'],

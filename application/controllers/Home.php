@@ -16,6 +16,28 @@ class Home extends CI_Controller
 		login_true();
 	}
 
+	public function AbsenSaya($id = null, $mapel = null)
+	{
+		if (is_null($id || is_null($mapel))) {
+			redirect('Home/DataAbsensi');
+		}else{
+			$bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+			$req = $this->Absen->getAbsenBySiswa($id, $mapel);
+			$mapel = $this->Mapel->getMapelByid($mapel);
+			$data = [
+				'title' => 'Absen Saya',
+				'jurusan' => $this->Jurusan->getJurusan(),
+				'absen' => $req,
+				'mapel' => $mapel,
+				'bulan' => $bulan,
+			];
+	
+			$this->load->view('templates/header', $data);
+			$this->load->view('home/absen/absen-saya', $data);
+			$this->load->view('templates/footer');
+		}
+	}
+
 	public function index()
 	{
 		$data = [
@@ -31,10 +53,13 @@ class Home extends CI_Controller
 	public function DataAbsensi()
 	{
 		$req = $this->Mapel->getMapelByGuru($this->session->userdata('id'));
+		$kelas = $this->Mapel->getDetailMapelByKelas($this->session->userdata('kelasSaya'));
 		$data = [
 			'title' => 'Home',
 			'jurusan' => $this->Jurusan->getJurusan(),
 			'mapel' => $req,
+			'kelas' => $kelas,
+			'saya' => $this->session->userdata('id')
 		];
 
 		$this->load->view('templates/header', $data);
@@ -44,7 +69,9 @@ class Home extends CI_Controller
 
 	public function Absen($id = null, $mapel = null)
 	{
+		$this->akses();
 		if (is_null($id) || is_null($mapel)) {
+			// $this->session->set_flashdata('alert', '');
 			redirect('Home/DataAbsensi');
 		} else {
 			if ($this->Kelas->getKelasByid($id)) {
@@ -60,6 +87,7 @@ class Home extends CI_Controller
 				$this->load->view('home/absen/absen-siswa', $data);
 				$this->load->view('templates/footer');
 			} else {
+				// $this->session->set_flashdata('alert', '');
 				redirect('Home/DataAbsensi');
 			}
 		}
@@ -67,6 +95,7 @@ class Home extends CI_Controller
 
 	public function Absensi($id = null, $mapel = null)
 	{
+		$this->akses();
 		if (is_null($id) || is_null($mapel)) {
 			redirect('Home/DataAbsensi');
 		} else {
@@ -84,6 +113,7 @@ class Home extends CI_Controller
 				$this->load->view('home/absen/absen-kelas', $data);
 				$this->load->view('templates/footer');
 			} else {
+				// $this->session->set_flashdata('alert', '');
 				redirect('Home/DataAbsensi');
 			}
 		}
@@ -91,7 +121,9 @@ class Home extends CI_Controller
 
 	public function DetailKelas($id = null)
 	{
+		$this->akses();
 		if (is_null($id)) {
+			// $this->session->set_flashdata('alert', '');
 			redirect('Home');
 		}
 
@@ -99,20 +131,28 @@ class Home extends CI_Controller
 		if ($req) {
 			echo json_encode($req);
 		} else {
+			// $this->session->set_flashdata('alert', '');
 			redirect('Home');
 		}
 	}
 
 	public function AbsenAction()
 	{
+		$this->akses();
 		$this->db->trans_start();
 		$kelas = $this->input->post('kelas');
 		$mapel = $this->input->post('mapel');
+		$tanggal = date('Y-m-d', time());
 		$absen = [
 			'mapel_id' => $mapel,
 			'kelas_id' => $kelas,
-			'tanggal' => date('Y-m-d', time()),
+			'tanggal' => $tanggal,
 		];
+
+		if ($this->Absen->get($kelas, $mapel, $tanggal)) {
+			$this->session->set_flashdata('alert2', 'Absen Gagal Di Input. Hari ini sudah di absen');
+			redirect('Home/DataAbsensi');
+		}
 
 		$this->Absen->AddData($absen);
 
@@ -139,12 +179,15 @@ class Home extends CI_Controller
 			}
 		}
 		$this->db->trans_complete();
+		$this->session->set_flashdata('alert', 'Absen Berhasil Di Input');
 		redirect('Home/DataAbsensi');
 	}
 
 	public function DetailAbsen($id = null)
 	{
+		$this->akses();
 		if (is_null($id)) {
+			$this->session->set_flashdata('alert', '');
 			redirect('Home/DataAbsensi');
 		} else {
 			$req = $this->Absen->getAbsen($id);
@@ -160,8 +203,22 @@ class Home extends CI_Controller
 		}
 	}
 
+	public function DeleteAbsen($id = null)
+	{
+		$this->akses();
+		if (is_null($id)) {
+			$this->session->set_flashdata('alert2', 'Absen Gagal Di Hapus');
+			redirect('Home/DataAbsensi');
+		} else {
+			$this->Absen->DeleteData($id);
+			$this->session->set_flashdata('alert', 'Absen Berhasil Di Hapus');
+			redirect('Home/DataAbsensi');
+		}
+	}
+
 	public function EditAbsen()
 	{
+		$this->akses();
 		$data = $this->input->post();
 		foreach ($data as $key => $value) {
 			if ($key != 'kelas' && $key != 'mapel' && $key != 'hadir') {
@@ -179,6 +236,15 @@ class Home extends CI_Controller
 					die;
 				}
 			}
+		}
+		$this->session->set_flashdata('alert', 'Absen Berhasil Di Edit');
+		redirect('Home/DataAbsensi');
+	}
+
+	private function akses()
+	{
+		if ($this->session->userdata('akses') != 'Guru') {
+			redirect('Home');
 		}
 	}
 }

@@ -46,15 +46,15 @@
 						<div class="col-12">
 							<div class="list-group d-inline mt-5" id="list-tab" role="tablist">
 								<a class="list-group-item list-group-item-action active d-inline" id="list-Siswa-list" data-toggle="list" href="#list-Siswa" role="tab" aria-controls="Siswa">
-									<i class="fas fa-fw fa-users"></i>
+									<!-- <i class="fas fa-fw fa-users"></i> -->
 									<span>Siswa</span>
 								</a>
 								<a class="list-group-item list-group-item-action d-inline" id="list-Orangtua-list" data-toggle="list" href="#list-Orangtua" role="tab" aria-controls="Orangtua">
-									<i class="fas fa-fw fa-user-friends"></i>
+									<!-- <i class="fas fa-fw fa-user-friends"></i> -->
 									<span>Orangtua</span>
 								</a>
 								<a class="list-group-item list-group-item-action d-inline" id="list-Guru-list" data-toggle="list" href="#list-Guru" role="tab" aria-controls="Guru">
-									<i class="fas fa-fw fa-chalkboard-teacher"></i>
+									<!-- <i class="fas fa-fw fa-chalkboard-teacher"></i> -->
 									<span>Guru</span>
 								</a>
 							</div>
