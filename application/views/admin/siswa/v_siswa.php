@@ -4,6 +4,19 @@
 <div class="flashdata2" data-alert2="<?= $this->session->flashdata('alert2') ?>"></div>
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
+		<form action="<?= base_url() ?>Siswa/Export" method="post">
+			<div class="form-group">
+				<label for="">Export Data Siswa Perkelas</label>
+				<select class="form-control" required name="kelas">
+					<option disabled selected>-- Kelas --</option>
+					<?php foreach ($kelas as $k) : ?>
+						<option value="<?= $k['idkelas'] ?>"><?= $k['kelas'] ?></option>
+						<?php endforeach; ?>
+						<option value="">Semua Kelas</option>
+				</select>
+			</div>
+			<button class="btn btn-info ml-3 btn-sm"><i class="fa fa-file-download"> Export PDF </i></button>
+		</form>
 
 	</div>
 	<div class="card-body">
@@ -310,7 +323,7 @@
 				</button>
 			</div>
 			<div class="modal-body detail">
-				
+
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

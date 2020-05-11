@@ -41,7 +41,7 @@ class Siswa extends CI_Controller
 			redirect('Siswa');
 		}
 	}
-	
+
 	public function DetailSiswa($nis = null)
 	{
 		if (is_null($nis)) {
@@ -155,7 +155,7 @@ class Siswa extends CI_Controller
 			$id = $this->input->post('id');
 			$req = $this->Siswa->getDataByid($id);
 
-			
+
 			if ($req) {
 				$data = [
 					'nama' => strtoupper($this->input->post('nama', true)),
@@ -177,12 +177,40 @@ class Siswa extends CI_Controller
 				$this->Siswa->EditData($id, $data);
 				$this->session->set_flashdata('alert', 'Berhasil Di Edit');
 				redirect('Siswa');
-				
 			} else {
 				$this->session->set_flashdata('alert2', 'Gagal Di Edit');
 				redirect('Siswa');
 			}
 		}
+	}
+
+	public function getSiswaPerKelas($id)
+	{
+		echo json_encode($this->Siswa->GetSiswaByKelas($id));
+	}
+
+
+	public function Export()
+	{
+		$id = $this->input->post('kelas', true);
+
+		$data = [
+			'title' => 'Data Siswa',
+			'siswa' => $this->Siswa->getSiswaPerKelas($id),
+			'kelas' => $this->Kelas->get(),
+
+		];
+
+		ob_start();
+		
+		$this->load->view('admin/siswa/cetak_siswa', $data);
+		$html = ob_get_contents();        
+		ob_end_clean();                   
+		require './assets/pdf/vendor/autoload.php';
+		$pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');   
+		$pdf->WriteHTML($html);    
+		$pdf->Output('Data Siswa.pdf', 'I');
+
 	}
 }
         

@@ -19,7 +19,7 @@ class SiswaModel extends CI_Model
 	{
 		return $this->db->get_where('siswa', ['id' => $id])->row_array();
 	}
-	
+
 	public function getDataByNis($nis)
 	{
 		$this->db->select('siswa.*, kelas.kelas, orang_tua.nama as orangtua');
@@ -40,7 +40,7 @@ class SiswaModel extends CI_Model
 		$query = $this->db->get()->result_array();
 		return $query;
 	}
-	
+
 	// public function GetSiswa($id)
 	// {
 	// 	$this->db->select('siswa.*, kelas.kelas, kelas.id as idKelas');
@@ -50,6 +50,26 @@ class SiswaModel extends CI_Model
 	// 	$query = $this->db->get()->result_array();
 	// 	return $query;
 	// }
+
+	public function getSiswaPerKelas($id = null)
+	{
+		if (is_null($id)) {
+			$this->db->select('siswa.*, kelas.kelas, orang_tua.nama as orangtua');
+			$this->db->from('siswa');
+			$this->db->join('kelas', 'kelas.id = siswa.kelas_id');
+			$this->db->join('orang_tua', 'orang_tua.nik = siswa.nik_orangtua');
+			$query = $this->db->get()->result_array();
+			return $query;
+		} else {
+			$this->db->select('siswa.*, kelas.kelas, orang_tua.nama as orangtua');
+			$this->db->from('siswa');
+			$this->db->join('kelas', 'kelas.id = siswa.kelas_id');
+			$this->db->join('orang_tua', 'orang_tua.nik = siswa.nik_orangtua');
+			$this->db->where('kelas_id', $id);
+			$query = $this->db->get()->result_array();
+			return $query;
+		}
+	}
 
 	public function GetSiswaByKelas($id)
 	{
