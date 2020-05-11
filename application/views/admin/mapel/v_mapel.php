@@ -14,6 +14,7 @@
 						<th>Mapel</th>
 						<th>Guru</th>
 						<th>Kelas</th>
+						<th>Status</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -22,6 +23,7 @@
 						<th>Mapel</th>
 						<th>Guru</th>
 						<th>Kelas</th>
+						<th>Status</th>
 						<th>Action</th>
 					</tr>
 				</tfoot>
@@ -33,6 +35,11 @@
 							<td>
 								<button data-id="<?= $j['id'] ?>" class="badge badge-primary detailKelas" title="Detail" data-toggle="modal" data-target="#modalDetailKelas">Lihat Kelas Yang Di ajar</button>
 							</td>
+							<?php if ($j['produktif'] == 1) : ?>
+								<td>Produktif</td>
+							<?php elseif ($j['produktif'] == 0) : ?>
+								<td>Normatif</td>
+							<?php endif ?>
 							<td>
 								<button data-id="<?= $j['id'] ?>" class="btn btn-danger btn-sm hapusMapel" title="Hapus" data-toggle="modal" data-target="#modalHapusMapel"><i class="fa fa-trash"></i></button>
 								<button data-id="<?= $j['id'] ?>" class="btn btn-success btn-sm EditMapel" title="Edit" id="EditMapel" data-toggle="modal" data-target="#exampleModalEditMapel"><i class="fa fa-edit"></i></button>
@@ -68,6 +75,14 @@
 							<?php foreach ($guru as $g) : ?>
 								<option value="<?= $g['id'] ?>"><?= $g['nama'] ?></option>
 							<?php endforeach; ?>
+						</select>
+					</div>
+					<div class="form-group" id="">
+						<label for="">Status<span class="text-danger">*</span></label>
+						<select class="form-control guru" id="exampleFormControlSelect1" required name="status">
+							<option disabled selected>-- Produktif / Normatif --</option>
+							<option value="1">Produktif</option>
+							<option value="0">Normatif</option>
 						</select>
 					</div>
 					<div class="form-group" id="">
@@ -120,6 +135,14 @@
 							<?php foreach ($guru as $guru) : ?>
 								<option value="<?= $guru['id'] ?>"><?= $guru['nama'] ?></option>
 							<?php endforeach; ?>
+						</select>
+					</div>
+					<div class="form-group Status" id="">
+						<label for="">Status<span class="text-danger">*</span></label>
+						<select class="form-control guru" id="exampleFormControlSelect1" required name="status">
+							<option disabled selected>-- Produktif / Normatif --</option>
+							<option value="1">Produktif</option>
+							<option value="0">Normatif</option>
 						</select>
 					</div>
 					<div class="form-group kelasEdit" id="">
@@ -184,7 +207,7 @@
 					<div class="form-group kelasEdit" id="">
 						<p>Kelas Yang Diajar <span class="text-danger">*</span></p>
 						<div class="row detailKelas">
-							
+
 						</div>
 					</div>
 					<small class="text-danger">Pilih untuk menghapus!</small>

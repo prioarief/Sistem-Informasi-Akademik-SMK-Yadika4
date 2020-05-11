@@ -13,6 +13,7 @@ class Home extends CI_Controller
 		$this->load->model('SiswaModel', 'Siswa');
 		$this->load->model('MapelModel', 'Mapel');
 		$this->load->model('AbsenModel', 'Absen');
+		$this->load->model('NilaiModel', 'Nilai');
 		login_true();
 	}
 
@@ -20,7 +21,7 @@ class Home extends CI_Controller
 	{
 		if (is_null($id || is_null($matapelajaran))) {
 			redirect('Home/DataAbsensi');
-		}else{
+		} else {
 			$bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 			$req = $this->Absen->getAbsenBySiswa($id, $matapelajaran);
 			$mapel = $this->Mapel->getMapelByid($matapelajaran);
@@ -34,7 +35,7 @@ class Home extends CI_Controller
 				'matapelajaran' => $matapelajaran
 
 			];
-	
+
 			$this->load->view('templates/header', $data);
 			$this->load->view('home/absen/absen-saya', $data);
 			$this->load->view('templates/footer');
@@ -58,16 +59,17 @@ class Home extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function DataAbsensi()
+	public function Absensi()
 	{
 		$req = $this->Mapel->getMapelByGuru($this->session->userdata('id'));
 		$kelas = $this->Mapel->getDetailMapelByKelas($this->session->userdata('kelasSaya'));
 		$data = [
-			'title' => 'Home',
+			'title' => 'Data Absen',
 			'jurusan' => $this->Jurusan->getJurusan(),
 			'mapel' => $req,
 			'kelas' => $kelas,
-			'saya' => $this->session->userdata('id')
+			'saya' => $this->session->userdata('id'),
+			'anaksaya' => $this->session->userdata('nama-siswa')
 		];
 
 		$this->load->view('templates/header', $data);
@@ -101,7 +103,7 @@ class Home extends CI_Controller
 		}
 	}
 
-	public function Absensi($id = null, $mapel = null)
+	public function DataAbsensi($id = null, $mapel = null)
 	{
 		$this->akses();
 		if (is_null($id) || is_null($mapel)) {
@@ -131,7 +133,6 @@ class Home extends CI_Controller
 	{
 		$this->akses();
 		if (is_null($id)) {
-			// $this->session->set_flashdata('alert', '');
 			redirect('Home');
 		}
 
@@ -139,7 +140,20 @@ class Home extends CI_Controller
 		if ($req) {
 			echo json_encode($req);
 		} else {
-			// $this->session->set_flashdata('alert', '');
+			redirect('Home');
+		}
+	}
+
+	public function PilihMapel($id = null)
+	{
+		if (is_null($id)) {
+			redirect('Home');
+		}
+
+		$req = $this->Mapel->getDetailMapelByKelas($id);
+		if ($req) {
+			echo json_encode($req);
+		} else {
 			redirect('Home');
 		}
 	}
@@ -247,6 +261,189 @@ class Home extends CI_Controller
 		}
 		$this->session->set_flashdata('alert', 'Absen Berhasil Di Edit');
 		redirect('Home/DataAbsensi');
+	}
+
+	public function Nilai()
+	{
+		$req = $this->Mapel->getMapelByGuru($this->session->userdata('id'));
+		$kelas = $this->Mapel->getDetailMapelByKelas($this->session->userdata('kelasSaya'));
+		$data = [
+			'title' => 'Data Nilai',
+			'jurusan' => $this->Jurusan->getJurusan(),
+			'mapel' => $req,
+			'kelas' => $kelas,
+			'saya' => $this->session->userdata('id'),
+			'anaksaya' => $this->session->userdata('nama-siswa')
+		];
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('home/nilai/data-nilai', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function DataNilai($id = null, $mapel = null)
+	{
+		$this->akses();
+		if (is_null($id) || is_null($mapel)) {
+			redirect('Home/Nilai');
+		} else {
+			if ($this->Kelas->getKelasByid($id)) {
+				$data = [
+					'title' => 'Absensi',
+					'jurusan' => $this->Jurusan->getJurusan(),
+					'kelas' => $this->Kelas->getKelasByid($id),
+					'siswa' => $this->Siswa->GetSiswaByKelas($id),
+					'mapel' => $this->Mapel->getMapelByid($mapel),
+					'absen' => $this->Absen->getAbsenByKelasMapel($id, $mapel),
+				];
+
+				$this->load->view('templates/header', $data);
+				$this->load->view('home/nilai/nilai-siswa', $data);
+				$this->load->view('templates/footer');
+			} else {
+				// $this->session->set_flashdata('alert', '');
+				redirect('Home/DataAbsensi');
+			}
+		}
+	}
+
+	public function DetailNilai($id = null, $mapel = null)
+	{
+		$this->akses();
+		if (is_null($id) || is_null($mapel)) {
+			redirect('Home/Nilai');
+		} else {
+			$req = $this->Nilai->getNilai($id, $mapel);
+			$nilai = $this->Nilai->DetailNilai($req['id']);
+			$data = [
+				'jurusan' => $this->Jurusan->getJurusan(),
+				'title' => 'Detail Nilai',
+				'siswa' => $this->Siswa->getDataByid($id),
+				'mapel' => $this->Mapel->getMapelByid($mapel),
+				'nilai' => $req,
+				'data_nilai' => $nilai
+			];
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('home/nilai/detail-nilai', $data);
+			$this->load->view('templates/footer');
+		}
+	}
+
+	public function InputNilai()
+	{
+		$this->load->library('form_validation');
+		$validation = $this->form_validation;
+
+		$validation->set_rules('pengetahuan', 'pengetahuan', 'required|numeric');
+		$validation->set_rules('keterampilan', 'keterampilan', 'required|numeric');
+
+		if ($validation->run() == FALSE) {
+			die;
+		} else {
+			$pengetahuan = $this->input->post('pengetahuan');
+			$keterampilan = $this->input->post('keterampilan');
+			$akhir = (($pengetahuan * 30) + ($keterampilan * 70)) / 100;
+			$nilai_akhir = round($akhir);
+
+			$siswa = $this->input->post('siswa');
+			$mapel = $this->input->post('mapel');
+			$cek = $this->Nilai->getNilai($siswa, $mapel);
+
+			if ($cek) {
+				$this->session->set_flashdata('alert2', 'Nilai Gagal Di Input. Nilai sudah di input!');
+				redirect('Home/Nilai');
+			} else {
+				$req = $this->Mapel->getMapelByid($mapel);
+				$status = $req['produktif'];
+
+				if ($status == 1) {
+					if ($nilai_akhir >= 95) {
+						$predikat = 'A+';
+					} else if ($nilai_akhir >= 90 && $nilai_akhir <= 94) {
+						$predikat = 'A';
+					} else if ($nilai_akhir >= 85 && $nilai_akhir <= 89) {
+						$predikat = 'A-';
+					} else if ($nilai_akhir >= 80 && $nilai_akhir <= 84) {
+						$predikat = 'B+';
+					} else if ($nilai_akhir >= 75 && $nilai_akhir <= 79) {
+						$predikat = 'B';
+					} else if ($nilai_akhir >= 70 && $nilai_akhir <= 74) {
+						$predikat = 'B-';
+					} else if ($nilai_akhir >= 65 && $nilai_akhir <= 69) {
+						$predikat = 'C';
+					} else if ($nilai_akhir < 65) {
+						$predikat = 'D';
+					}
+				} else {
+					if ($nilai_akhir >= 95) {
+						$predikat = 'A+';
+					} else if ($nilai_akhir >= 90 && $nilai_akhir <= 94) {
+						$predikat = 'A';
+					} else if ($nilai_akhir >= 85 && $nilai_akhir <= 89) {
+						$predikat = 'A-';
+					} else if ($nilai_akhir >= 80 && $nilai_akhir <= 84) {
+						$predikat = 'B+';
+					} else if ($nilai_akhir >= 75 && $nilai_akhir <= 79) {
+						$predikat = 'B';
+					} else if ($nilai_akhir >= 70 && $nilai_akhir <= 74) {
+						$predikat = 'B-';
+					} else if ($nilai_akhir >= 60 && $nilai_akhir <= 69) {
+						$predikat = 'C';
+					} else if ($nilai_akhir < 60) {
+						$predikat = 'D';
+					}
+				}
+
+				$this->db->trans_start();
+				$data = [
+					'mapel_id' => $mapel,
+					'siswa_id' => $siswa
+				];
+
+				$this->Nilai->addData($data);
+
+				$nilai_id = $this->db->insert_id();
+				$detail = [
+					'nilai_pengetahuan' => $pengetahuan,
+					'nilai_keterampilan' => $keterampilan,
+					'nilai_akhir' => $nilai_akhir,
+					'predikat' => $predikat,
+					'nilai_id' => $nilai_id
+				];
+
+				$this->db->insert('detail_nilai', $detail);
+				$this->db->trans_complete();
+
+				$this->session->set_flashdata('alert', 'Nilai Berhasil Di Input!');
+				redirect('Home/Nilai');
+			}
+		}
+	}
+
+	public function NilaiSaya($id = null, $matapelajaran = null)
+	{
+		if (is_null($id || is_null($matapelajaran))) {
+			redirect('Home/Nilai');
+		} else {
+			$nilai = $this->Nilai->getNilai($id, $matapelajaran);
+			$req = $this->Absen->getAbsenBySiswa($id, $matapelajaran);
+			$mapel = $this->Mapel->getMapelByid($matapelajaran);
+			$data = [
+				'title' => 'Absen Saya',
+				'jurusan' => $this->Jurusan->getJurusan(),
+				'absen' => $req,
+				'mapel' => $mapel,
+				'siswa' => $id,
+				'matapelajaran' => $matapelajaran,
+				'nilai' => $nilai
+
+			];
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('home/nilai/nilai-saya', $data);
+			$this->load->view('templates/footer');
+		}
 	}
 
 	private function akses()

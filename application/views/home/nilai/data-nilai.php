@@ -1,8 +1,8 @@
 <div class="container">
 	
 	<?php if ($this->session->userdata('akses') == 'Siswa') : ?>
-		<h3 class="text-center mt-5 mb-5">Absensi <?= $this->session->userdata('nama') ?> </h3>
-		<span class="d-block mb-2">Silakan Pilih Mata Pelajaran untuk Melihat Absensi</span>
+		<h3 class="text-center mt-5 mb-5">Nilai <?= $this->session->userdata('nama') ?> </h3>
+		<span class="d-block mb-2">Silakan Pilih Mata Pelajaran untuk Melihat Nilai</span>
 		<div class="col-12">
 			<table class="table table-responsive-md">
 				<thead>
@@ -22,7 +22,7 @@
 							<td><?= $kelas['mapel'] ?></td>
 							<td><?= $kelas['nama'] ?></td>
 							<td>
-								<a href="<?= base_url('Home/AbsenSaya/' . $this->session->userdata('idSiswa') . '/' . $kelas['mapel_id']) ?>" class="badge badge-info">Lihat Absen</a>
+								<a href="<?= base_url('Home/NilaiSaya/' . $this->session->userdata('idSiswa') . '/' . $kelas['mapel_id']) ?>" class="badge badge-info">Lihat Nilai</a>
 							</td>
 						</tr>
 						<?php $no++; ?>
@@ -32,8 +32,8 @@
 			</table>
 		</div>
 	<?php elseif ($this->session->userdata('akses') == 'Guru') : ?>
-		<h2 class="text-center mt-5 mb-5">Absensi Pelajaran <?= $this->session->userdata('nama') ?> </h2>
-		<h4 class="d-block">Silakan Pilih Mata Pelajaran dan Kelas untuk Mengisi Absensi</h4>
+		<h2 class="text-center mt-5 mb-5">Nilai Pelajaran <?= $this->session->userdata('nama') ?> </h2>
+		<h4 class="d-block">Silakan Pilih Mata Pelajaran dan Kelas untuk Mengisi Nilai</h4>
 
 
 
@@ -54,8 +54,8 @@
 							<th scope="row"><?= $no ?></th>
 							<td><?= $mapel['mapel'] ?></td>
 							<td>
-								<a href="#" data-id="<?= $mapel['id'] ?>" data-url="Home/Absen/" class="badge badge-primary" data-toggle="modal" data-target="#modalDetailKelas">Absen</a>
-								<a href="#" data-id="<?= $mapel['id'] ?>" class="badge badge-info" data-toggle="modal" data-target="#modalDetailAbsen">Lihat Absen</a>
+								<a href="#" data-id="<?= $mapel['id'] ?>" data-url="Home/DataNilai/" class="badge badge-primary" data-toggle="modal" data-target="#modalDetailKelas">Lihat Nilai</a>
+								<!-- <a href="#" data-id="<?= $mapel['id'] ?>" class="badge badge-info" data-toggle="modal" data-target="#modalDetailNilai">Lihat Nilai</a> -->
 							</td>
 						</tr>
 						<?php $no++; ?>
@@ -83,7 +83,7 @@
 
 							</div>
 						</div>
-						<small class="text-danger">Pilih untuk melakukan absensi!</small>
+						<small class="text-danger">Pilih untuk melakukan input Nilai!</small>
 
 						</form>
 					</div>
@@ -112,7 +112,7 @@
 
 							</div>
 						</div>
-						<small class="text-danger">Pilih untuk melakukan absensi!</small>
+						<small class="text-danger">Pilih untuk melakukan Nilai!</small>
 
 						</form>
 					</div>
@@ -123,8 +123,8 @@
 			</div>
 		</div>
 
-		<!-- Modal Detail Absen -->
-		<div class="modal fade DetailAbsen" id="modalDetailAbsen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<!-- Modal Detail Nilai -->
+		<div class="modal fade DetailNilai" id="modalDetailNilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -135,12 +135,12 @@
 					</div>
 					<div class="modal-body ">
 
-						<div class="form-group AbsenEdit" id="">
-							<div class="row detailAbsen">
+						<div class="form-group NilaiEdit" id="">
+							<div class="row detailNilai">
 
 							</div>
 						</div>
-						<small class="text-danger">Pilih Kelas untuk Melihat Absensi!</small>
+						<small class="text-danger">Pilih Kelas untuk Melihat Nilaisi!</small>
 
 						</form>
 					</div>
@@ -152,7 +152,7 @@
 		</div>
 	<?php elseif ($this->session->userdata('akses') == 'Orangtua') : ?>
 		<h3 class="text-center">Selamat Datang <?= $this->session->userdata('nama') ?></h3>
-		<span class="d-block mb-2">Silakan Pilih Nama Anak dan Mata Pelajaran untuk Melihat Absensi</span>
+		<span class="d-block mb-2">Silakan Pilih Nama Anak dan Mata Pelajaran untuk Melihat Nilaisi</span>
 		<div class="col-12">
 			<table class="table table-responsive-md">
 				<thead>
@@ -172,7 +172,7 @@
 							<td><?= $anaksaya['nama'] ?></td>
 							<td><?= $anaksaya['kelas'] ?></td>
 							<td>
-								<a href="#" data-id="<?= $anaksaya['idKelas'] ?>" data-siswa="<?= $anaksaya['id'] ?>" class="badge badge-info" data-toggle="modal" data-target="#modalPilihMapel">Lihat Absen</a>
+								<a href="#" data-id="<?= $anaksaya['idKelas'] ?>" data-siswa="<?= $anaksaya['id'] ?>" class="badge badge-info" data-toggle="modal" data-target="#modalPilihMapel">Lihat Nilai</a>
 							</td>
 						</tr>
 						<?php $no++; ?>
@@ -196,7 +196,7 @@
 						<div class="row mapell" id="PilihMapel">
 
 						</div>
-						<small class="text-danger">Pilih Mata Pelajaran untuk Melihat Absensi!</small>
+						<small class="text-danger">Pilih Mata Pelajaran untuk Melihat Nilaisi!</small>
 
 						</form>
 					</div>

@@ -12,10 +12,12 @@
 	<link rel="shortcut icon" href="<?= base_url('assets/img/logo.png') ?>" type="image/x-icon">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/aos/aos.css" />
 
-	<title>Sistem Informasi Sekolah</title>
+	<title>Sistem Informasi Sekolah | <?= $title ?></title>
 </head>
 
 <body>
+	<div class="flashdata" data-alert="<?= $this->session->flashdata('alert') ?>"></div>
+	<div class="flashdata2" data-alert2="<?= $this->session->flashdata('alert2') ?>"></div>
 
 	<input type="hidden" name="url" value="<?= base_url() ?>" id="url">
 
@@ -31,7 +33,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto right">
 				<li class="nav-item right">
-					<a class="nav-link" href="<?= base_url() ?>Home/DataAbsensi"><i class="fa fa-book"> Absensi</i></a>
+					<a class="nav-link" href="<?= base_url() ?>Home/Absensi"><i class="fa fa-book"> Absensi</i></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="<?= base_url() ?>Home/Nilai"><i class="fa fa-clipboard-list"> Nilai</i></a>

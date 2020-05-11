@@ -77,43 +77,7 @@
 </div>
 <!-- End Modal -->
 
-<!-- Modal Edit -->
-<div class="modal fade EditKelas" id="exampleModalEditKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalEditKelas" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="staticBackdropLabel">Edit Kelas</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form method="post" action="<?= base_url() ?>Kelas/Edit">
-					<input type="hidden" required name="id" id="id">
-					<div class="form-group">
-						<label for="">Kelas <span class="text-danger">*</span></label>
-						<input type="text" class="form-control inputKelas" required name="kelas" id="inputKelas" placeholder="Masukan nama kelas">
-					</div>
-					<div class="form-group jurusanEdit">
-						<label for="">Jurusan <span class="text-danger">*</span></label>
-						<select class="form-control" id="exampleFormControlSelect1 jurusanKelas" required name="jurusan">
-							<!-- <option selected>-- Jurusan --</option> -->
-							<?php foreach ($jurusan as $j) : ?>
-								<option value="<?= $j['id'] ?>"><?= $j['jurusan'] ?></option>
 
-							<?php endforeach; ?>
-						</select>
-					</div>
-					<span class="text-danger">* wajib diisi!</span>
-					<div class="form-group">
-						<button class="btn btn-primary float-right btnEdit" id="btnEdit">Edit</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- End Modal -->
 
 <!-- Modal Delete -->
 <div class="modal fade DeleteKelas" id="modalHapusKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

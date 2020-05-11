@@ -47,6 +47,7 @@ class Mapel extends CI_Controller
 	{
 		$this->form_validation->set_rules('mapel', 'mapel', 'required');
 		$this->form_validation->set_rules('guru', 'guru', 'required');
+		$this->form_validation->set_rules('status', 'status', 'required');
 		// $this->form_validation->set_rules('kelas[]', 'kelas', 'required');
 
 		if ($this->form_validation->run() == false) {
@@ -59,6 +60,7 @@ class Mapel extends CI_Controller
 			$data = [
 				'mapel' => $this->input->post('mapel', true),
 				'guru_Id' => $this->input->post('guru', true),
+				'produktif' => $this->input->post('status', true),
 			];
 			$this->Mapel->AddMapel($data);
 

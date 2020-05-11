@@ -22,6 +22,7 @@ $(document).ready(function () {
 				$("input#id").val(result.id);
 				$("input#mapelEdit").val(result.mapel);
 				$("div.guruEdit select").val(guru);
+				$("div.Status select").val(result.produktif);
 
 				$.ajax({
 					url: url + "Mapel/DetailKelas/" + mapel,

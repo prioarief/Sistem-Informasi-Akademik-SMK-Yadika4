@@ -4,6 +4,7 @@ $(document).ready(function () {
 	$(".DetailKelas").on("show.bs.modal", function (e) {
 		let button = $(e.relatedTarget);
 		let id = button.data("id");
+		let href = button.data("url");
 
 		$.ajax({
 			url: url + "Home/DetailKelas/" + id,
@@ -19,7 +20,9 @@ $(document).ready(function () {
 					html += `
 							<div class="col-sm-3">
 								<div class="form-check">
-								<a href="${url}Home/Absen/${data.kelas_id}/${id}" class="text-decoration-none">${data.kelas}</a>
+								<a href="${url + href + data.kelas_id}/${id}" class="text-decoration-none">${
+						data.kelas
+					}</a>
 								</div>
 							</div>`;
 				});
@@ -49,13 +52,72 @@ $(document).ready(function () {
 					html += `
 							<div class="col-sm-3">
 								<div class="form-check">
-								<a href="${url}Home/Absensi/${data.kelas_id}/${id}" class="text-decoration-none">${data.kelas}</a>
+								<a href="${url}Home/DataAbsensi/${data.kelas_id}/${id}" class="text-decoration-none">${data.kelas}</a>
 								</div>
 							</div>`;
 				});
 
 				$("h5.detail").html(`<b>${result.id}</b>`);
 				$("div.detailAbsen").html(html);
+			},
+		});
+	});
+
+	// Event Detail Nilai
+	$(".DetailNilai").on("show.bs.modal", function (e) {
+		let button = $(e.relatedTarget);
+		let id = button.data("id");
+
+		$.ajax({
+			url: url + "Home/DetailKelas/" + id,
+			data: {
+				id: id,
+			},
+			method: "post",
+			success: function (response) {
+				const result = JSON.parse(response);
+
+				let html = ``;
+				result.map((data) => {
+					html += `
+							<div class="col-sm-3">
+								<div class="form-check">
+								<a href="${url}Home/DataNilai/${data.kelas_id}/${id}" class="text-decoration-none">${data.kelas}</a>
+								</div>
+							</div>`;
+				});
+
+				$("h5.detail").html(`<b>${result.id}</b>`);
+				$("div.detailNilai").html(html);
+			},
+		});
+	});
+
+	// Event Pilih Mapel
+	$(".PilihMapel").on("show.bs.modal", function (e) {
+		let button = $(e.relatedTarget);
+		let id = button.data("id");
+		let siswa = button.data("siswa");
+
+		$.ajax({
+			url: url + "Home/PilihMapel/" + id,
+			data: {
+				id: id,
+			},
+			method: "post",
+			success: function (response) {
+				const result = JSON.parse(response);
+				let html = ``;
+				result.map((data) => {
+					html += `<div class="col-sm-3">
+								<div class="form-check">
+									<a href="${url}Home/AbsenSaya/${siswa}/${data.mapel_id}" class="text-decoration-none">${data.mapel}</a>
+								</div>
+							</div>`;
+				});
+
+				$("div.mapell").html(html);
+				// $("h5.detail").html(`<b>${result.id}</b>`);
 			},
 		});
 	});
@@ -97,9 +159,9 @@ $(document).ready(function () {
 			method: "get",
 			success: function (response) {
 				let result = JSON.parse(response);
-				let html = ``
+				let html = ``;
 				if (result < 1) {
-					html += 'Data Tidak Ada'
+					html += "Data Tidak Ada";
 				}
 				html += `<table class="table table-responsive-md">
 				<thead><tr>`;
@@ -116,21 +178,19 @@ $(document).ready(function () {
 				result.forEach((status) => {
 					html += `<td>`;
 					if (status.keterangan == "hadir") {
-						html += `<div class="bg-success" style="width: 30px; height:30px" title="Hadir"></div>`
+						html += `<div class="bg-success" style="width: 30px; height:30px" title="Hadir"></div>`;
 					} else if (status.keterangan == "alpa") {
-						html += `<div class="bg-danger" style="width: 30px; height:30px" title="Alpa"></div>`
+						html += `<div class="bg-danger" style="width: 30px; height:30px" title="Alpa"></div>`;
 					} else if (status.keterangan == "sakit") {
-						html += `<div class="bg-warning" style="width: 30px; height:30px" title="Sakit"></div>`
+						html += `<div class="bg-warning" style="width: 30px; height:30px" title="Sakit"></div>`;
 					} else if (status.keterangan == "ijin") {
-						html += `<div class="bg-primary" style="width: 30px; height:30px" title="Ijin"></div>`
+						html += `<div class="bg-primary" style="width: 30px; height:30px" title="Ijin"></div>`;
 					}
-					html += `</td>`
+					html += `</td>`;
 				});
 				html += `</tr>`;
 
-				$('#konten').html(html)
-
-				
+				$("#konten").html(html);
 			},
 			// error: function (err) {
 			// 	$('#konten').html(`<h1 class="text-center">${err}</h1>`)
@@ -156,6 +216,85 @@ $(document).ready(function () {
 	$("button.absen").on("click", (e) => {
 		e.preventDefault;
 		console.log("aakak");
+	});
+
+	// Nilai
+	let produktif = $("input#mapel").data("produktif");
+	$("input#keterampilan").on("keyup", () => {
+		let predikat = "";
+		let nilai_pengetahuan = $("input#pengetahuan").val();
+		let nilai_keterampilan = $("input#keterampilan").val();
+
+		akhir = (nilai_pengetahuan * 30 + nilai_keterampilan * 70) / 100;
+
+		nilai_akhir = Math.round(akhir);
+
+		$("input#akhir").val(nilai_akhir);
+		if (produktif == 1) {
+			if (nilai_akhir >= 95) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">A+</p>'
+				);
+			} else if (nilai_akhir >= 90 && nilai_akhir <= 94) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">A</p>'
+				);
+			} else if (nilai_akhir >= 85 && nilai_akhir <= 89) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">A-</p>'
+				);
+			} else if (nilai_akhir >= 80 && nilai_akhir <= 84) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">B+</p>'
+				);
+			} else if (nilai_akhir >= 75 && nilai_akhir <= 79) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">B</p>'
+				);
+			} else if (nilai_akhir >= 70 && nilai_akhir <= 74) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">B-</p>'
+				);
+			} else if (nilai_akhir >= 65 && nilai_akhir <= 69) {
+				$("#predikat").html(
+					'Predikat : <p class="text-warning d-inline">C</p>'
+				);
+			} else if (nilai_akhir < 65) {
+				$("#predikat").html('Predikat : <p class="text-danger d-inline">D</p>');
+			}
+		} else {
+			if (nilai_akhir >= 95) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">A+</p>'
+				);
+			} else if (nilai_akhir >= 90 && nilai_akhir <= 94) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">A</p>'
+				);
+			} else if (nilai_akhir >= 85 && nilai_akhir <= 89) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">A-</p>'
+				);
+			} else if (nilai_akhir >= 80 && nilai_akhir <= 84) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">B+</p>'
+				);
+			} else if (nilai_akhir >= 75 && nilai_akhir <= 79) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">B</p>'
+				);
+			} else if (nilai_akhir >= 70 && nilai_akhir <= 74) {
+				$("#predikat").html(
+					'Predikat : <p class="text-success d-inline">B-</p>'
+				);
+			} else if (nilai_akhir >= 60 && nilai_akhir <= 69) {
+				$("#predikat").html(
+					'Predikat : <p class="text-warning d-inline">C</p>'
+				);
+			} else if (nilai_akhir < 60) {
+				$("#predikat").html('Predikat : <p class="text-danger d-inline">D</p>');
+			}
+		}
 	});
 
 	const flashdataGagal = $("div.flashdata-gagal").data("alert2");
