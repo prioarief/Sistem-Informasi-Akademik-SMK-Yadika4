@@ -19,7 +19,28 @@ class KelasModel extends CI_Model
 	{
 		return $this->db->get_where('kelas', ['id' => $id])->row_array();
 	}
-	
+
+	public function getKelasPerJurusan($id = null)
+	{
+		if (is_null($id)) {
+			$this->db->select('kelas.id as idkelas, kelas.kelas, jurusan.jurusan, jurusan.id as idjurusan');
+			$this->db->from('kelas');
+			$this->db->join('jurusan', 'jurusan.id = kelas.jurusan_id');
+			$this->db->order_by('kelas', 'ASC');
+			$query = $this->db->get()->result_array();
+			return $query;
+		} else {
+			$this->db->select('kelas.id as idkelas, kelas.kelas, jurusan.jurusan, jurusan.id as idjurusan');
+			$this->db->from('kelas');
+			$this->db->join('jurusan', 'jurusan.id = kelas.jurusan_id');
+			$this->db->where('jurusan.id', $id);
+			$this->db->order_by('kelas', 'ASC');
+			$query = $this->db->get()->result_array();
+			return $query;
+		}
+	}
+
+
 	public function getKelas($id)
 	{
 		$this->db->select('kelas.id as idkelas, kelas.kelas, jurusan.jurusan, jurusan.id as idjurusan');

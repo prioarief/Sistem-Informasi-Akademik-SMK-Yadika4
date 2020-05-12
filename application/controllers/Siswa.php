@@ -197,7 +197,7 @@ class Siswa extends CI_Controller
 		$data = [
 			'title' => 'Data Siswa',
 			'siswa' => $this->Siswa->getSiswaPerKelas($id),
-			'kelas' => $this->Kelas->get(),
+			'kelas' => $this->Kelas->getKelasByid($id),
 
 		];
 

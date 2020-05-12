@@ -129,6 +129,28 @@ class Kelas extends CI_Controller
 			redirect('Kelas');
 		}
 	}
+
+	public function Export()
+	{
+		$id = $this->input->post('jurusan', true);
+
+		$data = [
+			'title' => 'Data Siswa',
+			'kelas' => $this->Kelas->getKelasPerJurusan($id),
+
+		];
+
+		ob_start();
+		
+		$this->load->view('admin/kelas/cetak-kelas', $data);
+		$html = ob_get_contents();        
+		ob_end_clean();                   
+		require './assets/pdf/vendor/autoload.php';
+		$pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');   
+		$pdf->WriteHTML($html);    
+		$pdf->Output('Data Kelas.pdf', 'I');
+
+	}
 }
         
     /* End of file  Jurusan.php */

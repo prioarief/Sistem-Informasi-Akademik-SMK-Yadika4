@@ -313,15 +313,15 @@ class Home extends CI_Controller
 		if (is_null($id) || is_null($mapel)) {
 			redirect('Home/Nilai');
 		} else {
-			$req = $this->Nilai->getNilai($id, $mapel);
-			$nilai = $this->Nilai->DetailNilai($req['id']);
+			$req = $this->Nilai->getNilaiBySiswa($id, $mapel);
+			// $nilai = $this->Nilai->DetailNilai($req['id']);
 			$data = [
 				'jurusan' => $this->Jurusan->getJurusan(),
 				'title' => 'Detail Nilai',
 				'siswa' => $this->Siswa->getDataByid($id),
 				'mapel' => $this->Mapel->getMapelByid($mapel),
 				'nilai' => $req,
-				'data_nilai' => $nilai
+				// 'data_nilai' => $nilai
 			];
 
 			$this->load->view('templates/header', $data);
@@ -337,112 +337,210 @@ class Home extends CI_Controller
 
 		$validation->set_rules('pengetahuan', 'pengetahuan', 'required|numeric');
 		$validation->set_rules('keterampilan', 'keterampilan', 'required|numeric');
+		$validation->set_rules('keterangan', 'keterangan', 'required');
 
 		if ($validation->run() == FALSE) {
 			die;
 		} else {
 			$pengetahuan = $this->input->post('pengetahuan');
 			$keterampilan = $this->input->post('keterampilan');
+			$keterangan = $this->input->post('keterangan');
 			$akhir = (($pengetahuan * 30) + ($keterampilan * 70)) / 100;
 			$nilai_akhir = round($akhir);
 
 			$siswa = $this->input->post('siswa');
 			$mapel = $this->input->post('mapel');
-			$cek = $this->Nilai->getNilai($siswa, $mapel);
+			// $cek = $this->Nilai->getNilai($siswa, $mapel);
 
-			if ($cek) {
-				$this->session->set_flashdata('alert2', 'Nilai Gagal Di Input. Nilai sudah di input!');
-				redirect('Home/Nilai');
-			} else {
-				$req = $this->Mapel->getMapelByid($mapel);
-				$status = $req['produktif'];
+			$req = $this->Mapel->getMapelByid($mapel);
+			$status = $req['produktif'];
 
-				if ($status == 1) {
-					if ($nilai_akhir >= 95) {
-						$predikat = 'A+';
-					} else if ($nilai_akhir >= 90 && $nilai_akhir <= 94) {
-						$predikat = 'A';
-					} else if ($nilai_akhir >= 85 && $nilai_akhir <= 89) {
-						$predikat = 'A-';
-					} else if ($nilai_akhir >= 80 && $nilai_akhir <= 84) {
-						$predikat = 'B+';
-					} else if ($nilai_akhir >= 75 && $nilai_akhir <= 79) {
-						$predikat = 'B';
-					} else if ($nilai_akhir >= 70 && $nilai_akhir <= 74) {
-						$predikat = 'B-';
-					} else if ($nilai_akhir >= 65 && $nilai_akhir <= 69) {
-						$predikat = 'C';
-					} else if ($nilai_akhir < 65) {
-						$predikat = 'D';
-					}
-				} else {
-					if ($nilai_akhir >= 95) {
-						$predikat = 'A+';
-					} else if ($nilai_akhir >= 90 && $nilai_akhir <= 94) {
-						$predikat = 'A';
-					} else if ($nilai_akhir >= 85 && $nilai_akhir <= 89) {
-						$predikat = 'A-';
-					} else if ($nilai_akhir >= 80 && $nilai_akhir <= 84) {
-						$predikat = 'B+';
-					} else if ($nilai_akhir >= 75 && $nilai_akhir <= 79) {
-						$predikat = 'B';
-					} else if ($nilai_akhir >= 70 && $nilai_akhir <= 74) {
-						$predikat = 'B-';
-					} else if ($nilai_akhir >= 60 && $nilai_akhir <= 69) {
-						$predikat = 'C';
-					} else if ($nilai_akhir < 60) {
-						$predikat = 'D';
-					}
+			if ($status == 1) {
+				if ($nilai_akhir >= 95) {
+					$predikat = 'A+';
+				} else if ($nilai_akhir >= 90 && $nilai_akhir <= 94) {
+					$predikat = 'A';
+				} else if ($nilai_akhir >= 85 && $nilai_akhir <= 89) {
+					$predikat = 'A-';
+				} else if ($nilai_akhir >= 80 && $nilai_akhir <= 84) {
+					$predikat = 'B+';
+				} else if ($nilai_akhir >= 75 && $nilai_akhir <= 79) {
+					$predikat = 'B';
+				} else if ($nilai_akhir >= 70 && $nilai_akhir <= 74) {
+					$predikat = 'B-';
+				} else if ($nilai_akhir >= 65 && $nilai_akhir <= 69) {
+					$predikat = 'C';
+				} else if ($nilai_akhir < 65) {
+					$predikat = 'D';
 				}
-
-				$this->db->trans_start();
-				$data = [
-					'mapel_id' => $mapel,
-					'siswa_id' => $siswa
-				];
-
-				$this->Nilai->addData($data);
-
-				$nilai_id = $this->db->insert_id();
-				$detail = [
-					'nilai_pengetahuan' => $pengetahuan,
-					'nilai_keterampilan' => $keterampilan,
-					'nilai_akhir' => $nilai_akhir,
-					'predikat' => $predikat,
-					'nilai_id' => $nilai_id
-				];
-
-				$this->db->insert('detail_nilai', $detail);
-				$this->db->trans_complete();
-
-				$this->session->set_flashdata('alert', 'Nilai Berhasil Di Input!');
-				redirect('Home/Nilai');
+			} else {
+				if ($nilai_akhir >= 95) {
+					$predikat = 'A+';
+				} else if ($nilai_akhir >= 90 && $nilai_akhir <= 94) {
+					$predikat = 'A';
+				} else if ($nilai_akhir >= 85 && $nilai_akhir <= 89) {
+					$predikat = 'A-';
+				} else if ($nilai_akhir >= 80 && $nilai_akhir <= 84) {
+					$predikat = 'B+';
+				} else if ($nilai_akhir >= 75 && $nilai_akhir <= 79) {
+					$predikat = 'B';
+				} else if ($nilai_akhir >= 70 && $nilai_akhir <= 74) {
+					$predikat = 'B-';
+				} else if ($nilai_akhir >= 60 && $nilai_akhir <= 69) {
+					$predikat = 'C';
+				} else if ($nilai_akhir < 60) {
+					$predikat = 'D';
+				}
 			}
+
+			$this->db->trans_start();
+			$data = [
+				'mapel_id' => $mapel,
+				'siswa_id' => $siswa,
+				'keterangan' => $keterangan
+			];
+
+			$this->Nilai->addData($data);
+
+			$nilai_id = $this->db->insert_id();
+			$detail = [
+				'nilai_pengetahuan' => $pengetahuan,
+				'nilai_keterampilan' => $keterampilan,
+				'nilai_akhir' => $nilai_akhir,
+				'predikat' => $predikat,
+				'nilai_id' => $nilai_id
+			];
+
+			$this->db->insert('detail_nilai', $detail);
+			$this->db->trans_complete();
+
+			$this->session->set_flashdata('alert', 'Nilai Berhasil Di Input!');
+			redirect('Home/DetailNilai/' . $siswa . '/' . $mapel);
 		}
 	}
 
-	public function NilaiSaya($id = null, $matapelajaran = null)
+	public function NilaiSaya($id = null)
 	{
-		if (is_null($id || is_null($matapelajaran))) {
+		if (is_null($id)) {
 			redirect('Home/Nilai');
 		} else {
-			$nilai = $this->Nilai->getNilai($id, $matapelajaran);
-			$req = $this->Absen->getAbsenBySiswa($id, $matapelajaran);
-			$mapel = $this->Mapel->getMapelByid($matapelajaran);
-			$data = [
-				'title' => 'Absen Saya',
-				'jurusan' => $this->Jurusan->getJurusan(),
-				'absen' => $req,
-				'mapel' => $mapel,
-				'siswa' => $id,
-				'matapelajaran' => $matapelajaran,
-				'nilai' => $nilai
+			$nilai = $this->Nilai->getNilaiSiswa($id);
+			echo json_encode($nilai);
+		}
+	}
+	
+	public function DetailNilaiSaya($id = null)
+	{
+		if (is_null($id)) {
+			redirect('Home/Nilai');
+		} else {
+			$nilai = $this->Nilai->DetailNilai($id);
+			echo json_encode($nilai);
+		}
+	}
 
+	public function DeleteNilai($id = null, $siswa = null, $mapel = null)
+	{
+		if (is_null($id) || is_null($siswa) || is_null($mapel)) {
+			redirect('Home/Nilai');
+		} else {
+			$req = $this->Nilai->get($id);
+			if ($req) {
+				$this->Nilai->DeleteNilai($id);
+				$this->session->set_flashdata('alert', $req['keterangan'] . ' Berhasil Di Hapus!');
+				redirect('Home/DetailNilai/' . $siswa . '/' . $mapel);
+			}
+		}
+	}
+	
+	public function EditNilai()
+	{
+		$this->load->library('form_validation');
+		$validation = $this->form_validation;
+
+		$validation->set_rules('pengetahuan', 'pengetahuan', 'required|numeric');
+		$validation->set_rules('keterampilan', 'keterampilan', 'required|numeric');
+		$validation->set_rules('keterangan', 'keterangan', 'required');
+
+		if ($validation->run() == FALSE) {
+			die;
+		} else {
+			$id = $this->input->post('id');
+			$pengetahuan = $this->input->post('pengetahuan');
+			$keterampilan = $this->input->post('keterampilan');
+			$keterangan = $this->input->post('keterangan');
+			$akhir = (($pengetahuan * 30) + ($keterampilan * 70)) / 100;
+			$nilai_akhir = round($akhir);
+
+			$siswa = $this->input->post('siswa');
+			$mapel = $this->input->post('mapel');
+			// $cek = $this->Nilai->getNilai($siswa, $mapel);
+
+			$req = $this->Mapel->getMapelByid($mapel);
+			$status = $req['produktif'];
+
+			if ($status == 1) {
+				if ($nilai_akhir >= 95) {
+					$predikat = 'A+';
+				} else if ($nilai_akhir >= 90 && $nilai_akhir <= 94) {
+					$predikat = 'A';
+				} else if ($nilai_akhir >= 85 && $nilai_akhir <= 89) {
+					$predikat = 'A-';
+				} else if ($nilai_akhir >= 80 && $nilai_akhir <= 84) {
+					$predikat = 'B+';
+				} else if ($nilai_akhir >= 75 && $nilai_akhir <= 79) {
+					$predikat = 'B';
+				} else if ($nilai_akhir >= 70 && $nilai_akhir <= 74) {
+					$predikat = 'B-';
+				} else if ($nilai_akhir >= 65 && $nilai_akhir <= 69) {
+					$predikat = 'C';
+				} else if ($nilai_akhir < 65) {
+					$predikat = 'D';
+				}
+			} else {
+				if ($nilai_akhir >= 95) {
+					$predikat = 'A+';
+				} else if ($nilai_akhir >= 90 && $nilai_akhir <= 94) {
+					$predikat = 'A';
+				} else if ($nilai_akhir >= 85 && $nilai_akhir <= 89) {
+					$predikat = 'A-';
+				} else if ($nilai_akhir >= 80 && $nilai_akhir <= 84) {
+					$predikat = 'B+';
+				} else if ($nilai_akhir >= 75 && $nilai_akhir <= 79) {
+					$predikat = 'B';
+				} else if ($nilai_akhir >= 70 && $nilai_akhir <= 74) {
+					$predikat = 'B-';
+				} else if ($nilai_akhir >= 60 && $nilai_akhir <= 69) {
+					$predikat = 'C';
+				} else if ($nilai_akhir < 60) {
+					$predikat = 'D';
+				}
+			}
+
+			$this->db->trans_start();
+			$data = [
+				'mapel_id' => $mapel,
+				'siswa_id' => $siswa,
+				'keterangan' => $keterangan
 			];
 
-			$this->load->view('templates/header', $data);
-			$this->load->view('home/nilai/nilai-saya', $data);
-			$this->load->view('templates/footer');
+			$this->Nilai->EditNilai($id, $data);
+
+			// $nilai_id = $this->db->insert_id();
+			$detail = [
+				'nilai_pengetahuan' => $pengetahuan,
+				'nilai_keterampilan' => $keterampilan,
+				'nilai_akhir' => $nilai_akhir,
+				'predikat' => $predikat,
+				'nilai_id' => $id
+			];
+
+			$this->db->where('nilai_id', $id);
+			$this->db->update('detail_nilai', $detail);
+			$this->db->trans_complete();
+
+			$this->session->set_flashdata('alert', 'Nilai Berhasil Di Edit!');
+			redirect('Home/DetailNilai/' . $siswa . '/' . $mapel);
 		}
 	}
 

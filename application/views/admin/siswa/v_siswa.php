@@ -12,11 +12,12 @@
 					<?php foreach ($kelas as $k) : ?>
 						<option value="<?= $k['idkelas'] ?>"><?= $k['kelas'] ?></option>
 						<?php endforeach; ?>
-						<option value="">Semua Kelas</option>
 				</select>
 			</div>
-			<button class="btn btn-info ml-3 btn-sm"><i class="fa fa-file-download"> Export PDF </i></button>
+			<button class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export PDF </i></button>
+			<a href="<?= base_url() ?>Siswa/Export" class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export Semua Data	</i></a>
 		</form>
+
 
 	</div>
 	<div class="card-body">

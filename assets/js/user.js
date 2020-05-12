@@ -297,6 +297,66 @@ $(document).ready(function () {
 		}
 	});
 
+	// delete Nilai
+	$("a.deleteNilai").on("click", function (e) {
+		e.preventDefault();
+		const href = $(this).attr("href");
+		const text = $(this).data("text");
+
+		Swal.fire({
+			title: "Data yang sudah dihapus tidak dapat kembali lagi!",
+			text: `${text} akan di hapus!!`,
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Hapus!",
+		}).then((result) => {
+			if (result.value) {
+				document.location.href = href;
+			}
+		});
+	});
+
+	// Event Pilih Mapel
+	$(".Nilai").on("show.bs.modal", function (e) {
+		let button = $(e.relatedTarget);
+		let id = button.data("id");
+
+		$.ajax({
+			url: url + "Home/NilaiSaya/" + id,
+			data: {
+				id: id,
+			},
+			method: "post",
+			success: function (response) {
+				const result = JSON.parse(response);
+				const nilai_id = result.id;
+				const siswa = result.siswa_id
+				const mapel = result.mapel_id
+				const keterangan = result.keterangan
+				$.ajax({
+					url: url + "Home/DetailNilaiSaya/" + id,
+					data: {
+						id: id,
+					},
+					method: "post",
+					success: function (response) {
+						const data = JSON.parse(response);
+						$('#id-edit').val(id)
+						$('#mapel-edit').val(mapel)
+						$('#siswa-edit').val(siswa)
+						$('#pengetahuan-edit').val(data.nilai_pengetahuan)
+						$('#keterampilan-edit').val(data.nilai_keterampilan)
+						$('#keterangan-edit').val(keterangan)
+						$('#akhir-edit').val(data.nilai_akhir)
+						$('#predikat-edit').html(`Predikat : ${data.predikat}`)
+					},
+				});
+			},
+		});
+	});
+
 	const flashdataGagal = $("div.flashdata-gagal").data("alert2");
 	if (flashdataGagal) {
 		Swal.fire({
