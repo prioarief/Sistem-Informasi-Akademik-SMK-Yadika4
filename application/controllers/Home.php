@@ -14,6 +14,7 @@ class Home extends CI_Controller
 		$this->load->model('MapelModel', 'Mapel');
 		$this->load->model('AbsenModel', 'Absen');
 		$this->load->model('NilaiModel', 'Nilai');
+		$this->load->model('JadwalModel', 'Jadwal');
 		login_true();
 	}
 
@@ -544,6 +545,64 @@ class Home extends CI_Controller
 			$this->session->set_flashdata('alert', 'Nilai Berhasil Di Edit!');
 			redirect('Home/DetailNilai/' . $siswa . '/' . $mapel);
 		}
+	}
+
+	public function JadwalPelajaran($kelas)
+	{
+		if (is_null($kelas)) {
+			redirect('Home');
+		}
+
+		$req = $this->Jadwal->getHari($kelas);
+		$data = [
+			'title' => 'Jadwal Pelajaran',
+			'jadwal' => $req,
+			'jurusan' => $this->Jurusan->getJurusan(),
+			// 'id' => $id,
+			'kelas' => $this->Kelas->getKelasByid($this->session->userdata('kelasSaya')),
+		];
+		$this->load->view('templates/header', $data);
+		$this->load->view('home/jadwal/list-jadwal', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
+	public function DetailJadwalPelajaran($id = null, $hari = null)
+	{
+		if (is_null($hari) || is_null($id)) {
+			redirect('Jadwal');
+		}
+
+		$req = $this->Jadwal->getDetailJadwalByHari($id, $hari);
+
+		$data = [
+			'title' => 'Detail Jadwal Pelajaran',
+			'jurusan' => $this->Jurusan->getJurusan(),
+			'jurusanSaya' => $this->Jurusan->getJurusanByKkelas($this->session->userdata('kelasSaya')),
+			'jadwal' => $req,
+			'hari' => $hari,
+			'id' => $id,
+		];
+		$this->load->view('templates/header', $data);
+		$this->load->view('home/jadwal/detail-jadwal', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
+	public function ExportJadwalPdf($id, $hari)
+	{
+		$data = [
+			'title' => 'Jadwal Pelajaran',
+			'jadwal' => $this->Jadwal->getJadwalByKelas($id, $hari),
+			'hari' => $hari
+		];
+
+		ob_start();
+		$this->load->view('home/jadwal/cetak-jadwal', $data);
+		$html = ob_get_contents();
+		ob_end_clean();
+		require './assets/pdf/vendor/autoload.php';
+		$pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');
+		$pdf->WriteHTML($html);
+		$pdf->Output('Jadwal.pdf', 'I');
 	}
 
 	private function akses()

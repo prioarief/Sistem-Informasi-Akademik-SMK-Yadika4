@@ -109,7 +109,7 @@ $(document).ready(function () {
 				const result = JSON.parse(response);
 				let html = ``;
 				let hmm = $("#ortu").val();
-				console.log(hmm);
+				
 				if (hmm == "ortu") {
 					result.map((data) => {
 						html += `<div class="col-sm-3">

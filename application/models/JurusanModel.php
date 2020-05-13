@@ -18,6 +18,16 @@ class JurusanModel extends CI_Model
 	{
 		return $this->db->get_where('jurusan', ['id' => $id])->row_array();
 	}
+	
+	public function getJurusanByKkelas($id)
+	{
+		$this->db->select('jurusan.*');
+		$this->db->from('jurusan');
+		$this->db->join('kelas', 'kelas.jurusan_id = jurusan.id');
+		$this->db->where(['kelas.id' => $id]);
+		$query = $this->db->get()->row_array();
+		return $query;
+	}
 
 	public function AddJurusan($data)
 	{

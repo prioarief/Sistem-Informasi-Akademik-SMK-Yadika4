@@ -14,6 +14,11 @@ class MapelModel extends CI_Model
 		$query = $this->db->get()->result_array();
 		return $query;
 	}
+
+	public function mapel()
+	{
+		return $this->db->get('mapel')->result_array();
+	}
 	
 	public function getDetailMapel($id)
 	{
