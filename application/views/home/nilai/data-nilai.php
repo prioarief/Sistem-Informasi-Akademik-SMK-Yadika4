@@ -22,7 +22,7 @@
 							<td><?= $kelas['mapel'] ?></td>
 							<td><?= $kelas['nama'] ?></td>
 							<td>
-								<a href="<?= base_url('Home/NilaiSaya/' . $this->session->userdata('idSiswa') . '/' . $kelas['mapel_id']) ?>" class="badge badge-info">Lihat Nilai</a>
+								<a href="<?= base_url('Home/DetailNilai/' . $this->session->userdata('idSiswa') . '/' . $kelas['mapel_id']) ?>" class="badge badge-info">Lihat Nilai</a>
 							</td>
 						</tr>
 						<?php $no++; ?>
@@ -152,7 +152,7 @@
 		</div>
 	<?php elseif ($this->session->userdata('akses') == 'Orangtua') : ?>
 		<h3 class="text-center">Selamat Datang <?= $this->session->userdata('nama') ?></h3>
-		<span class="d-block mb-2">Silakan Pilih Nama Anak dan Mata Pelajaran untuk Melihat Nilaisi</span>
+		<span class="d-block mb-2">Silakan Pilih Nama Anak dan Mata Pelajaran untuk Melihat Nilai</span>
 		<div class="col-12">
 			<table class="table table-responsive-md">
 				<thead>
@@ -196,9 +196,9 @@
 						<div class="row mapell" id="PilihMapel">
 
 						</div>
-						<small class="text-danger">Pilih Mata Pelajaran untuk Melihat Nilaisi!</small>
+						<small class="text-danger">Pilih Mata Pelajaran untuk Melihat Nilai!</small>
 
-						</form>
+						<input type="hidden" id="ortu" value="ortu">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

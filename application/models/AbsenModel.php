@@ -55,7 +55,7 @@ class AbsenModel extends CI_Model
 		$this->db->where('absen.mapel_id', $mapel);
 		$this->db->where('detail_absen.siswa_id', $siswa);
 		$this->db->where('MONTH(absen.tanggal)', $bulan);
-		$this->db->order_by('absen.tanggal', 'desc');
+		$this->db->order_by('absen.tanggal', 'asc');
 		$query = $this->db->get()->result_array();
 		return $query;
 	}

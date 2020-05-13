@@ -108,13 +108,25 @@ $(document).ready(function () {
 			success: function (response) {
 				const result = JSON.parse(response);
 				let html = ``;
-				result.map((data) => {
-					html += `<div class="col-sm-3">
-								<div class="form-check">
-									<a href="${url}Home/AbsenSaya/${siswa}/${data.mapel_id}" class="text-decoration-none">${data.mapel}</a>
-								</div>
-							</div>`;
-				});
+				let hmm = $("#ortu").val();
+				console.log(hmm);
+				if (hmm == "ortu") {
+					result.map((data) => {
+						html += `<div class="col-sm-3">
+									<div class="form-check">
+										<a href="${url}Home/DetailNilai/${siswa}/${data.mapel_id}" class="text-decoration-none">${data.mapel}</a>
+									</div>
+								</div>`;
+					});
+				} else {
+					result.map((data) => {
+						html += `<div class="col-sm-3">
+									<div class="form-check">
+										<a href="${url}Home/AbsenSaya/${siswa}/${data.mapel_id}" class="text-decoration-none">${data.mapel}</a>
+									</div>
+								</div>`;
+					});
+				}
 
 				$("div.mapell").html(html);
 				// $("h5.detail").html(`<b>${result.id}</b>`);
@@ -318,7 +330,7 @@ $(document).ready(function () {
 		});
 	});
 
-	// Event Pilih Mapel
+	// Event Nilai Guru
 	$(".Nilai").on("show.bs.modal", function (e) {
 		let button = $(e.relatedTarget);
 		let id = button.data("id");
@@ -332,9 +344,9 @@ $(document).ready(function () {
 			success: function (response) {
 				const result = JSON.parse(response);
 				const nilai_id = result.id;
-				const siswa = result.siswa_id
-				const mapel = result.mapel_id
-				const keterangan = result.keterangan
+				const siswa = result.siswa_id;
+				const mapel = result.mapel_id;
+				const keterangan = result.keterangan;
 				$.ajax({
 					url: url + "Home/DetailNilaiSaya/" + id,
 					data: {
@@ -343,14 +355,55 @@ $(document).ready(function () {
 					method: "post",
 					success: function (response) {
 						const data = JSON.parse(response);
-						$('#id-edit').val(id)
-						$('#mapel-edit').val(mapel)
-						$('#siswa-edit').val(siswa)
-						$('#pengetahuan-edit').val(data.nilai_pengetahuan)
-						$('#keterampilan-edit').val(data.nilai_keterampilan)
-						$('#keterangan-edit').val(keterangan)
-						$('#akhir-edit').val(data.nilai_akhir)
-						$('#predikat-edit').html(`Predikat : ${data.predikat}`)
+						$("#id-edit").val(id);
+						$("#mapel-edit").val(mapel);
+						$("#siswa-edit").val(siswa);
+						$("#pengetahuan-edit").val(data.nilai_pengetahuan);
+						$("#keterampilan-edit").val(data.nilai_keterampilan);
+						$("#keterangan-edit").val(keterangan);
+						$("#akhir-edit").val(data.nilai_akhir);
+						$("#predikat-edit").html(`Predikat : ${data.predikat}`);
+					},
+				});
+			},
+		});
+	});
+
+	// Event Nilai Guru
+	$(".NilaiSiswa").on("show.bs.modal", function (e) {
+		let button = $(e.relatedTarget);
+		let id = button.data("id");
+
+		$.ajax({
+			url: url + "Home/NilaiSaya/" + id,
+			data: {
+				id: id,
+			},
+			method: "post",
+			success: function (response) {
+				const result = JSON.parse(response);
+				const nilai_id = result.id;
+				const siswa = result.siswa_id;
+				const mapel = result.mapel_id;
+				const keterangan = result.keterangan;
+
+				console.log(result);
+				$.ajax({
+					url: url + "Home/DetailNilaiSaya/" + id,
+					data: {
+						id: id,
+					},
+					method: "post",
+					success: function (response) {
+						const data = JSON.parse(response);
+						let html = `<p>Nilai Pengetahuan : ${data.nilai_pengetahuan}</p>
+									<p>Nilai Keterampilan  ${data.nilai_keterampilan}</p>
+									<p>Nilai Akhir ${data.nilai_akhir}</p>
+									<p>Predikat : ${data.predikat}</p>
+									<p>Keterangan : ${keterangan}</p>
+									`;
+
+						$("div.nilai-body-siswa").html(html);
 					},
 				});
 			},

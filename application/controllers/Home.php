@@ -123,7 +123,6 @@ class Home extends CI_Controller
 				$this->load->view('home/absen/absen-kelas', $data);
 				$this->load->view('templates/footer');
 			} else {
-				// $this->session->set_flashdata('alert', '');
 				redirect('Home/DataAbsensi');
 			}
 		}
@@ -173,7 +172,7 @@ class Home extends CI_Controller
 
 		if ($this->Absen->get($kelas, $mapel, $tanggal)) {
 			$this->session->set_flashdata('alert2', 'Absen Gagal Di Input. Hari ini sudah di absen');
-			redirect('Home/DataAbsensi');
+			redirect('Home/Absensi');
 		}
 
 		$this->Absen->AddData($absen);
@@ -202,7 +201,7 @@ class Home extends CI_Controller
 		}
 		$this->db->trans_complete();
 		$this->session->set_flashdata('alert', 'Absen Berhasil Di Input');
-		redirect('Home/DataAbsensi');
+		redirect('Home/Absensi');
 	}
 
 	public function DetailAbsen($id = null)
@@ -309,7 +308,7 @@ class Home extends CI_Controller
 
 	public function DetailNilai($id = null, $mapel = null)
 	{
-		$this->akses();
+		// $this->akses();
 		if (is_null($id) || is_null($mapel)) {
 			redirect('Home/Nilai');
 		} else {
@@ -332,6 +331,7 @@ class Home extends CI_Controller
 
 	public function InputNilai()
 	{
+		$this->akses();
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 
@@ -441,6 +441,7 @@ class Home extends CI_Controller
 
 	public function DeleteNilai($id = null, $siswa = null, $mapel = null)
 	{
+		$this->akses();
 		if (is_null($id) || is_null($siswa) || is_null($mapel)) {
 			redirect('Home/Nilai');
 		} else {
@@ -455,6 +456,7 @@ class Home extends CI_Controller
 	
 	public function EditNilai()
 	{
+		$this->akses();
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 
