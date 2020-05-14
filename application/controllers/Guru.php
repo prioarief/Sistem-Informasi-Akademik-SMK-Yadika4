@@ -25,7 +25,7 @@ class Guru extends CI_Controller
 
 		];
 		$this->load->view('admin/header', $data);
-		$this->load->view('admin/Guru/v_Guru', $data);
+		$this->load->view('admin/guru/v_guru', $data);
 		$this->load->view('admin/footer', $data);
 	}
 
