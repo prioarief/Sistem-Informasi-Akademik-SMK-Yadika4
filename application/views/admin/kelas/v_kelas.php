@@ -4,19 +4,8 @@
 <div class="flashdata2" data-alert2="<?= $this->session->flashdata('alert2') ?>"></div>
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<form action="<?= base_url() ?>Kelas/Export" method="post">
-			<div class="form-group">
-				<label for="">Export Data Kelas Perjurusan</label>
-				<select class="form-control" required name="jurusan">
-					<option disabled selected>-- Jurusan --</option>
-					<?php foreach ($jurusan as $k) : ?>
-						<option value="<?= $k['id'] ?>"><?= $k['jurusan'] ?></option>
-					<?php endforeach; ?>
-				</select>
-			</div>
-			<button class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export PDF </i></button>
-			<a href="<?= base_url() ?>Kelas/Export" target="blank" class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export Semua Data </i></a>
-		</form>
+		<button href="#" class="btn btn-info ml-3 btn-sm"><i data-toggle="modal" data-target="#modalExportPdfKelas" class="fa fa-file-download"> Export Pdf </i></button>
+		<button href="#" class="btn btn-success ml-3 btn-sm"><i data-toggle="modal" data-target="#modalExportExcelKelas" class="fa fa-file-download"> Export Excel </i></button>
 
 	</div>
 	<div class="card-body">
@@ -124,6 +113,47 @@
 				</button>
 			</div>
 			<div class="modal-body detail">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Export -->
+<div class="modal fade ExportExcelKelas" id="modalExportExcelKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title ExportExcel" id="exampleModalCenterTitle">Pilih Kelas</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body ExportExcel">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal Export -->
+<div class="modal fade ExportPdfKelas" id="modalExportPdfKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title ExportPdf" id="exampleModalCenterTitle">Pilih Kelas</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body ExportExcel">
 
 			</div>
 			<div class="modal-footer">

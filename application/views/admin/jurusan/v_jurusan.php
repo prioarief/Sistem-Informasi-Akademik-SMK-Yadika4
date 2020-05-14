@@ -5,6 +5,7 @@
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
 		<a href="<?= base_url() ?>Jurusan/Export" target="blank" class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export Data </i></a>
+		<a href="<?= base_url() ?>Jurusan/ExportExcel" target="blank" class="btn btn-success ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export Excel </i></a>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">

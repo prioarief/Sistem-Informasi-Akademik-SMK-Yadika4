@@ -1,6 +1,10 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
+require('./application/third_party/vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Guru extends CI_Controller
 {
@@ -171,6 +175,59 @@ class Guru extends CI_Controller
 		$pdf->WriteHTML($html);    
 		$pdf->Output('Data Kelas.pdf', 'I');
 
+	}
+
+	public function ExportExcel()
+	{
+		$guru = $this->Guru->get();
+
+		$spreadsheet = new Spreadsheet;
+
+		$spreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A1', 'No')
+			->setCellValue('B1', 'Nama Guru')
+			->setCellValue('C1', 'Jenis Kelamin')
+			->setCellValue('D1', 'Email')
+			->setCellValue('E1', 'Password')
+			->setCellValue('F1', 'Agama')
+			->setCellValue('G1', 'Gol Darah')
+			->setCellValue('H1', 'Tempat, tanggal lahir')
+			->setCellValue('I1', 'Alamat')
+			->setCellValue('J1', 'Telpon')
+			->setCellValue('K1', 'Pendidikan')
+			->setCellValue('L1', 'Status')
+			->setCellValue('M1', 'Kewarganegaraan');
+
+		$kolom = 2;
+		$nomor = 1;
+		foreach ($guru as $jrs) {
+
+			$spreadsheet->setActiveSheetIndex(0)
+				->setCellValue('A' . $kolom, $nomor)
+				->setCellValue('B' . $kolom, $jrs['nama'])
+				->setCellValue('C' . $kolom, $jrs['jk'])
+				->setCellValue('D' . $kolom, $jrs['email'])
+				->setCellValue('E' . $kolom, $jrs['password'])
+				->setCellValue('F' . $kolom, $jrs['agama'])
+				->setCellValue('G' . $kolom, $jrs['gol_darah'])
+				->setCellValue('H' . $kolom, $jrs['tempat_lahir'] . ',' . date('j F Y', strtotime($jrs['tanggal_lahir'])))
+				->setCellValue('I' . $kolom, $jrs['alamat'])
+				->setCellValue('J' . $kolom, $jrs['telpon'])
+				->setCellValue('K' . $kolom, $jrs['pendidikan'])
+				->setCellValue('L' . $kolom, $jrs['status'])
+				->setCellValue('M' . $kolom, $jrs['kewarganegaraan']);
+
+			$kolom++;
+			$nomor++;
+		}
+
+		$writer = new Xlsx($spreadsheet);
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Data Guru.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer->save('php://output');
 	}
 }
         

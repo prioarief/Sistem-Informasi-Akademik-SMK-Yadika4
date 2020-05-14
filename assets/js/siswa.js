@@ -37,12 +37,12 @@ $(document).ready(function () {
 
 	// Delete Siswa
 	$(".DeleteSiswa").on("show.bs.modal", (e) => {
-		$(".DeleteSiswa").modal('show');
+		$(".DeleteSiswa").modal("show");
 		let trigger = $(e.relatedTarget);
 		let id = trigger.data("id");
-		console.log(id)
+		console.log(id);
 		$(".hapusSiswa").on("click", (e) => {
-			$(".DeleteSiswa").modal('hide');
+			$(".DeleteSiswa").modal("hide");
 			e.preventDefault();
 
 			Swal.fire({
@@ -54,12 +54,11 @@ $(document).ready(function () {
 				confirmButtonText: "Hapus!",
 			}).then((result) => {
 				if (result.value) {
-					document.location.href = url + 'Siswa/Delete/' + id;
+					document.location.href = url + "Siswa/Delete/" + id;
 				}
 			});
 		});
 	});
-
 
 	// Event Detail Siswa
 	$(".DetailSiswa").on("show.bs.modal", function (e) {
@@ -74,8 +73,8 @@ $(document).ready(function () {
 			method: "post",
 			success: function (response) {
 				const result = JSON.parse(response);
-				$('h5.detail').html(`<b>${result.nama}</b>`)
-				$('div.detail').html(`
+				$("h5.detail").html(`<b>${result.nama}</b>`);
+				$("div.detail").html(`
 					<p>Nama : ${result.nama}</p>
 					<p>NIS : ${result.nis}</p>
 					<p>Kelas : ${result.kelas}</p>
@@ -89,10 +88,68 @@ $(document).ready(function () {
 					<p>Alamat : ${result.alamat}</p>
 					<p>Telpon : ${result.telpon}</p>
 					<p>Kewarganegaraan : ${result.kewarganegaraan}</p>
-				`)
+				`);
 			},
 		});
 	});
 
+	// Event Export Siswa
+	$(".ExportExcelSiswa").on("show.bs.modal", function (e) {
+		$.ajax({
+			url: url + "Kelas/get",
+			// data: {
+			// 	nis: nis,
+			// },
+			method: "post",
+			success: function (response) {
+				const result = JSON.parse(response);
 
+				let html = `<div class="row">`;
+				result.map((data) => {
+					html += `
+							<div class="col-sm-3">
+								<div class="form-check">
+								<a href="${url}Siswa/ExportExcel/${data.idkelas}" target="blank" class="text-decoration-none">${data.kelas}</a>
+								</div>
+								</div>`;
+				});
+
+				html += `<a href="${url}Siswa/ExportExcel" target="blank" class="text-decoration-none mt-3 ml-3">Export Semua Data</a>`;
+				html += `</div>`;
+
+				// $("h5.detail").html(`<b>${result.id}</b>`);
+				$("div.ExportExcel").html(html);
+			},
+		});
+	});
+	
+	// Event Export Siswa
+	$(".ExportPdfSiswa").on("show.bs.modal", function (e) {
+		$.ajax({
+			url: url + "Kelas/get",
+			// data: {
+			// 	nis: nis,
+			// },
+			method: "post",
+			success: function (response) {
+				const result = JSON.parse(response);
+
+				let html = `<div class="row">`;
+				result.map((data) => {
+					html += `
+							<div class="col-sm-3">
+								<div class="form-check">
+								<a href="${url}Siswa/Export/${data.idkelas}" target="blank" class="text-decoration-none">${data.kelas}</a>
+								</div>
+								</div>`;
+				});
+
+				html += `<a href="${url}Siswa/Export" target="blank" class="text-decoration-none mt-3 ml-3">Export Semua Data</a>`;
+				html += `</div>`;
+
+				// $("h5.detail").html(`<b>${result.id}</b>`);
+				$("div.ExportExcel").html(html);
+			},
+		});
+	});
 });

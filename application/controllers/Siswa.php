@@ -1,6 +1,10 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
+require('./application/third_party/vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Siswa extends CI_Controller
 {
@@ -190,9 +194,9 @@ class Siswa extends CI_Controller
 	}
 
 
-	public function Export()
+	public function Export($id = null)
 	{
-		$id = $this->input->post('kelas', true);
+		
 
 		$data = [
 			'title' => 'Data Siswa',
@@ -211,6 +215,66 @@ class Siswa extends CI_Controller
 		$pdf->WriteHTML($html);    
 		$pdf->Output('Data Siswa.pdf', 'I');
 
+	}
+
+	public function ExportExcel($id = null)
+	{
+		if(is_null($id)){
+
+			$siswa = $this->Siswa->get();
+		}else{
+			$siswa = $this->Siswa->getSiswaPerKelas($id);
+		}
+
+		$spreadsheet = new Spreadsheet;
+
+		$spreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A1', 'No')
+		->setCellValue('B1', 'Nama')
+		->setCellValue('C1', 'Jenis Kelamin')
+		->setCellValue('D1', 'NIS')
+		->setCellValue('E1', 'Kelas')
+		->setCellValue('F1', 'Agama')
+		->setCellValue('G1', 'Gol Darah')
+		->setCellValue('H1', 'Tempat, tanggal lahir')
+		->setCellValue('I1', 'Alamat')
+		->setCellValue('J1', 'Telpon')
+		->setCellValue('K1', 'Pendidikan')
+		->setCellValue('L1', 'Nama Orangtua')
+		->setCellValue('M1', 'Password')
+		->setCellValue('N1', 'Kewarganegaraan');
+
+		$kolom = 2;
+		$nomor = 1;
+		foreach ($siswa as $jrs) {
+
+			$spreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A' . $kolom, $nomor)
+			->setCellValue('B' . $kolom, $jrs['nama'])
+			->setCellValue('C' . $kolom, $jrs['jk'])
+			->setCellValue('D' . $kolom, $jrs['nis'])
+			->setCellValue('E' . $kolom, $jrs['kelas'])
+			->setCellValue('F' . $kolom, $jrs['agama'])
+			->setCellValue('G' . $kolom, $jrs['gol_darah'])
+			->setCellValue('H' . $kolom, $jrs['tempat_lahir'] . ','  . date('j F Y', strtotime($jrs['tanggal_lahir'])))
+			->setCellValue('I' . $kolom, $jrs['alamat'])
+			->setCellValue('J' . $kolom, $jrs['telpon'])
+			->setCellValue('K' . $kolom, $jrs['pendidikan'])
+			->setCellValue('L' . $kolom, $jrs['orangtua'])
+			->setCellValue('M' . $kolom, $jrs['password'])
+			->setCellValue('N' . $kolom, $jrs['kewarganegaraan']);
+
+			$kolom++;
+			$nomor++;
+		}
+
+		$writer = new Xlsx($spreadsheet);
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Data Siswa.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer->save('php://output');
 	}
 }
         

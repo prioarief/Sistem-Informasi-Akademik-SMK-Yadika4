@@ -76,5 +76,65 @@ $(document).ready(function () {
 		});
 	});
 
+	// Event Export Kelas
+	$(".ExportExcelKelas").on("show.bs.modal", function (e) {
+		$.ajax({
+			url: url + "Jurusan/get",
+			// data: {
+			// 	nis: nis,
+			// },
+			method: "post",
+			success: function (response) {
+				const result = JSON.parse(response);
+
+				let html = `<div class="row">`;
+				result.map((data) => {
+					html += `
+							<div class="col-sm-12">
+								<div class="form-check">
+								<a href="${url}Kelas/ExportExcel/${data.id}" class="text-decoration-none">${data.jurusan}</a>
+								</div>
+								</div>`;
+				});
+
+				html += `<a href="${url}Kelas/ExportExcel" target="blank" class="text-decoration-none mt-3 ml-3">Export Semua Data</a>`;
+				html += `</div>`;
+
+				// $("h5.detail").html(`<b>${result.id}</b>`);
+				$("div.ExportExcel").html(html);
+			},
+		});
+	});
+	
+	// Event Export Kelas
+	$(".ExportPdfKelas").on("show.bs.modal", function (e) {
+		$.ajax({
+			url: url + "Jurusan/get",
+			// data: {
+			// 	nis: nis,
+			// },
+			method: "post",
+			success: function (response) {
+				const result = JSON.parse(response);
+
+				let html = `<div class="row">`;
+				result.map((data) => {
+					html += `
+							<div class="col-sm-12">
+								<div class="form-check">
+								<a href="${url}Kelas/Export/${data.id}" target="blank" class="text-decoration-none">${data.jurusan}</a>
+								</div>
+								</div>`;
+				});
+
+				html += `<a href="${url}Kelas/Export" target="blank" class="text-decoration-none mt-3 ml-3">Export Semua Data</a>`;
+				html += `</div>`;
+
+				// $("h5.detail").html(`<b>${result.id}</b>`);
+				$("div.ExportExcel").html(html);
+			},
+		});
+	});
+
 
 });

@@ -1,6 +1,10 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
+require('./application/third_party/vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Kelas extends CI_Controller
 {
@@ -24,6 +28,11 @@ class Kelas extends CI_Controller
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/kelas/v_kelas', $data);
 		$this->load->view('admin/footer', $data);
+	}
+
+	public function get()
+	{
+		echo json_encode($this->Kelas->get());
 	}
 
 	public function Detail($id = null)
@@ -130,13 +139,17 @@ class Kelas extends CI_Controller
 		}
 	}
 
-	public function Export()
+	public function Export($id = null)
 	{
-		$id = $this->input->post('jurusan', true);
+		if(is_null($id)){
+			$req = $this->Kelas->get();
+		}else{
+			$req = $this->Kelas->getKelasPerJurusan($id);
+		}
 
 		$data = [
 			'title' => 'Data Siswa',
-			'kelas' => $this->Kelas->getKelasPerJurusan($id),
+			'kelas' => $req,
 
 		];
 
@@ -150,6 +163,43 @@ class Kelas extends CI_Controller
 		$pdf->WriteHTML($html);    
 		$pdf->Output('Data Kelas.pdf', 'I');
 
+	}
+
+	public function ExportExcel($id = null)
+	{
+		if(is_null($id)){
+			$req = $this->Kelas->get();
+		}else{
+			$req = $this->Kelas->getKelasPerJurusan($id);
+		}
+
+		$spreadsheet = new Spreadsheet;
+
+		$spreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A1', 'No')
+		->setCellValue('B1', 'Kelas')
+		->setCellValue('C1', 'Jurusan');
+
+		$kolom = 2;
+		$nomor = 1;
+		foreach ($req as $jrs) {
+
+			$spreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A' . $kolom, $nomor)
+			->setCellValue('B' . $kolom, $jrs['kelas'])
+			->setCellValue('C' . $kolom, $jrs['jurusan']);
+
+			$kolom++;
+			$nomor++;
+		}
+
+		$writer = new Xlsx($spreadsheet);
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Data Kelas.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer->save('php://output');
 	}
 }
         

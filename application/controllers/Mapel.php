@@ -1,6 +1,10 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
+require('./application/third_party/vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Mapel extends CI_Controller
 {
@@ -195,6 +199,47 @@ class Mapel extends CI_Controller
 		$pdf->WriteHTML($html);    
 		$pdf->Output('Data Kelas.pdf', 'I');
 
+	}
+
+	public function ExportExcel()
+	{
+		$mapel = $this->Mapel->getMapel();
+
+		$spreadsheet = new Spreadsheet;
+
+		$spreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A1', 'No')
+			->setCellValue('B1', 'Mata Pelajaran')
+			->setCellValue('C1', 'Nama Guru')
+			->setCellValue('D1', 'Status');
+
+		$kolom = 2;
+		$nomor = 1;
+		foreach ($mapel as $jrs) {
+
+			if($jrs['produktif'] == 1){
+				$status = 'Produktif';
+			}else{
+				$status = 'Normatif';
+			}
+
+			$spreadsheet->setActiveSheetIndex(0)
+				->setCellValue('A' . $kolom, $nomor)
+				->setCellValue('B' . $kolom, $jrs['mapel'])
+				->setCellValue('C' . $kolom, $jrs['nama_guru'])
+				->setCellValue('D' . $kolom, $status);
+
+			$kolom++;
+			$nomor++;
+		}
+
+		$writer = new Xlsx($spreadsheet);
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Data Mapel.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer->save('php://output');
 	}
 }
         

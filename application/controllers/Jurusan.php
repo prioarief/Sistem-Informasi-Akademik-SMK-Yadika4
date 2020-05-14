@@ -2,6 +2,11 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
+require('./application/third_party/vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Jurusan extends CI_Controller
 {
 	public function __construct()
@@ -10,6 +15,11 @@ class Jurusan extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->model('JurusanModel', 'Jurusan');
 		login_tu();
+	}
+
+	public function get()
+	{
+		echo json_encode($this->Jurusan->getJurusan());
 	}
 
 	public function index()
@@ -113,15 +123,45 @@ class Jurusan extends CI_Controller
 		];
 
 		ob_start();
-		
-		$this->load->view('admin/jurusan/cetak-jurusan', $data);
-		$html = ob_get_contents();        
-		ob_end_clean();                   
-		require './assets/pdf/vendor/autoload.php';
-		$pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');   
-		$pdf->WriteHTML($html);    
-		$pdf->Output('Data Kelas.pdf', 'I');
 
+		$this->load->view('admin/jurusan/cetak-jurusan', $data);
+		$html = ob_get_contents();
+		ob_end_clean();
+		require './assets/pdf/vendor/autoload.php';
+		$pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');
+		$pdf->WriteHTML($html);
+		$pdf->Output('Data Kelas.pdf', 'I');
+	}
+
+	public function ExportExcel()
+	{
+		$jurusan = $this->Jurusan->getJurusan();
+
+		$spreadsheet = new Spreadsheet;
+
+		$spreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A1', 'No')
+			->setCellValue('B1', 'Jurusan');
+
+		$kolom = 2;
+		$nomor = 1;
+		foreach ($jurusan as $jrs) {
+
+			$spreadsheet->setActiveSheetIndex(0)
+				->setCellValue('A' . $kolom, $nomor)
+				->setCellValue('B' . $kolom, $jrs['jurusan']);
+
+			$kolom++;
+			$nomor++;
+		}
+
+		$writer = new Xlsx($spreadsheet);
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Data Jurusan.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer->save('php://output');
 	}
 }
         

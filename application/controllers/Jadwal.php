@@ -1,6 +1,11 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
+require('./application/third_party/vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 
 class Jadwal extends CI_Controller
 {
@@ -252,6 +257,47 @@ class Jadwal extends CI_Controller
 		$pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');
 		$pdf->WriteHTML($html);
 		$pdf->Output('Jadwal.pdf', 'I');
+	}
+
+	public function ExportExcel($id, $hari)
+	{
+		$jadwal = $this->Jadwal->getJadwalByKelas($id, $hari);
+
+		$spreadsheet = new Spreadsheet;
+
+		$spreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A1', 'No')
+			->setCellValue('B1', 'Hari')
+			->setCellValue('C1', 'Mata Pelajaran')
+			->setCellValue('D1', 'Jam Mulai')
+			->setCellValue('E1', 'Jam Selesai')
+			->setCellValue('F1', 'Ruang')
+			->setCellValue('G1', 'Nama Guru');
+
+		$kolom = 2;
+		$nomor = 1;
+		foreach ($jadwal as $jdwl) {
+
+			$spreadsheet->setActiveSheetIndex(0)
+				->setCellValue('A' . $kolom, $nomor)
+				->setCellValue('B' . $kolom, $jdwl['hari'])
+				->setCellValue('C' . $kolom, $jdwl['mapel'])
+				->setCellValue('D' . $kolom, $jdwl['jam_mulai'])
+				->setCellValue('E' . $kolom, $jdwl['jam_selesai'])
+				->setCellValue('F' . $kolom, $jdwl['ruang'])
+				->setCellValue('G' . $kolom, $jdwl['nama']);
+
+			$kolom++;
+			$nomor++;
+		}
+
+		$writer = new Xlsx($spreadsheet);
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Jadwal Pelajaran.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer->save('php://output');
 	}
 }
         

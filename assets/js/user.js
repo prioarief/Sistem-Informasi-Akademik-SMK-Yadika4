@@ -47,7 +47,7 @@ $(document).ready(function () {
 			success: function (response) {
 				const result = JSON.parse(response);
 
-				let html = ``;
+				let html = ``
 				result.map((data) => {
 					html += `
 							<div class="col-sm-3">
@@ -56,6 +56,8 @@ $(document).ready(function () {
 								</div>
 							</div>`;
 				});
+
+				
 
 				$("h5.detail").html(`<b>${result.id}</b>`);
 				$("div.detailAbsen").html(html);
