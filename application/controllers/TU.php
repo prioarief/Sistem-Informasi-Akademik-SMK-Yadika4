@@ -98,7 +98,7 @@ class TU extends CI_Controller
 		];
 
 		$this->load->view('admin/header', $data);
-		$this->load->view('admin/TU/v_tu', $data);
+		$this->load->view(`admin/TU/v_tu`, $data);
 		$this->load->view('admin/footer', $data);
 	}
 
