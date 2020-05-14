@@ -31,24 +31,18 @@
 	</div>
 
 
-	<h2 style="text-align: center; margin-top: 30px;">Data Siswa Kelas</h2>
+	<h2 style="text-align: center; margin-top: 30px;">Data Jurusan</h2>
 
-	<table style="margin-top: 10px; margin:auto">
+	<table style="margin-top: 10px; margin-left:90px">
 		<tr>
 			<th>NO</th>
-			<th>Nama</th>
-			<th>NIS</th>
-			<th>Kelas</th>
-			<th>Orang tua</th>
+			<th>Nama Jurusan</th>
 		</tr>
 		<?php $no = 1; ?>
-		<?php foreach ($siswa as $s) : ?>
+		<?php foreach ($data as $s) : ?>
 			<tr>
 				<td><?= $no; ?></td>
-				<td><?= $s['nama']; ?></td>
-				<td><?= $s['nis']; ?></td>
-				<td><?= $s['kelas']; ?></td>
-				<td><?= $s['orangtua']; ?></td>
+				<td><?= $s['jurusan']; ?></td>
 			</tr>
 			<?php $no++ ?>
 		<?php endforeach; ?>

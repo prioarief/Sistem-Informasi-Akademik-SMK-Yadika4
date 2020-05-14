@@ -4,7 +4,7 @@
 <div class="flashdata2" data-alert2="<?= $this->session->flashdata('alert2') ?>"></div>
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-
+		<a href="<?= base_url() ?>Mapel/Export" target="blank" class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export Data </i></a>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">

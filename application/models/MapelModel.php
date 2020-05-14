@@ -11,6 +11,7 @@ class MapelModel extends CI_Model
 		$this->db->from('mapel');
 		$this->db->join('guru', 'guru.id = mapel.guru_id');
 		$this->db->order_by('mapel', 'ASC');
+		$this->db->where_not_in('guru.nama', '-');
 		$query = $this->db->get()->result_array();
 		return $query;
 	}

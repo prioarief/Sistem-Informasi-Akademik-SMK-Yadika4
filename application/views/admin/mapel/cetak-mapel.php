@@ -31,24 +31,27 @@
 	</div>
 
 
-	<h2 style="text-align: center; margin-top: 30px;">Data Siswa Kelas</h2>
+	<h2 style="text-align: center; margin-top: 30px;">Data Mata Pelajaran</h2>
 
 	<table style="margin-top: 10px; margin:auto">
 		<tr>
 			<th>NO</th>
-			<th>Nama</th>
-			<th>NIS</th>
-			<th>Kelas</th>
-			<th>Orang tua</th>
+			<th>Mapel</th>
+			<th>Nama Guru</th>
+			<th>Status</th>
 		</tr>
 		<?php $no = 1; ?>
-		<?php foreach ($siswa as $s) : ?>
+		<?php foreach ($data as $s) : ?>
 			<tr>
 				<td><?= $no; ?></td>
-				<td><?= $s['nama']; ?></td>
-				<td><?= $s['nis']; ?></td>
-				<td><?= $s['kelas']; ?></td>
-				<td><?= $s['orangtua']; ?></td>
+				<td><?= $s['mapel']; ?></td>
+				<td><?= $s['nama_guru']; ?></td>
+				<?php if ($s['produktif'] == 1) : ?>
+					<td>Produktif</td>
+				<?php elseif ($s['produktif'] == 0) : ?>
+					<td>Normatif</td>
+
+				<?php endif; ?>
 			</tr>
 			<?php $no++ ?>
 		<?php endforeach; ?>

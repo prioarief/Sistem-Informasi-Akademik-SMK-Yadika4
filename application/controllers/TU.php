@@ -239,4 +239,26 @@ class TU extends CI_Controller
 
 		redirect('TU/Auth');
 	}
+
+	public function Export()
+	{
+		// $id = $this->input->post('jurusan', true);
+
+		$data = [
+			'title' => 'Data Siswa',
+			'data' => $this->TU->get(),
+
+		];
+
+		ob_start();
+		
+		$this->load->view('admin/tu/cetak-tu', $data);
+		$html = ob_get_contents();        
+		ob_end_clean();                   
+		require './assets/pdf/vendor/autoload.php';
+		$pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');   
+		$pdf->WriteHTML($html);    
+		$pdf->Output('Data Kelas.pdf', 'I');
+
+	}
 }

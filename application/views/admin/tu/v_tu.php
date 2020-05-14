@@ -4,7 +4,7 @@
 <div class="flashdata2" data-alert2="<?= $this->session->flashdata('alert2') ?>"></div>
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-
+		<a href="<?= base_url() ?>TU/Export" target="blank" class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export Data </i></a>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
@@ -35,7 +35,7 @@
 								<button data-id="<?= $g['id'] ?>" class="btn btn-danger btn-sm hapus" data-toggle="modal" data-target="#modalHapusTU"><i class="fa fa-trash"></i></button>
 								<button data-id="<?= $g['id'] ?>" class="btn btn-success btn-sm EditTU" title="Edit" id="EditTU" data-toggle="modal" data-target="#ModalEditTU"><i class="fa fa-edit"></i></button>
 								<button data-id="<?= $g['id'] ?>" class="btn btn-success btn-sm DetailTU" title="Detail" id="DetailTU" data-toggle="modal" data-target="#modalDetailTU"><i class="fa fa-pencil-alt"></i></button>
-		
+
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -195,7 +195,7 @@
 							<option value="Belum Menikah">Belum Menikah</option>>
 						</select>
 					</div>
-					
+
 					<div class="form-group agama-TU">
 						<label for="">Agama <span class="text-danger">*</span></label>
 						<select class="form-control" id="agama-TU" required name="agama">
@@ -294,7 +294,7 @@
 				</button>
 			</div>
 			<div class="modal-body detail">
-				
+
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

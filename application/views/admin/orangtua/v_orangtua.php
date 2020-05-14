@@ -4,6 +4,7 @@
 <div class="flashdata2" data-alert2="<?= $this->session->flashdata('alert2') ?>"></div>
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
+	<a href="<?= base_url() ?>Orangtua/Export" target="blank" class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export Data </i></a>
 
 	</div>
 	<div class="card-body">
@@ -13,7 +14,7 @@
 					<tr>
 						<th>Nama</th>
 						<th>NIK</th>
-						<th>Nama Anak</th>
+						<th>Alamat</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -21,7 +22,7 @@
 					<tr>
 						<th>Nama</th>
 						<th>NIK</th>
-						<th>Nama Anak</th>
+						<th>Alamat</th>
 						<th>Action</th>
 					</tr>
 				</tfoot>
@@ -30,7 +31,7 @@
 						<tr>
 							<td><?= $ot['nama']; ?></td>
 							<td><?= $ot['nik']; ?></td>
-							<td><?= $ot['nama']; ?></td>
+							<td><?= $ot['alamat']; ?></td>
 							<td>
 								<button data-id="<?= $ot['id'] ?>" class="btn btn-danger btn-sm hapus" data-toggle="modal" data-target="#modalHapusOrangtua"><i class="fa fa-trash"></i></button>
 								<button data-id="<?= $ot['id'] ?>" class="btn btn-success btn-sm EditOrangtua" title="Edit" id="EditOrangtua" data-toggle="modal" data-target="#ModalEditOrangtua"><i class="fa fa-edit"></i></button>

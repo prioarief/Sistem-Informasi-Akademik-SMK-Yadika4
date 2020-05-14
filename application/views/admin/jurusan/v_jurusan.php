@@ -4,7 +4,7 @@
 <div class="flashdata2" data-alert2="<?= $this->session->flashdata('alert2') ?>"></div>
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-
+		<a href="<?= base_url() ?>Jurusan/Export" target="blank" class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export Data </i></a>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
@@ -94,21 +94,21 @@
 
 <!-- Modal Delete -->
 <div class="modal fade DeleteJurusan" id="modalHapusJurusan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Konfirmasi</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h6>Apakah Anda Yakin Ingin Menghapus?</h6>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a href="" data-id="<?= $j['id'] ?>" class="btn btn-danger hapusJurusan" id="hapusKelas" title="Hapus" >Delete!</a>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">Konfirmasi</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h6>Apakah Anda Yakin Ingin Menghapus?</h6>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<a href="" data-id="<?= $j['id'] ?>" class="btn btn-danger hapusJurusan" id="hapusKelas" title="Hapus">Delete!</a>
+			</div>
+		</div>
+	</div>
 </div>

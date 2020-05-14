@@ -7,6 +7,7 @@ class GuruModel extends CI_Model
 
 	public function get()
 	{
+		$this->db->where_not_in('nama', '-');
 		return $this->db->get('guru')->result_array();
 	}
 

@@ -10,7 +10,7 @@
 
 		th,
 		td {
-			padding: 18px;
+			padding: 10px;
 			text-align: left;
 			border-bottom: 1px solid #ddd;
 		}
@@ -31,24 +31,24 @@
 	</div>
 
 
-	<h2 style="text-align: center; margin-top: 30px;">Data Siswa Kelas</h2>
+	<h2 style="text-align: center; margin-top: 30px;">Data Guru</h2>
 
 	<table style="margin-top: 10px; margin:auto">
 		<tr>
 			<th>NO</th>
-			<th>Nama</th>
-			<th>NIS</th>
-			<th>Kelas</th>
-			<th>Orang tua</th>
+			<th>Nama Guru</th>
+			<th>Email</th>
+			<th>Password</th>
+			<th>Pendidikan Terakhir</th>
 		</tr>
 		<?php $no = 1; ?>
-		<?php foreach ($siswa as $s) : ?>
+		<?php foreach ($data as $s) : ?>
 			<tr>
 				<td><?= $no; ?></td>
 				<td><?= $s['nama']; ?></td>
-				<td><?= $s['nis']; ?></td>
-				<td><?= $s['kelas']; ?></td>
-				<td><?= $s['orangtua']; ?></td>
+				<td><?= $s['email']; ?></td>
+				<td><?= $s['password']; ?></td>
+				<td><?= $s['pendidikan']; ?></td>
 			</tr>
 			<?php $no++ ?>
 		<?php endforeach; ?>

@@ -101,6 +101,28 @@ class Jurusan extends CI_Controller
 			redirect('Jurusan');
 		}
 	}
+
+	public function Export()
+	{
+		// $id = $this->input->post('jurusan', true);
+
+		$data = [
+			'title' => 'Data Siswa',
+			'data' => $this->Jurusan->getJurusan(),
+
+		];
+
+		ob_start();
+		
+		$this->load->view('admin/jurusan/cetak-jurusan', $data);
+		$html = ob_get_contents();        
+		ob_end_clean();                   
+		require './assets/pdf/vendor/autoload.php';
+		$pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');   
+		$pdf->WriteHTML($html);    
+		$pdf->Output('Data Kelas.pdf', 'I');
+
+	}
 }
         
     /* End of file  Jurusan.php */

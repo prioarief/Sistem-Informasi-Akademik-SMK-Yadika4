@@ -12,7 +12,7 @@ class Orangtua extends CI_Controller
 		login_tu();
 	}
 
-	public function index() 
+	public function index()
 	{
 		$data = [
 			'title' => 'Data Orangtua',
@@ -38,7 +38,7 @@ class Orangtua extends CI_Controller
 			redirect('Orangtua');
 		}
 	}
-	
+
 	public function DetailOrangtua($nik = null)
 	{
 		if (is_null($nik)) {
@@ -159,7 +159,29 @@ class Orangtua extends CI_Controller
 				redirect('Orangtua');
 			}
 		}
-}
+	}
+
+	public function Export()
+	{
+		// $id = $this->input->post('jurusan', true);
+
+		$data = [
+			'title' => 'Data Siswa',
+			'data' => $this->Orangtua->getData(),
+
+		];
+
+		ob_start();
+		
+		$this->load->view('admin/orangtua/cetak-data', $data);
+		$html = ob_get_contents();        
+		ob_end_clean();                   
+		require './assets/pdf/vendor/autoload.php';
+		$pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');   
+		$pdf->WriteHTML($html);    
+		$pdf->Output('Data Kelas.pdf', 'I');
+
+	}
 }
         
     /* End of file  Jurusan.php */

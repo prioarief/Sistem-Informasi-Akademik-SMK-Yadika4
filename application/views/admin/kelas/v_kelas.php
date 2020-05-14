@@ -15,7 +15,7 @@
 				</select>
 			</div>
 			<button class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export PDF </i></button>
-			<a href="<?= base_url() ?>Kelas/Export" class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export Semua Data </i></a>
+			<a href="<?= base_url() ?>Kelas/Export" target="blank" class="btn btn-info ml-3 btn-sm d-inline"><i class="fa fa-file-download"> Export Semua Data </i></a>
 		</form>
 
 	</div>
