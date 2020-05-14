@@ -33,4 +33,5 @@
 		</tbody>
 	</table>
 	<a href="<?= base_url('Home/ExportJadwalPdf/' . $jadwal['jadwal_id']. '/'. $hari) ?>" target="blank" class="btn btn-primary ml-3 btn-sm"><i class="fa fa-file-download"> Export PDF </i></a>
+	<a href="<?= base_url('Home/ExportJadwalExcel/' . $jadwal['jadwal_id']. '/'. $hari) ?>" target="blank" class="btn btn-success ml-3 btn-sm"><i class="fa fa-file-download"> Export Excel </i></a>
 </div>

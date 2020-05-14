@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/SIA-Yadika4/';
+$config['base_url'] = 'https://yadika-4.herokuapp.com/';
+// $config['base_url'] = 'http://localhost/SIA-Yadika4/';
 // $config['base_url'] = 'http://192.168.43.81/SIA-Yadika4/';
 
 /*
