@@ -134,7 +134,7 @@ $(document).ready(function () {
 			success: function (response) {
 				const result = JSON.parse(response);
 
-				let html = `<div class="row">`;
+				let html = `<div class="row">`; 
 				result.map((data) => {
 					html += `
 							<div class="col-sm-3">

@@ -103,7 +103,7 @@ class Home extends CI_Controller
 				$this->load->view('templates/footer');
 			} else {
 				// $this->session->set_flashdata('alert', '');
-				redirect('Home/DataAbsensi');
+				redirect('Home/Absensi');
 			}
 		}
 	}
@@ -112,7 +112,7 @@ class Home extends CI_Controller
 	{
 		$this->akses();
 		if (is_null($id) || is_null($mapel)) {
-			redirect('Home/DataAbsensi');
+			redirect('Home/Absensi');
 		} else {
 			if ($this->Kelas->getKelasByid($id)) {
 				$data = [
@@ -128,7 +128,7 @@ class Home extends CI_Controller
 				$this->load->view('home/absen/absen-kelas', $data);
 				$this->load->view('templates/footer');
 			} else {
-				redirect('Home/DataAbsensi');
+				redirect('Home/Absensi');
 			}
 		}
 	}
@@ -264,7 +264,7 @@ class Home extends CI_Controller
 			}
 		}
 		$this->session->set_flashdata('alert', 'Absen Berhasil Di Edit');
-		redirect('Home/DataAbsensi');
+		redirect('Home/Absensi');
 	}
 
 	public function Nilai()
