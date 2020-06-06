@@ -305,7 +305,6 @@ class Home extends CI_Controller
 				$this->load->view('home/nilai/nilai-siswa', $data);
 				$this->load->view('templates/footer');
 			} else {
-				// $this->session->set_flashdata('alert', '');
 				redirect('Home/DataAbsensi');
 			}
 		}
@@ -551,26 +550,49 @@ class Home extends CI_Controller
 		}
 	}
 
-	public function JadwalPelajaran($kelas)
+	public function JadwalPelajaran($kelas, $siswa = null) 
 	{
 		if (is_null($kelas)) {
 			redirect('Home');
 		}
 
 		$req = $this->Jadwal->getHari($kelas);
-		$data = [
-			'title' => 'Jadwal Pelajaran',
-			'jadwal' => $req,
-			'jurusan' => $this->Jurusan->getJurusan(),
-			// 'id' => $id,
-			'kelas' => $this->Kelas->getKelasByid($this->session->userdata('kelasSaya')),
-		];
+		if($this->session->userdata('akses') == 'Orangtua'){
+			$data = [
+				'title' => 'Jadwal Pelajaran',
+				'jadwal' => $req,
+				'jurusan' => $this->Jurusan->getJurusan(),
+				'kelas' => $this->Kelas->getKelasByid($kelas),
+				'siswa' => $this->Siswa->getDataByid($siswa),
+			];
+		}else{
+			$data = [
+				'title' => 'Jadwal Pelajaran',
+				'jadwal' => $req,
+				'jurusan' => $this->Jurusan->getJurusan(),
+				'kelas' => $this->Kelas->getKelasByid($this->session->userdata('kelasSaya')),
+			];
+		}
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('home/jadwal/list-jadwal', $data);
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function DetailJadwalPelajaran($id = null, $hari = null)
+	public function JadwalPelajaranSiswa()
+	{
+		$data = [
+			'title' => 'Jadwal Pelajaran Siswa',
+			'jurusan' => $this->Jurusan->getJurusan(),
+			'anaksaya' => $this->session->userdata('nama-siswa')
+		];
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('home/jadwal/data-jadwal', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
+	public function DetailJadwalPelajaran($id = null, $hari = null, $kelas = null, $siswa = null)
 	{
 		if (is_null($hari) || is_null($id)) {
 			redirect('Jadwal');
@@ -578,14 +600,27 @@ class Home extends CI_Controller
 
 		$req = $this->Jadwal->getDetailJadwalByHari($id, $hari);
 
-		$data = [
-			'title' => 'Detail Jadwal Pelajaran',
-			'jurusan' => $this->Jurusan->getJurusan(),
-			'jurusanSaya' => $this->Jurusan->getJurusanByKkelas($this->session->userdata('kelasSaya')),
-			'jadwal' => $req,
-			'hari' => $hari,
-			'id' => $id,
-		];
+		if($this->session->userdata('akses') == 'Orangtua'){
+			$data = [
+				'title' => 'Detail Jadwal Pelajaran',
+				'jurusan' => $this->Jurusan->getJurusan(),
+				'jurusanSaya' => $this->Jurusan->getJurusanByKkelas($kelas),
+				'kelas' => $this->Kelas->getKelasByid($kelas),
+				'jadwal' => $req,
+				'hari' => $hari,
+				'id' => $id,
+				'siswa' => $this->Siswa->getDataByid($siswa),
+			];
+		}else{
+			$data = [
+				'title' => 'Detail Jadwal Pelajaran',
+				'jurusan' => $this->Jurusan->getJurusan(),
+				'jurusanSaya' => $this->Jurusan->getJurusanByKkelas($this->session->userdata('kelasSaya')),
+				'jadwal' => $req,
+				'hari' => $hari,
+				'id' => $id,
+			];
+		}
 		$this->load->view('templates/header', $data);
 		$this->load->view('home/jadwal/detail-jadwal', $data);
 		$this->load->view('templates/footer', $data);

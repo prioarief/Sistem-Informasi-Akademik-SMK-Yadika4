@@ -1,9 +1,17 @@
 <div class="container">
-	<h3 class="text-center mb-4">Jadwal Pelajaran Kelas <?= $this->session->userdata('kelas') ?> <br>Hari <?= $hari ?></h3>
-	<p>Nama Siswa : <?= $this->session->userdata('nama') ?></p>
-	<p>Jurusan : <?= $jurusanSaya['jurusan'] ?></p>
-	<p>Kelas : <?= $this->session->userdata('kelas') ?></p>
-	<p>Jenis Kelamin : <?= $this->session->userdata('jk') ?></p>
+	<?php if ($this->session->userdata('akses') == 'Orangtua') : ?>
+		<h3 class="text-center mb-4">Jadwal Pelajaran Kelas <?= $kelas['kelas'] ?> <br>Hari <?= $hari ?></h3>
+		<p>Nama Siswa : <?= $siswa['nama'] ?></p>
+		<p>Jurusan : <?= $jurusanSaya['jurusan'] ?></p>
+		<p>Kelas : <?= $kelas['kelas'] ?></p>
+		<p>Jenis Kelamin : <?= $siswa['jk'] ?></p>
+	<?php else : ?>
+		<h3 class="text-center mb-4">Jadwal Pelajaran Kelas <?= $this->session->userdata('kelas') ?> <br>Hari <?= $hari ?></h3>
+		<p>Nama Siswa : <?= $this->session->userdata('nama') ?></p>
+		<p>Jurusan : <?= $jurusanSaya['jurusan'] ?></p>
+		<p>Kelas : <?= $this->session->userdata('kelas') ?></p>
+		<p>Jenis Kelamin : <?= $this->session->userdata('jk') ?></p>
+	<?php endif; ?>
 	<table class="table table-responsive-md text-center">
 		<thead>
 			<tr>
@@ -32,6 +40,6 @@
 
 		</tbody>
 	</table>
-	<a href="<?= base_url('Home/ExportJadwalPdf/' . $jadwal['jadwal_id']. '/'. $hari) ?>" target="blank" class="btn btn-primary ml-3 btn-sm"><i class="fa fa-file-download"> Export PDF </i></a>
-	<a href="<?= base_url('Home/ExportJadwalExcel/' . $jadwal['jadwal_id']. '/'. $hari) ?>" target="blank" class="btn btn-success ml-3 btn-sm"><i class="fa fa-file-download"> Export Excel </i></a>
+	<a href="<?= base_url('Home/ExportJadwalPdf/' . $jadwal['jadwal_id'] . '/' . $hari) ?>" target="blank" class="btn btn-primary ml-3 btn-sm"><i class="fa fa-file-download"> Export PDF </i></a>
+	<a href="<?= base_url('Home/ExportJadwalExcel/' . $jadwal['jadwal_id'] . '/' . $hari) ?>" target="blank" class="btn btn-success ml-3 btn-sm"><i class="fa fa-file-download"> Export Excel </i></a>
 </div>

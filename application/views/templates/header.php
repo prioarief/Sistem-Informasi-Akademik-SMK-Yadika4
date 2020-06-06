@@ -40,17 +40,13 @@
 				</li>
 				<?php if ($this->session->userdata('akses') == 'Siswa') : ?>
 					<li class="nav-item">
-						<a class="nav-link" href="<?= base_url('Home/JadwalPelajaran/'. $this->session->userdata('kelasSaya')) ?>"><i class="fa fa-calendar-alt"> Jadwal Pelajaran</i></a>
+						<a class="nav-link" href="<?= base_url('Home/JadwalPelajaran/' . $this->session->userdata('kelasSaya')) ?>"><i class="fa fa-calendar-alt"> Jadwal Pelajaran</i></a>
 					</li>
-					<!-- <li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-calendar-alt"> Jadwal</i>
-						</a>
-						<div class="dropdown-menu mt-2" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#"><i class="fa fa-book-open"> Jadwal Pelajaran</i></a>
-							<a class="dropdown-item" href="#"><i class="fa fa-book-reader"> Jadwal Ujian</i></a>
-						</div>
-					</li> -->
+				<?php elseif ($this->session->userdata('akses') == 'Orangtua') : ?>
+					<li class="nav-item">
+						<a class="nav-link" href="<?= base_url('Home/JadwalPelajaranSiswa') ?>"><i class="fa fa-calendar-alt"> Jadwal Pelajaran</i></a>
+					</li>
+
 				<?php endif; ?>
 			</ul>
 			<span class="d-inline text-light"><?= $this->session->userdata('nama') ?> </span>

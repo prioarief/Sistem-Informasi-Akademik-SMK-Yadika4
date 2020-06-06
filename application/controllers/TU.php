@@ -17,18 +17,18 @@ class TU extends CI_Controller
 		$this->load->library('form_validation');
 	}
 
-	public function welcome()
-	{
-		login_tu();
-		$data = [
-			'title' => 'Petugas TU ',
+	// public function welcome()
+	// {
+	// 	login_tu();
+	// 	$data = [
+	// 		'title' => 'Petugas TU ',
 
-		];
+	// 	];
 
-		$this->load->view('admin/header', $data);
-		$this->load->view('admin/index');
-		$this->load->view('admin/footer');
-	}
+	// 	$this->load->view('admin/header', $data);
+	// 	$this->load->view('admin/index');
+	// 	$this->load->view('admin/footer');
+	// }
 
 	public function Auth()
 	{
@@ -75,7 +75,7 @@ class TU extends CI_Controller
 					$this->session->set_userdata($dataTU);
 
 					$this->session->set_flashdata('login-sukses', 'Silakan manfaatkan fitur dengan bijak!!');
-					redirect('TU');
+					redirect('Dashboard');
 				} else {
 					$this->session->set_flashdata('login-gagal', 'Password salah, silakan hubungi petugas TU jika ingin reset password!');
 					redirect('TU/Auth');
