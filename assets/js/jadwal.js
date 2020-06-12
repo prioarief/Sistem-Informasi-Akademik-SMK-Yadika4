@@ -22,4 +22,31 @@ $(document).ready(function () {
 			},
 		});
 	});
+
+	// Delete Jadwal
+	$(".DeleteJadwal").on("show.bs.modal", (e) => {
+		$(".DeleteJadwal").modal('show');
+		let trigger = $(e.relatedTarget);
+		let id = trigger.data("id");
+		$(".hapusJadwal").on("click", (e) => {
+			$(".DeleteJadwal").modal('hide');
+			e.preventDefault();
+			// let href = $(this).data("id");
+
+			// console.log(href);
+
+			Swal.fire({
+				title: "Data yang sudah dihapus tidak dapat kembali lagi!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Hapus!",
+			}).then((result) => {
+				if (result.value) {
+					document.location.href = url + 'Jadwal/Delete/' + id;
+				}
+			});
+		});
+	});
 });

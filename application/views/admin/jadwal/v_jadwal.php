@@ -17,7 +17,7 @@
 				</thead>
 				<tfoot>
 					<tr>
-						<th>Kelas</th><th>Hari</th>
+						<th>Kelas</th>
 						<th>Action</th>
 					</tr>
 				</tfoot>
